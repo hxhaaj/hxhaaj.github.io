@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java8,StreamAPI," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡啊呦啊" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="[TOC] 流（Stream）1. 流的概念 流是数据渠道，用于操作数据源，所生成一种新的元素序列。集合讲的是数据，流讲的是计算,是操作。  Stream是Java8中处理集合的关键抽象概念，它可以指定希望对集合的操作，可以执行复杂的查找、过滤和映射数据等操作。 使用Stream API 对集合的数据进行操作，类似于SQL执行的数据库查询，也可以用来并行执行操作，其提供了一种高效且易于使用的处理数">
+<meta name="keywords" content="Java8,StreamAPI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java8-StreamAPI常用知识">
+<meta property="og:url" content="http://yoursite.com/2018/05/11/Java8-StreamAPI/index.html">
+<meta property="og:site_name" content="胡啊呦啊">
+<meta property="og:description" content="[TOC] 流（Stream）1. 流的概念 流是数据渠道，用于操作数据源，所生成一种新的元素序列。集合讲的是数据，流讲的是计算,是操作。  Stream是Java8中处理集合的关键抽象概念，它可以指定希望对集合的操作，可以执行复杂的查找、过滤和映射数据等操作。 使用Stream API 对集合的数据进行操作，类似于SQL执行的数据库查询，也可以用来并行执行操作，其提供了一种高效且易于使用的处理数">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="d:/info/note/pic/StreamAPI的map映射.png">
+<meta property="og:image" content="d:/info/note/pic/StreamAPI的flatmap映射.png">
+<meta property="og:updated_time" content="2018-07-12T10:26:07.890Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java8-StreamAPI常用知识">
+<meta name="twitter:description" content="[TOC] 流（Stream）1. 流的概念 流是数据渠道，用于操作数据源，所生成一种新的元素序列。集合讲的是数据，流讲的是计算,是操作。  Stream是Java8中处理集合的关键抽象概念，它可以指定希望对集合的操作，可以执行复杂的查找、过滤和映射数据等操作。 使用Stream API 对集合的数据进行操作，类似于SQL执行的数据库查询，也可以用来并行执行操作，其提供了一种高效且易于使用的处理数">
+<meta name="twitter:image" content="d:/info/note/pic/StreamAPI的map映射.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/11/Java8-StreamAPI/"/>
+
+
+
+
+
+  <title>Java8-StreamAPI常用知识 | 胡啊呦啊</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">胡啊呦啊</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Java之旅</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/11/Java8-StreamAPI/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="胡啊呦">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="胡啊呦啊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java8-StreamAPI常用知识</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-11T00:00:00+08:00">
+                2018-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[TOC]</p>
+<h1 id="流（Stream）"><a href="#流（Stream）" class="headerlink" title="流（Stream）"></a>流（Stream）</h1><h2 id="1-流的概念"><a href="#1-流的概念" class="headerlink" title="1. 流的概念"></a>1. 流的概念</h2><blockquote>
+<p>流是<code>数据渠道</code>，用于<code>操作数据源</code>，所生成一种<code>新的元素序列</code>。集合讲的是数据，流讲的是<code>计算</code>,是<code>操作</code>。</p>
+</blockquote>
+<p>Stream是Java8中<code>处理集合</code>的关键抽象概念，它可以指定希望<code>对集合的操作</code>，可以执行复杂的<code>查找</code>、<code>过滤和映射数据</code>等操作。</p>
+<p>使用Stream API <code>对集合的数据进行操作</code>，类似于<code>SQL执行的数据库查询</code>，也可以用来<code>并行执行</code>操作，其提供了一种高效且易于使用的<code>处理数据方式</code>。</p>
+<p>注意点：</p>
+<ul>
+<li>Stream自身<code>不会存储元素</code></li>
+<li>Stream<code>不会改变数据源对象</code>，相反会返回<code>产生一个持有结果的新Stream</code></li>
+<li>Steam操作是<code>延迟执行</code>的，这意味着他们会<code>等到需要结果的时候才执行</code>。</li>
+</ul>
+<h2 id="2-流的操作步骤"><a href="#2-流的操作步骤" class="headerlink" title="2. 流的操作步骤"></a>2. 流的操作步骤</h2><p>三步走</p>
+<h3 id="2-1-创建Stream"><a href="#2-1-创建Stream" class="headerlink" title="2.1. 创建Stream"></a>2.1. 创建Stream</h3><p>获取一个数据源（集合，数组），从而获取一个流<br>产生方式：</p>
+<h4 id="2-1-1-通过Collection-系列集合提供的串行流：stream-、并行流：-paralleStream"><a href="#2-1-1-通过Collection-系列集合提供的串行流：stream-、并行流：-paralleStream" class="headerlink" title="2.1.1 通过Collection 系列集合提供的串行流：stream()、并行流： paralleStream()"></a>2.1.1 通过<code>Collection 系列集合</code>提供的<code>串行流：stream()</code>、<code>并行流： paralleStream()</code></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">Stream&lt;String&gt; stream1 = list.stream();</span><br></pre></td></tr></table></figure>
+<h4 id="2-1-2-通过Arrays中的静态方法stream-T-array-获取数组流"><a href="#2-1-2-通过Arrays中的静态方法stream-T-array-获取数组流" class="headerlink" title="2.1.2 通过Arrays中的静态方法stream(T[] array) 获取数组流"></a>2.1.2 通过<code>Arrays</code>中的<code>静态方法stream(T[] array)</code> 获取<code>数组流</code></h4><p>Arrays.stream(T[] array)的源码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">Stream&lt;T&gt; <span class="title">stream</span><span class="params">(T[] array)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> stream(array, <span class="number">0</span>, array.length);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>用例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Stu[] stus = <span class="keyword">new</span> Stu[<span class="number">10</span>];</span><br><span class="line">Stream&lt;Stu&gt; stream2 = Arrays.stream(stus);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  public static &lt;T&gt; Stream&lt;T&gt; stream(T[] array) &#123;</span></span><br><span class="line"><span class="comment">     return stream(array, 0, array.length);</span></span><br><span class="line"><span class="comment"> &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-1-3-通过Stream类中的静态方法-of"><a href="#2-1-3-通过Stream类中的静态方法-of" class="headerlink" title="2.1.3 通过Stream类中的静态方法 of()"></a>2.1.3 通过<code>Stream类</code>中的静态方法 <code>of()</code></h4><p>Stream.of() 源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.单参泛型of</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>&lt;T&gt; Stream&lt;T&gt; <span class="title">of</span><span class="params">(T t)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> StreamSupport.stream(<span class="keyword">new</span> Streams.StreamBuilderImpl&lt;&gt;(t), <span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//2.可变参数</span></span><br><span class="line"><span class="meta">@SafeVarargs</span></span><br><span class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"varargs"</span>) <span class="comment">// Creating a stream from an array is safe</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span>&lt;T&gt; Stream&lt;T&gt; <span class="title">of</span><span class="params">(T... values)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Arrays.stream(values);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;String&gt; stream3 = Stream.of(<span class="string">"hxh"</span>, <span class="string">"aj"</span>, <span class="string">"hhh"</span>);</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-1-4-使用Stream类的静态方法-iterate-创建无限流"><a href="#2-1-4-使用Stream类的静态方法-iterate-创建无限流" class="headerlink" title="2.1.4 使用Stream类的静态方法 iterate 创建无限流"></a>2.1.4 使用<code>Stream</code>类的静态方法 <code>iterate</code> 创建<code>无限流</code></h4><p>iterate方法：</p>
+<p><code>Stream&lt;T&gt; iterate(final T seed, final UnaryOperator&lt;T&gt; f)</code></p>
+<p>参数 <code>seed 种子起始值</code>，<code>UnaryOperator</code> 函数式接口 <code>继承Function&lt;T,T&gt;</code> 此时参数类型符合返回值类型一致</p>
+<p>用例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//4.使用Stream类的静态方法 iterate 创建无限流</span><br><span class="line">//Stream&lt;T&gt; iterate(final T seed, final UnaryOperator&lt;T&gt; f) </span><br><span class="line">//参数 seed 种子起始值，</span><br><span class="line">// UnaryOperator 函数式接口 继承Function&lt;T,T&gt; 此时参数类型符合返回值类型一致</span><br><span class="line"></span><br><span class="line">Stream&lt;Integer&gt; stream4 = Stream.iterate(0, (x) -&gt; x + 2);</span><br><span class="line">//中间操作和终止操作</span><br><span class="line">stream4.limit(5).forEach(System.out::println);</span><br><span class="line">//0</span><br><span class="line">//2</span><br><span class="line">//4</span><br><span class="line">//6</span><br><span class="line">//8</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-1-5-使用Stream类的静态方法-generate创建无限流"><a href="#2-1-5-使用Stream类的静态方法-generate创建无限流" class="headerlink" title="2.1.5 使用Stream类的静态方法 generate创建无限流"></a>2.1.5 使用<code>Stream</code>类的静态方法 <code>generate</code>创建<code>无限流</code></h4><p>generate方法参数为<code>Supplier&lt;T&gt;</code> <code>供给型接口</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//5.使用Stream类的静态方法 generate 创建无限流</span></span><br><span class="line"><span class="comment">//参数为Supplier&lt;T&gt; 供给型接口</span></span><br><span class="line">Stream&lt;Double&gt; generateStream = Stream.generate(() -&gt; Math.random());</span><br><span class="line">generateStream.limit(<span class="number">5</span>).forEach(System.out::println);</span><br><span class="line"><span class="comment">//0.4762976596937549</span></span><br><span class="line"><span class="comment">//0.08577913333772513</span></span><br><span class="line"><span class="comment">//0.32149010682857515</span></span><br><span class="line"><span class="comment">//0.31059489250233197</span></span><br><span class="line"><span class="comment">//0.45181354173159927</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-2-用Stream中间操作"><a href="#2-2-用Stream中间操作" class="headerlink" title="2.2. 用Stream中间操作"></a>2.2. 用Stream中间操作</h3><p>一个中间操作链，用Stream API 对数据源数据进行操作处理</p>
+<p><strong>注意点</strong>：</p>
+<ul>
+<li>若只有中间操作，则<code>不会执行</code></li>
+<li>只有终止操作执行后，所有的中间操作<code>一次执行</code>，此时就称为<code>延迟加载</code>或者<code>惰性求值</code></li>
+</ul>
+<blockquote>
+<p>验证是否是延迟加载：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public  void test2()&#123;</span><br><span class="line">    //取age&gt;30的Stu元素</span><br><span class="line">    //若只有中间操作，则不会执行</span><br><span class="line">    Stream&lt;Stu&gt; stuStream = stuList.stream().filter((i) -&gt; &#123;</span><br><span class="line">        System.out.println(&quot;验证是否是延迟加载&quot;);</span><br><span class="line">        return  i.getAge() &gt; 40;</span><br><span class="line">    &#125;);</span><br><span class="line">    //此时只有中间操作，无终止操作，无结果，控制台无输出</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时<code>只有中间操作，无终止操作</code>，<code>无结果，控制台无输出</code>。</p>
+<p>此时加上终止操作后：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//取age&gt;30的Stu元素</span></span><br><span class="line">    <span class="comment">//若只有中间操作，则不会执行</span></span><br><span class="line">    Stream&lt;Stu&gt; stuStream = stuList.stream().filter((i) -&gt; &#123;</span><br><span class="line">        System.out.println(<span class="string">"验证是否是延迟加载"</span>);</span><br><span class="line">        <span class="keyword">return</span>  i.getAge() &gt; <span class="number">40</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">//终止操作 执行后，所有的中间操作一次执行，此时就称为延迟加载或者惰性求值</span></span><br><span class="line">    stuStream.forEach(System.out::println);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">验证是否是延迟加载</span><br><span class="line">验证是否是延迟加载</span><br><span class="line">验证是否是延迟加载</span><br><span class="line">验证是否是延迟加载</span><br><span class="line">Stu&#123;id=4, name=&apos;cc&apos;, age=42&#125;</span><br><span class="line">验证是否是延迟加载</span><br><span class="line">Stu&#123;id=5, name=&apos;dd&apos;, age=52&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>结论：若只有中间操作，则不会执行中间操作。终止操作 执行后，所有的中间操作一次执行。最后流中只有经过操作过滤后的元素。</p>
+</blockquote>
+<h4 id="2-2-1-筛选与切片"><a href="#2-2-1-筛选与切片" class="headerlink" title="2.2.1 筛选与切片"></a>2.2.1 筛选与切片</h4><p><strong>迭代：</strong></p>
+<ul>
+<li>内部迭代：迭代过程操作由<code>Stream API 内部</code>自主完成，无需自行再次编写。</li>
+<li>外部迭代：由<code>程序编写人员</code>自己通过一些迭代方法进行的迭代操作。</li>
+</ul>
+<h5 id="2-2-1-1-filter-过滤"><a href="#2-2-1-1-filter-过滤" class="headerlink" title="2.2.1.1 filter-过滤"></a>2.2.1.1 <code>filter</code>-过滤</h5><p><code>Stream&lt;T&gt; filter(Predicate&lt;? super T&gt; predicate)</code><br><code>断言型</code>接口参数 即条件判断过滤</p>
+<p><strong>用例：</strong><br>先创建一个Stu类List集合<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Stu&gt; stuList = Arrays.asList(</span><br><span class="line">        <span class="keyword">new</span> Stu(<span class="number">1</span>,<span class="string">"hh"</span>,<span class="number">22</span>),</span><br><span class="line">        <span class="keyword">new</span> Stu(<span class="number">2</span>,<span class="string">"aa"</span>,<span class="number">22</span>),</span><br><span class="line">        <span class="keyword">new</span> Stu(<span class="number">3</span>,<span class="string">"bb"</span>,<span class="number">32</span>),</span><br><span class="line">        <span class="keyword">new</span> Stu(<span class="number">4</span>,<span class="string">"cc"</span>,<span class="number">42</span>),</span><br><span class="line">        <span class="keyword">new</span> Stu(<span class="number">5</span>,<span class="string">"dd"</span>,<span class="number">52</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>filter过滤实现：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//取age&gt;30的Stu元素</span></span><br><span class="line"><span class="comment">//若只有中间操作，则不会执行</span></span><br><span class="line">Stream&lt;Stu&gt; stuStream = stuList.stream()</span><br><span class="line">    .filter((i) -&gt; i.getAge() &gt; <span class="number">40</span>);</span><br><span class="line"><span class="comment">//终止操作 执行后，所有的中间操作一次执行，此时就称为延迟加载或者惰性求值</span></span><br><span class="line">stuStream.forEach(System.out::println);</span><br></pre></td></tr></table></figure></p>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Stu&#123;id=4, name=&apos;cc&apos;, age=42&#125;</span><br><span class="line">Stu&#123;id=5, name=&apos;dd&apos;, age=52&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="2-2-1-2-limit-限定元素数量"><a href="#2-2-1-2-limit-限定元素数量" class="headerlink" title="2.2.1.2 limit-限定元素数量"></a>2.2.1.2 <code>limit</code>-限定元素数量</h5><p><code>limit(n)</code></p>
+<p>通过<code>截断流</code>，使流中元素<code>个数不超过</code>指定数量</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">stuList.stream()</span><br><span class="line">        .filter((s) -&gt;&#123;</span><br><span class="line">            System.out.println(<span class="string">"测试迭代几次"</span>);</span><br><span class="line">            <span class="keyword">return</span> s.getAge()&gt;<span class="number">40</span>;</span><br><span class="line">        &#125;).limit(<span class="number">1</span>).forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">测试迭代几次</span><br><span class="line">测试迭代几次</span><br><span class="line">测试迭代几次</span><br><span class="line">测试迭代几次</span><br><span class="line">Stu&#123;id=<span class="number">4</span>, name=<span class="string">'cc'</span>, age=<span class="number">42</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>结果发现：先通过filter()过滤，迭代到<code>想要的过滤结果后</code>，再根据<code>limit(n)</code>，直接<code>截断流</code>，后续操作不继续，限制其流中<code>元素个数为n</code>，此操作称为<code>短路</code>操作，短路操作也用于<code>提高效率</code>；</p>
+<p>所以前3次元素不在结果中，但都进行迭代判断，打印了3次后后面的元素再次进行迭代，发现元素满足过滤条件，但limit限制只要一个，即最后一次迭代后直接截断流，结果为第一个满足过滤条件的元素。</p>
+<h5 id="2-2-1-3-skip-跳过元素"><a href="#2-2-1-3-skip-跳过元素" class="headerlink" title="2.2.1.3 skip-跳过元素"></a>2.2.1.3 <code>skip</code>-跳过元素</h5><p><code>skip(n)</code> </p>
+<p>返回一个<code>跳过前n个元素</code>的流，若流中<code>元素不足n个</code>，则返回一个<code>空流</code>。<br>其<code>与limit(n)互补</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//skip(n)  跳过前n个元素</span></span><br><span class="line">stuList.stream()</span><br><span class="line">    .skip(<span class="number">2</span>).forEach(System.out::println);</span><br><span class="line"><span class="comment">/* 结果：</span></span><br><span class="line"><span class="comment">    Stu&#123;id=3, name='bb', age=32&#125;</span></span><br><span class="line"><span class="comment">    Stu&#123;id=4, name='cc', age=42&#125;</span></span><br><span class="line"><span class="comment">    Stu&#123;id=5, name='dd', age=52&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">stuList.stream().skip(<span class="number">6</span>).forEach(System.out::println);</span><br><span class="line"><span class="comment">//流中元素个数总数为5，小于6，则返回空流，没有结果值</span></span><br></pre></td></tr></table></figure>
+<h5 id="2-2-1-4-distinct-去重"><a href="#2-2-1-4-distinct-去重" class="headerlink" title="2.2.1.4 distinct-去重"></a>2.2.1.4 <code>distinct</code>-去重</h5><ul>
+<li>通过流所生成元素的<code>hashCode()</code>和<code>equals()</code>来去除<code>重复</code>元素</li>
+</ul>
+<p>先在stuList中添加几个重复元素用于测试：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Stu&gt; stuList = Arrays.asList(</span><br><span class="line">        <span class="keyword">new</span> Stu(<span class="number">1</span>,<span class="string">"hh"</span>,<span class="number">22</span>),</span><br><span class="line">        <span class="keyword">new</span> Stu(<span class="number">2</span>,<span class="string">"aa"</span>,<span class="number">22</span>),</span><br><span class="line">        <span class="keyword">new</span> Stu(<span class="number">3</span>,<span class="string">"bb"</span>,<span class="number">32</span>),</span><br><span class="line">        <span class="keyword">new</span> Stu(<span class="number">4</span>,<span class="string">"cc"</span>,<span class="number">42</span>),</span><br><span class="line">        <span class="keyword">new</span> Stu(<span class="number">4</span>,<span class="string">"cc"</span>,<span class="number">42</span>),</span><br><span class="line">        <span class="keyword">new</span> Stu(<span class="number">4</span>,<span class="string">"cc"</span>,<span class="number">42</span>),</span><br><span class="line">        <span class="keyword">new</span> Stu(<span class="number">4</span>,<span class="string">"cc"</span>,<span class="number">42</span>),</span><br><span class="line">        <span class="keyword">new</span> Stu(<span class="number">5</span>,<span class="string">"dd"</span>,<span class="number">52</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>此时的Stu类中没有生成重写<code>hashCode()</code>和<code>equals()</code>方法，测试:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//distinct 去重</span></span><br><span class="line">stuList.stream().distinct().forEach(System.out::println);</span><br></pre></td></tr></table></figure></p>
+<p>但是结果发现，并没有去重:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Stu&#123;id=1, name=&apos;hh&apos;, age=22&#125;</span><br><span class="line">Stu&#123;id=2, name=&apos;aa&apos;, age=22&#125;</span><br><span class="line">Stu&#123;id=3, name=&apos;bb&apos;, age=32&#125;</span><br><span class="line">Stu&#123;id=4, name=&apos;cc&apos;, age=42&#125;</span><br><span class="line">Stu&#123;id=4, name=&apos;cc&apos;, age=42&#125;</span><br><span class="line">Stu&#123;id=4, name=&apos;cc&apos;, age=42&#125;</span><br><span class="line">Stu&#123;id=4, name=&apos;cc&apos;, age=42&#125;</span><br><span class="line">Stu&#123;id=5, name=&apos;dd&apos;, age=52&#125;</span><br></pre></td></tr></table></figure></p>
+<p>此时，在Stu类中生成重写<code>hashCode()</code>和<code>equals()</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> == o) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (o == <span class="keyword">null</span> || getClass() != o.getClass()) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    Stu stu = (Stu) o;</span><br><span class="line">    <span class="keyword">return</span> Objects.equals(id, stu.id) &amp;&amp;</span><br><span class="line">            Objects.equals(name, stu.name) &amp;&amp;</span><br><span class="line">            Objects.equals(age, stu.age);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Objects.hash(id, name, age);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再次测试用例后，发现结果已经去重：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Stu&#123;id=1, name=&apos;hh&apos;, age=22&#125;</span><br><span class="line">Stu&#123;id=2, name=&apos;aa&apos;, age=22&#125;</span><br><span class="line">Stu&#123;id=3, name=&apos;bb&apos;, age=32&#125;</span><br><span class="line">Stu&#123;id=4, name=&apos;cc&apos;, age=42&#125;</span><br><span class="line">Stu&#123;id=5, name=&apos;dd&apos;, age=52&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>结论：</strong></p>
+<blockquote>
+<p>distinct()去重原理为通过流所生成元素的<code>hashCode()</code>和<code>equals()</code>来去除<code>重复</code>元素</p>
+</blockquote>
+<h4 id="2-2-2-映射"><a href="#2-2-2-映射" class="headerlink" title="2.2.2 映射"></a>2.2.2 映射</h4><h5 id="2-2-2-1-map映射"><a href="#2-2-2-1-map映射" class="headerlink" title="2.2.2.1  map映射"></a>2.2.2.1  map映射</h5><p><code>&lt;R&gt; Stream&lt;R&gt; map(Function&lt;? super T, ? extends R&gt; mapper)</code></p>
+<ul>
+<li><code>接收Lambda</code>，将元素转换成<code>其他形式</code>或<code>提取信息</code>。</li>
+<li>接收一个<code>Function&lt;? super T, ? extends R&gt; mapper函数</code>作为参数，该函数会<code>被应用到每个元素上</code>，并将其<code>映射到一个新的元素</code>。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//map映射</span></span><br><span class="line">List&lt;String&gt; stringList = Arrays.asList(<span class="string">"aa"</span>, <span class="string">"bb"</span>, <span class="string">"cc"</span>, <span class="string">"dd"</span>);</span><br><span class="line">stringList.stream()</span><br><span class="line">    .map((x)-&gt;x.length()).forEach(System.out::println);</span><br><span class="line">stringList.stream()</span><br><span class="line">    .map((x)-&gt;x.toUpperCase()).forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+<p>结果:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">2</span><br><span class="line">2</span><br><span class="line">2</span><br><span class="line">AA</span><br><span class="line">BB</span><br><span class="line">CC</span><br><span class="line">DD</span><br></pre></td></tr></table></figure></p>
+<p>从结果看出，流中的<code>每个元素</code>都应用了map()里的<code>参数中的Function函数</code>，并返回经过Function处理的元素。</p>
+<ul>
+<li>map映射的重要应用为：即类似<code>SQL中的映射</code>，<code>获取</code>对象中的<code>某些属性</code>（即数据库中的某些字段）</li>
+</ul>
+<p>例如：获取Stu中的name属性<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stuList.stream().map(Stu::getName).forEach(System.out::println);</span><br></pre></td></tr></table></figure></p>
+<p>测试结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">hh</span><br><span class="line">aa</span><br><span class="line">bb</span><br><span class="line">cc</span><br><span class="line">cc</span><br><span class="line">cc</span><br><span class="line">cc</span><br><span class="line">dd</span><br></pre></td></tr></table></figure></p>
+<h5 id="2-2-2-2-flatMap映射"><a href="#2-2-2-2-flatMap映射" class="headerlink" title="2.2.2.2  flatMap映射"></a>2.2.2.2  flatMap映射</h5><ul>
+<li>接收一个<code>函数</code>作为参数，将流中的<code>每个值</code>都<code>转换成另一个流</code>，然后把<code>所有流连接成一个流</code>。每个部分流中的每个值成单独小流，再串成一个整体流。</li>
+</ul>
+<p><strong>对比map映射：</strong></p>
+<ol>
+<li>map映射是将集合中的<code>部分流添加到整体流中</code>，而flatMap映射是将集合中的<code>部分流中的每个元素单独一个个地添加到整体流中</code>。</li>
+<li>map映射: <code>Stream&lt;Stream&lt;Character&gt;&gt;</code> , flatMap映射：<code>Stream&lt;Character&gt;</code></li>
+</ol>
+<p><strong>测试用例</strong>：</p>
+<ol>
+<li><p>写一个函数用于flatMap映射</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 字符串拆分成字符后组成一个字符类型的流</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> str</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Stream&lt;Character&gt; <span class="title">filterCharacter</span><span class="params">(String str)</span></span>&#123;</span><br><span class="line">    List&lt;Character&gt; characterList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (Character ch: str.toCharArray()</span><br><span class="line">         ) &#123;</span><br><span class="line">        characterList.add(ch);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> characterList.stream();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用该函数分别测试map映射类型和flatMap映射类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; stringList = Arrays.asList(<span class="string">"aa"</span>, <span class="string">"bb"</span>, <span class="string">"cc"</span>, <span class="string">"dd"</span>);</span><br><span class="line">Stream&lt;Stream&lt;Character&gt;&gt; st1 = stringList.stream()</span><br><span class="line">    .map(TestStream::filterCharacter);</span><br><span class="line"><span class="comment">//此时流的内容为 &#123;&#123;"aa"&#125;,&#123;"bb"&#125;,&#123;"cc"&#125;,&#123;"dd"&#125;&#125; 4个单独的字符流对象组成的流</span></span><br><span class="line">st1.forEach(System.out::println);</span><br><span class="line"><span class="comment">/*  再次遍历后</span></span><br><span class="line"><span class="comment">    结果：4个流对象 即 Stream&lt;Character&gt;  &#123;&#123;"aa"&#125;,&#123;"bb"&#125;,&#123;"cc"&#125;,&#123;"dd"&#125;&#125;</span></span><br><span class="line"><span class="comment">    java.util.stream.ReferencePipeline$Head@470e2030</span></span><br><span class="line"><span class="comment">    java.util.stream.ReferencePipeline$Head@3fb4f649</span></span><br><span class="line"><span class="comment">    java.util.stream.ReferencePipeline$Head@33833882</span></span><br><span class="line"><span class="comment">    java.util.stream.ReferencePipeline$Head@200a570f</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">System.out.println(<span class="string">"----------------"</span>);</span><br><span class="line"></span><br><span class="line">Stream&lt;Character&gt; st2 = stringList.stream().flatMap(TestStream::filterCharacter);</span><br><span class="line"><span class="comment">//此时流的内容为&#123;"a","a","b","b","c","c","d","d"&#125;</span></span><br><span class="line">st2.forEach(System.out::println);</span><br><span class="line"><span class="comment">/*  再次遍历后</span></span><br><span class="line"><span class="comment">    结果直接返回了单个的字符流</span></span><br><span class="line"><span class="comment">    a</span></span><br><span class="line"><span class="comment">    a</span></span><br><span class="line"><span class="comment">    b</span></span><br><span class="line"><span class="comment">    b</span></span><br><span class="line"><span class="comment">    c</span></span><br><span class="line"><span class="comment">    c</span></span><br><span class="line"><span class="comment">    d</span></span><br><span class="line"><span class="comment">    d</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="D:/info/note/pic/StreamAPI的map映射.png" alt="image"></p>
+<p><img src="D:/info/note/pic/StreamAPI的flatmap映射.png" alt="image"></p>
+<h4 id="2-2-3-排序"><a href="#2-2-3-排序" class="headerlink" title="2.2.3 排序"></a>2.2.3 排序</h4><h4 id="2-2-3-1-自然排序"><a href="#2-2-3-1-自然排序" class="headerlink" title="2.2.3.1 自然排序"></a>2.2.3.1 自然排序</h4><p><code>sorted()</code> </p>
+<ul>
+<li>自然排序(Comparable方式)，按照<code>字典顺序</code>进行排序</li>
+<li>按照<code>实现的Comparable中的compare to()</code>方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; stringList = Arrays.asList(<span class="string">"ee"</span>, <span class="string">"bb"</span>, <span class="string">"ff"</span>, <span class="string">"dd"</span>,<span class="string">"哈哈"</span>,<span class="string">"啊"</span>);</span><br><span class="line"><span class="comment">//根据String类中Comparable方式进行默认排序，即compare to()方法</span></span><br><span class="line">stringList.stream()</span><br><span class="line">    .sorted().forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bb</span><br><span class="line">dd</span><br><span class="line">ee</span><br><span class="line">ff</span><br><span class="line">哈哈</span><br><span class="line">啊</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-2-3-2-指定排序"><a href="#2-2-3-2-指定排序" class="headerlink" title="2.2.3.2 指定排序"></a>2.2.3.2 指定排序</h4><p><code>sorted(Comparator com)</code> </p>
+<ul>
+<li>根据<code>实现Comparator接口的指定方法</code>进行排序</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">stuList.stream().sorted(</span><br><span class="line">            (a,b) -&gt;&#123;</span><br><span class="line">                <span class="keyword">if</span> (a.getAge().equals(b.getAge()))&#123;</span><br><span class="line">                    <span class="keyword">return</span> a.getName().compareTo(b.getName());</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">return</span> a.getAge().compareTo(b.getAge());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">    ).forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-终止Stream操作"><a href="#2-3-终止Stream操作" class="headerlink" title="2.3. 终止Stream操作"></a>2.3. 终止Stream操作</h3><p>终止操作，<code>执行中间链操作</code>，并<code>产生结果</code></p>
+<h4 id="2-3-1-查找与匹配"><a href="#2-3-1-查找与匹配" class="headerlink" title="2.3.1. 查找与匹配"></a>2.3.1. 查找与匹配</h4><ul>
+<li>匹配 <code>match</code> <code>利用断言型函数接口</code>，返回<code>boolean值</code> 是否匹配</li>
+<li>查找返回容器类  <code>Optional类型</code> <code>避免空指针异常</code></li>
+</ul>
+<h5 id="2-3-1-1-allMatch-检查是否匹配所有元素"><a href="#2-3-1-1-allMatch-检查是否匹配所有元素" class="headerlink" title="2.3.1.1 allMatch-检查是否匹配所有元素"></a>2.3.1.1 <code>allMatch</code>-检查是否<code>匹配所有</code>元素</h5><p>返回结果：</p>
+<ul>
+<li>true <code>匹配到了所有的元素</code>  注意：和noneMatch()的false 结果代表集合不同</li>
+<li>false <code>没有匹配到所有的元素</code>  说明匹配到条件集合中的真子集 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> b = stuList.stream()</span><br><span class="line">    .allMatch((e) -&gt; e.getAge() &gt; <span class="number">20</span>);</span><br><span class="line">System.out.println(b);<span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span> b1 = stuList.stream()</span><br><span class="line">    .noneMatch((e) -&gt; e.getAge() &gt; <span class="number">20</span>);</span><br><span class="line">System.out.println(b1);<span class="comment">//flase</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span> b2 = stuList.stream()</span><br><span class="line">    .noneMatch((e) -&gt; e.getAge() &gt; <span class="number">40</span>);</span><br><span class="line">System.out.println(b2);<span class="comment">//flase</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="2-3-1-2-anyMatch-检查是否至少匹配一个元素"><a href="#2-3-1-2-anyMatch-检查是否至少匹配一个元素" class="headerlink" title="2.3.1.2 anyMatch-检查是否至少匹配一个元素"></a>2.3.1.2 <code>anyMatch</code>-检查是否<code>至少匹配一个</code>元素</h5><p>返回结果：</p>
+<ul>
+<li>true 匹配到了条件集合中的真子集元素，<code>一个或者多个</code></li>
+<li>false 一个元素都没有匹配到，<code>空集</code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> hhh = stuList.stream()</span><br><span class="line">    .anyMatch((e) -&gt; e.getName().equals(<span class="string">"hhh"</span>));</span><br><span class="line">System.out.println(hhh);<span class="comment">//false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span> hh = stuList.stream()</span><br><span class="line">    .anyMatch((e) -&gt; e.getName().equals(<span class="string">"hh"</span>));</span><br><span class="line">System.out.println(hhh);<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="2-3-1-3-noneMatch-检查是否所有元素都没有匹配到"><a href="#2-3-1-3-noneMatch-检查是否所有元素都没有匹配到" class="headerlink" title="2.3.1.3 noneMatch-检查是否所有元素都没有匹配到"></a>2.3.1.3 <code>noneMatch</code>-检查是否<code>所有元素都没有匹配到</code></h5><p>返回结果：</p>
+<ul>
+<li>true <code>所有元素都没有匹配到</code>，空集</li>
+<li>false 不是所有的元素都没有匹配到 即<code>匹配到了元素</code>,有匹配到的元素即返回false，真子集<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> b1 = stuList.stream()</span><br><span class="line">    .noneMatch((e) -&gt; e.getAge() &gt; <span class="number">20</span>);</span><br><span class="line">System.out.println(b1);<span class="comment">//flase</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span> b2 = stuList.stream()</span><br><span class="line">    .noneMatch((e) -&gt; e.getAge() &gt; <span class="number">40</span>);</span><br><span class="line">System.out.println(b2);<span class="comment">//flase</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span> b3 = stuList.stream()</span><br><span class="line">    .noneMatch((e) -&gt; e.getAge() &gt; <span class="number">50</span>);</span><br><span class="line">System.out.println(b3);<span class="comment">//此时集合中只有一个元素能匹配到，返回了false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span> b4 = stuList.stream()</span><br><span class="line">    .noneMatch((e) -&gt; e.getAge() &gt; <span class="number">60</span>);</span><br><span class="line">System.out.println(b3);<span class="comment">//所有的元素都没有匹配到  返回了true</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="2-3-1-4-findFirst-返回第一个元素"><a href="#2-3-1-4-findFirst-返回第一个元素" class="headerlink" title="2.3.1.4 findFirst-返回第一个元素"></a>2.3.1.4 <code>findFirst</code>-返回<code>第一个元素</code></h5><p><code>Optional&lt;T&gt; findFirst();</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;Stu&gt; first = stuList.stream().findFirst();</span><br><span class="line">System.out.println(first.get());<span class="comment">// Stu&#123;id=1, name='hh', age=22&#125;</span></span><br></pre></td></tr></table></figure>
+<p>返回第一个元素，用<code>Optional</code>集合类来封装，<code>避免了空指针异常</code></p>
+<h5 id="2-3-1-5-findAny-返回当前流中的任意一个元素"><a href="#2-3-1-5-findAny-返回当前流中的任意一个元素" class="headerlink" title="2.3.1.5 findAny-返回当前流中的任意一个元素"></a>2.3.1.5 <code>findAny</code>-返回当前流中的<code>任意一个元素</code></h5><p><code>Optional&lt;T&gt; findAny();</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//从集合中随便找个age&gt;30的Stu对象  可以使用串行流stream,也可以使用parallelStream 并行流</span></span><br><span class="line">Optional&lt;Stu&gt; any = stuList.parallelStream()</span><br><span class="line">    .filter((e) -&gt; e.getAge() &gt; <span class="number">30</span>).findAny();</span><br><span class="line">System.out.println(any.get());<span class="comment">//Stu&#123;id=4, name='cc', age=42&#125;</span></span><br><span class="line">Optional&lt;Stu&gt; any1 = stuList.stream()</span><br><span class="line">    .filter((e) -&gt; e.getAge() &gt; <span class="number">30</span>).findAny();</span><br><span class="line">System.out.println(any1.get());<span class="comment">//Stu&#123;id=3, name='bb', age=32&#125;</span></span><br></pre></td></tr></table></figure>
+<h5 id="2-3-1-6-count-返回流中元素总个数"><a href="#2-3-1-6-count-返回流中元素总个数" class="headerlink" title="2.3.1.6 count-返回流中元素总个数"></a>2.3.1.6 <code>count</code>-返回流中<code>元素总个数</code></h5><p><code>long count();</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> count = stuList.stream().count();</span><br><span class="line">System.out.println(count);<span class="comment">//8</span></span><br></pre></td></tr></table></figure>
+<h5 id="2-3-1-7-max-返回流中的最大值"><a href="#2-3-1-7-max-返回流中的最大值" class="headerlink" title="2.3.1.7 max-返回流中的最大值"></a>2.3.1.7 <code>max</code>-返回流中的<code>最大值</code></h5><p><code>Optional&lt;T&gt; max(Comparator&lt;? super T&gt; comparator);</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//根据年龄大小进行正序排序找出最大值</span></span><br><span class="line">Optional&lt;Stu&gt; max = stuList.parallelStream()</span><br><span class="line">    .max((a, b) -&gt; Integer.compare(a.getAge(), b.getAge()));</span><br><span class="line">System.out.println(max.get()); <span class="comment">//Stu&#123;id=5, name='dd', age=52&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//根据年龄大小进行倒序排序找出最大值</span></span><br><span class="line">Optional&lt;Stu&gt; max1 = stuList.parallelStream()</span><br><span class="line">    .max((a, b) -&gt; Integer.compare(b.getAge(), a.getAge()));</span><br><span class="line">System.out.println(max1.get()); <span class="comment">//Stu&#123;id=1, name='hh', age=22&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//提取最大年龄 先映射提取集合中每个对象的年龄 再直接进行max方法比较 最后返回一个年龄值</span><br><span class="line">Optional&lt;Integer&gt; maxAge = stuList.parallelStream()</span><br><span class="line">    .map(Stu::getAge)</span><br><span class="line">    .max(Integer::compare);</span><br><span class="line">System.out.println(maxAge.get()); //52</span><br></pre></td></tr></table></figure>
+<h5 id="2-3-1-8-min-返回流中的最小值"><a href="#2-3-1-8-min-返回流中的最小值" class="headerlink" title="2.3.1.8 min-返回流中的最小值"></a>2.3.1.8 <code>min</code>-返回流中的<code>最小值</code></h5><p><code>Optional&lt;T&gt; min(Comparator&lt;? super T&gt; comparator);</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//根据年龄大小进行正序排序找出最小值</span></span><br><span class="line">Optional&lt;Stu&gt; min = stuList.parallelStream()</span><br><span class="line">    .min((a, b) -&gt; Integer.compare(a.getAge(), b.getAge()));</span><br><span class="line">System.out.println(min.get());<span class="comment">//Stu&#123;id=1, name='hh', age=22&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//根据年龄大小进行倒序排序找出最小值</span></span><br><span class="line">Optional&lt;Stu&gt; min1 = stuList.parallelStream()</span><br><span class="line">    .min((a, b) -&gt;  Integer.compare(b.getAge(), a.getAge()));</span><br><span class="line">System.out.println(min1.get()); <span class="comment">//Stu&#123;id=5, name='dd', age=52&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-3-2-归约与收集"><a href="#2-3-2-归约与收集" class="headerlink" title="2.3.2. 归约与收集"></a>2.3.2. 归约与收集</h4><h5 id="2-3-2-1-reduce-将流中元素反复结合起来，得到一个值"><a href="#2-3-2-1-reduce-将流中元素反复结合起来，得到一个值" class="headerlink" title="2.3.2.1 reduce-将流中元素反复结合起来，得到一个值"></a>2.3.2.1 <code>reduce</code>-将流中<code>元素反复结合</code>起来，<code>得到一个值</code></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>);</span><br><span class="line"><span class="comment">//利用reduce归约函数，可以指定归约规则，将集合中的元素数值进行求和操作等</span></span><br><span class="line"><span class="comment">//以0为起始值，对集合中的各个值进行相加</span></span><br><span class="line">Integer sum = list.stream().reduce(<span class="number">0</span>, (x, y) -&gt; x + y);</span><br><span class="line">System.out.println(sum);<span class="comment">//45</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//求出stuList集合中的年龄总和</span></span><br><span class="line"><span class="comment">//此时利用Integer类中的静态方法sum求和 无起始值，有可能为空，</span></span><br><span class="line"><span class="comment">// 则返回值自动变为Optional容器类封装过后的值</span></span><br><span class="line">Optional&lt;Integer&gt; ageSumOp = stuList.stream()</span><br><span class="line">    .map(Stu::getAge)</span><br><span class="line">    .reduce(Integer::sum);</span><br><span class="line">System.out.println(ageSumOp.get());<span class="comment">//296</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>此时利用Integer类中的静态方法sum求和 无起始值,<code>有可能为空</code>，则<code>返回值自动变为Optional容器类封装过后的值</code></li>
+</ul>
+<h5 id="2-3-2-2-collect-将流转换为其他形式"><a href="#2-3-2-2-collect-将流转换为其他形式" class="headerlink" title="2.3.2.2 collect-将流转换为其他形式"></a>2.3.2.2 <code>collect</code>-将<code>流转换为其他形式</code></h5><ul>
+<li>接收一个<code>Collector</code>接口的实现，用于Stream中元素做<code>汇总的方法</code></li>
+<li>利用<code>Collectors</code>实用工具类中提供的很多<code>静态实现Collector接口的方法</code>，进行相应的转换收集操作。</li>
+<li></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//收集stuList集合中的所有name值，转换为list集合</span></span><br><span class="line">List&lt;String&gt; nameList = stuList.stream().map(Stu::getName)</span><br><span class="line">    .collect(Collectors.toList());</span><br><span class="line">nameList.forEach(System.out::println);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    结果： </span></span><br><span class="line"><span class="comment">    hh</span></span><br><span class="line"><span class="comment">    aa</span></span><br><span class="line"><span class="comment">    bb</span></span><br><span class="line"><span class="comment">    cc</span></span><br><span class="line"><span class="comment">    cc</span></span><br><span class="line"><span class="comment">    cc</span></span><br><span class="line"><span class="comment">    cc</span></span><br><span class="line"><span class="comment">    dd</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//获取年龄转化成set集合 去掉了重复值</span></span><br><span class="line">Set&lt;Integer&gt; ageSet = stuList.stream().map(Stu::getAge)</span><br><span class="line">    .collect(Collectors.toSet());</span><br><span class="line">ageSet.forEach(System.out::println);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">     结果：</span></span><br><span class="line"><span class="comment">    32</span></span><br><span class="line"><span class="comment">    52</span></span><br><span class="line"><span class="comment">    22</span></span><br><span class="line"><span class="comment">    42</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果想转换成<code>其他没有的现成静态方法</code>的数据结构集合，就使用<code>Collectors.toCollection()</code>方法，该方法具体参数和返回值为：<code>Collector&lt;T, ?, C&gt; toCollection(Supplier&lt;C&gt; collectionFactory)</code></li>
+</ul>
+<p>使用<code>Collectors.toCollection(HashSet::new)</code>方法 转换成<code>HashSet</code>集合,该方法<code>参数为Supplier供给型</code>函数接口，传给一个<code>构造函数</code>， 用例如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用`Collectors.toCollection()`方法 转换成`其他没有的现成静态方法`的数据结构集合 比如HashSet</span></span><br><span class="line">HashSet&lt;String&gt; nameHashSet = stuList.stream().map(Stu::getName)</span><br><span class="line">    .collect(Collectors.toCollection(HashSet::<span class="keyword">new</span>));</span><br><span class="line">nameHashSet.forEach(System.out::println);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    result:</span></span><br><span class="line"><span class="comment">    hh</span></span><br><span class="line"><span class="comment">    aa</span></span><br><span class="line"><span class="comment">    bb</span></span><br><span class="line"><span class="comment">    cc</span></span><br><span class="line"><span class="comment">    dd</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-3-3-Collectors类中的常用方法"><a href="#2-3-3-Collectors类中的常用方法" class="headerlink" title="2.3.3. Collectors类中的常用方法"></a>2.3.3. <code>Collectors</code>类中的常用方法</h4><h5 id="2-3-3-1-counting-统计数量"><a href="#2-3-3-1-counting-统计数量" class="headerlink" title="2.3.3.1 counting-统计数量"></a>2.3.3.1 <code>counting</code>-统计数量</h5><p><code>Long count()</code>  统计元素个数<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Long count = stuList.stream()</span><br><span class="line">        .collect(Collectors.counting());</span><br><span class="line">System.out.println(count);<span class="comment">//8</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="2-3-3-2-averagingDouble-求平均值并转换成Double类型"><a href="#2-3-3-2-averagingDouble-求平均值并转换成Double类型" class="headerlink" title="2.3.3.2 averagingDouble-求平均值并转换成Double类型"></a>2.3.3.2 <code>averagingDouble</code>-求平均值并转换成Double类型</h5><p><code>&lt;T&gt; Collector&lt;T, ?, Double&gt; averagingDouble(ToDoubleFunction&lt;? super T&gt; mapper)</code></p>
+<p><code>&lt;T&gt; Collector&lt;T, ?, Double&gt; averagingInt(ToIntFunction&lt;? super T&gt; mapper)</code></p>
+<p><code>&lt;T&gt; Collector&lt;T, ?, Double&gt; averagingLong(ToLongFunction&lt;? super T&gt; mapper)</code></p>
+<p>测试用例：求年龄的平均值<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Double ageAve = stuList.stream()</span><br><span class="line">            .collect(Collectors.averagingDouble(Stu::getAge));</span><br><span class="line">System.out.println(ageAve);<span class="comment">//37.0</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="2-3-3-3-summingDouble-求和并转换成Double类型"><a href="#2-3-3-3-summingDouble-求和并转换成Double类型" class="headerlink" title="2.3.3.3 summingDouble-求和并转换成Double类型"></a>2.3.3.3 <code>summingDouble</code>-求和并转换成Double类型</h5><p><code>&lt;T&gt; Collector&lt;T, ?, Integer&gt; summingInt(ToIntFunction&lt;? super T&gt; mapper)</code></p>
+<p><code>&lt;T&gt; Collector&lt;T, ?, Long&gt; summingLong(ToLongFunction&lt;? super T&gt; mapper)</code></p>
+<p><code>&lt;T&gt; Collector&lt;T, ?, Double&gt; summingDouble(ToDoubleFunction&lt;? super T&gt; mapper)</code></p>
+<p>测试用例：求年龄之和<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Double ageSum = stuList.stream()</span><br><span class="line">        .collect(Collectors.summingDouble(Stu::getAge));</span><br><span class="line">System.out.println(ageSum);<span class="comment">//296.0</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="2-3-3-4-maxBy-根据函数条件求最大值"><a href="#2-3-3-4-maxBy-根据函数条件求最大值" class="headerlink" title="2.3.3.4 maxBy-根据函数条件求最大值"></a>2.3.3.4 <code>maxBy</code>-根据函数条件求最大值</h5><p><code>&lt;T&gt; Collector&lt;T, ?, Optional&lt;T&gt;&gt;  maxBy(Comparator&lt;? super T&gt; comparator)</code></p>
+<p>测试用例：根据年龄找出最大年龄值的stu对象<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//根据年龄找出最大年龄值的stu对象</span></span><br><span class="line">Optional&lt;Stu&gt; stuOptional = stuList.stream()</span><br><span class="line">        .collect(Collectors.maxBy((a, b) -&gt; Double.compare(a.getAge(), b.getAge())));</span><br><span class="line">System.out.println(stuOptional.get());<span class="comment">//Stu&#123;id=5, name='dd', age=52&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="2-3-3-5-groupingBy-分组"><a href="#2-3-3-5-groupingBy-分组" class="headerlink" title="2.3.3.5 groupingBy-分组"></a>2.3.3.5 <code>groupingBy</code>-分组</h5><ul>
+<li><code>单级分组</code> <code>&lt;T, K&gt; Collector&lt;T, ?, Map&lt;K, List&lt;T&gt;&gt;&gt;  groupingBy(Function&lt;? super T, ? extends K&gt; classifier)</code></li>
+</ul>
+<p>测试用例：根据年龄分组<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//根据年龄分组</span></span><br><span class="line">Map&lt;Integer, List&lt;Stu&gt;&gt; ageGroup = stuList.stream()</span><br><span class="line">        .collect(Collectors.groupingBy(Stu::getAge));</span><br><span class="line">System.out.println(ageGroup);</span><br></pre></td></tr></table></figure></p>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;32=[Stu&#123;id=3, name=&apos;bb&apos;, age=32&#125;],</span><br><span class="line">52=[Stu&#123;id=5, name=&apos;dd&apos;, age=52&#125;],</span><br><span class="line">22=[Stu&#123;id=1, name=&apos;hh&apos;, age=22&#125;, Stu&#123;id=2, name=&apos;aa&apos;, age=22&#125;],</span><br><span class="line">42=[Stu&#123;id=4, name=&apos;cc&apos;, age=42&#125;, Stu&#123;id=4, name=&apos;cc&apos;, age=42&#125;, Stu&#123;id=4, name=&apos;cc&apos;, age=42&#125;, Stu&#123;id=4, name=&apos;cc&apos;, age=42&#125;]&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><code>多级分组</code> 两个参数，<code>第二个参数为Collector</code>，即实现无限分组<br><code>&lt;T, K, A, D&gt; Collector&lt;T, ?, Map&lt;K, D&gt;&gt; groupingBy(Function&lt;? super T, ? extends K&gt; classifier, Collector&lt;? super T, A, D&gt; downstream)</code></li>
+</ul>
+<p>先根据name分组，再根据年龄分组<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//先根据name分组，再根据年龄分组</span></span><br><span class="line">Map&lt;String, Map&lt;String, List&lt;Stu&gt;&gt;&gt; groupmap = stuList.stream()</span><br><span class="line">        .collect(Collectors.groupingBy(Stu::getName, Collectors.groupingBy((e) -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span> (e.getAge() &lt;= <span class="number">20</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"年轻人"</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (e.getAge() &lt;= <span class="number">50</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"中年人"</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"老年人"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)));</span><br><span class="line">System.out.println(groupmap);</span><br></pre></td></tr></table></figure></p>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;dd=&#123;老年人=[Stu&#123;id=5, name=&apos;dd&apos;, age=52&#125;]&#125;,</span><br><span class="line"> cc=&#123;中年人=[Stu&#123;id=4, name=&apos;cc&apos;, age=42&#125;, Stu&#123;id=4, name=&apos;cc&apos;, age=42&#125;, Stu&#123;id=4, name=&apos;cc&apos;, age=42&#125;, Stu&#123;id=4, name=&apos;cc&apos;, age=42&#125;]&#125;,</span><br><span class="line"> bb=&#123;中年人=[Stu&#123;id=3, name=&apos;bb&apos;, age=32&#125;]&#125;,</span><br><span class="line"> aa=&#123;中年人=[Stu&#123;id=2, name=&apos;aa&apos;, age=22&#125;]&#125;,</span><br><span class="line"> hh=&#123;中年人=[Stu&#123;id=1, name=&apos;hh&apos;, age=22&#125;]&#125;&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="2-3-3-6-partitioningBy-分区"><a href="#2-3-3-6-partitioningBy-分区" class="headerlink" title="2.3.3.6 partitioningBy-分区"></a>2.3.3.6 <code>partitioningBy</code>-分区</h5><p><code>满足条件</code>的分到一个区，<code>不满足条件</code>分到另一个区</p>
+<p><code>true , false</code>  <code>Map&lt;Boolean,List&lt;&gt;&gt;</code></p>
+<p>测试用例：是否年龄大于40，分两个区<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Boolean, List&lt;Stu&gt;&gt; booleamGroup = stuList.stream()</span><br><span class="line">    .collect(Collectors.partitioningBy((e) -&gt; e.getAge() &gt; <span class="number">40</span>));</span><br><span class="line">System.out.println(booleamGroup);</span><br></pre></td></tr></table></figure></p>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    false=[</span><br><span class="line">        Stu&#123;id=1, name=&apos;hh&apos;, age=22&#125;,</span><br><span class="line">        Stu&#123;id=2, name=&apos;aa&apos;, age=22&#125;,</span><br><span class="line">        Stu&#123;id=3, name=&apos;bb&apos;, age=32&#125;</span><br><span class="line">        ],</span><br><span class="line">    true=[</span><br><span class="line">        Stu&#123;id=4, name=&apos;cc&apos;, age=42&#125;,</span><br><span class="line">        Stu&#123;id=4, name=&apos;cc&apos;, age=42&#125;,</span><br><span class="line">        Stu&#123;id=4, name=&apos;cc&apos;, age=42&#125;,</span><br><span class="line">        Stu&#123;id=4, name=&apos;cc&apos;, age=42&#125;,</span><br><span class="line">        Stu&#123;id=5, name=&apos;dd&apos;, age=52&#125;</span><br><span class="line">         ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="2-3-3-7-summarizingDouble-计算方法总括函数"><a href="#2-3-3-7-summarizingDouble-计算方法总括函数" class="headerlink" title="2.3.3.7 summarizingDouble-计算方法总括函数"></a>2.3.3.7 <code>summarizingDouble</code>-计算方法总括函数</h5><p><code>&lt;T&gt;  Collector&lt;T, ?, DoubleSummaryStatistics&gt; summarizingDouble(ToDoubleFunction&lt;? super T&gt; mapper)</code></p>
+<p><code>summarizingDouble</code><br>返回 <code>DoubleSummaryStatistics</code> 类型 可以直接调用各种计算方法</p>
+<p><code>summarizingInt</code></p>
+<p><code>summarizingLong</code></p>
+<p>实例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DoubleSummaryStatistics ageSummaryStatis = stuList.stream()</span><br><span class="line">    .collect(Collectors.summarizingDouble(Stu::getAge));</span><br><span class="line">ageSummaryStatis.getAverage();</span><br><span class="line">ageSummaryStatis.getCount();</span><br><span class="line">ageSummaryStatis.getMax();</span><br><span class="line">ageSummaryStatis.getMin();</span><br><span class="line">ageSummaryStatis.getSum();</span><br></pre></td></tr></table></figure></p>
+<h5 id="2-3-3-7-joining-连接字符串"><a href="#2-3-3-7-joining-连接字符串" class="headerlink" title="2.3.3.7 joining-连接字符串"></a>2.3.3.7 <code>joining</code>-连接字符串</h5><p><code>Collector&lt;CharSequence, ?, String&gt; joining()</code></p>
+<p>测试用例：将stuList集合中所有的名字连接在一起<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将集合中所有的名字连接在一起</span></span><br><span class="line">String allNameStr = stuList.stream().map(Stu::getName)</span><br><span class="line">    .collect(Collectors.joining());</span><br><span class="line">System.out.println(allNameStr);<span class="comment">//hhaabbccccccccdd</span></span><br></pre></td></tr></table></figure></p>
+<p>测试用例：将stuList集合中所有的名字连接在一起，并使用逗号分割</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//将集合中所有的名字连接在一起,并逗号分割</span></span><br><span class="line">String allNameStr1 = stuList.stream().map(Stu::getName)</span><br><span class="line">    .collect(Collectors.joining(<span class="string">","</span>));</span><br><span class="line">System.out.println(allNameStr1);</span><br><span class="line"><span class="comment">//hh,aa,bb,cc,cc,cc,cc,dd</span></span><br></pre></td></tr></table></figure>
+<h5 id="2-3-3-8-toList-返回集合"><a href="#2-3-3-8-toList-返回集合" class="headerlink" title="2.3.3.8 toList- 返回集合"></a>2.3.3.8 <code>toList</code>- 返回集合</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List kcResList = kcResInKkxyList.stream().filter((e) -&gt; kssj.equals(e.getKssj())).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+<hr>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java8/" rel="tag"># Java8</a>
+          
+            <a href="/tags/StreamAPI/" rel="tag"># StreamAPI</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/11/Lambda表达式基础语法/" rel="next" title="Java8-Lambda表达式基础知识">
+                <i class="fa fa-chevron-left"></i> Java8-Lambda表达式基础知识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/12/Java8-方法引用和构造器引用/" rel="prev" title="Java8-方法引用和构造器引用">
+                Java8-方法引用和构造器引用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="胡啊呦" />
+            
+              <p class="site-author-name" itemprop="name">胡啊呦</p>
+              <p class="site-description motion-element" itemprop="description">一些笔记，一些分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#流（Stream）"><span class="nav-number">1.</span> <span class="nav-text">流（Stream）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-流的概念"><span class="nav-number">1.1.</span> <span class="nav-text">1. 流的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-流的操作步骤"><span class="nav-number">1.2.</span> <span class="nav-text">2. 流的操作步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-创建Stream"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1. 创建Stream</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-通过Collection-系列集合提供的串行流：stream-、并行流：-paralleStream"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">2.1.1 通过Collection 系列集合提供的串行流：stream()、并行流： paralleStream()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-通过Arrays中的静态方法stream-T-array-获取数组流"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">2.1.2 通过Arrays中的静态方法stream(T[] array) 获取数组流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-通过Stream类中的静态方法-of"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">2.1.3 通过Stream类中的静态方法 of()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-4-使用Stream类的静态方法-iterate-创建无限流"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">2.1.4 使用Stream类的静态方法 iterate 创建无限流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-5-使用Stream类的静态方法-generate创建无限流"><span class="nav-number">1.2.1.5.</span> <span class="nav-text">2.1.5 使用Stream类的静态方法 generate创建无限流</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-用Stream中间操作"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2. 用Stream中间操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-筛选与切片"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">2.2.1 筛选与切片</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-1-1-filter-过滤"><span class="nav-number">1.2.2.1.1.</span> <span class="nav-text">2.2.1.1 filter-过滤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-1-2-limit-限定元素数量"><span class="nav-number">1.2.2.1.2.</span> <span class="nav-text">2.2.1.2 limit-限定元素数量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-1-3-skip-跳过元素"><span class="nav-number">1.2.2.1.3.</span> <span class="nav-text">2.2.1.3 skip-跳过元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-1-4-distinct-去重"><span class="nav-number">1.2.2.1.4.</span> <span class="nav-text">2.2.1.4 distinct-去重</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-映射"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">2.2.2 映射</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-2-1-map映射"><span class="nav-number">1.2.2.2.1.</span> <span class="nav-text">2.2.2.1  map映射</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-2-2-flatMap映射"><span class="nav-number">1.2.2.2.2.</span> <span class="nav-text">2.2.2.2  flatMap映射</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-3-排序"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">2.2.3 排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-3-1-自然排序"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">2.2.3.1 自然排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-3-2-指定排序"><span class="nav-number">1.2.2.5.</span> <span class="nav-text">2.2.3.2 指定排序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-终止Stream操作"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3. 终止Stream操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-查找与匹配"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">2.3.1. 查找与匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-1-1-allMatch-检查是否匹配所有元素"><span class="nav-number">1.2.3.1.1.</span> <span class="nav-text">2.3.1.1 allMatch-检查是否匹配所有元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-1-2-anyMatch-检查是否至少匹配一个元素"><span class="nav-number">1.2.3.1.2.</span> <span class="nav-text">2.3.1.2 anyMatch-检查是否至少匹配一个元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-1-3-noneMatch-检查是否所有元素都没有匹配到"><span class="nav-number">1.2.3.1.3.</span> <span class="nav-text">2.3.1.3 noneMatch-检查是否所有元素都没有匹配到</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-1-4-findFirst-返回第一个元素"><span class="nav-number">1.2.3.1.4.</span> <span class="nav-text">2.3.1.4 findFirst-返回第一个元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-1-5-findAny-返回当前流中的任意一个元素"><span class="nav-number">1.2.3.1.5.</span> <span class="nav-text">2.3.1.5 findAny-返回当前流中的任意一个元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-1-6-count-返回流中元素总个数"><span class="nav-number">1.2.3.1.6.</span> <span class="nav-text">2.3.1.6 count-返回流中元素总个数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-1-7-max-返回流中的最大值"><span class="nav-number">1.2.3.1.7.</span> <span class="nav-text">2.3.1.7 max-返回流中的最大值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-1-8-min-返回流中的最小值"><span class="nav-number">1.2.3.1.8.</span> <span class="nav-text">2.3.1.8 min-返回流中的最小值</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-归约与收集"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">2.3.2. 归约与收集</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-2-1-reduce-将流中元素反复结合起来，得到一个值"><span class="nav-number">1.2.3.2.1.</span> <span class="nav-text">2.3.2.1 reduce-将流中元素反复结合起来，得到一个值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-2-2-collect-将流转换为其他形式"><span class="nav-number">1.2.3.2.2.</span> <span class="nav-text">2.3.2.2 collect-将流转换为其他形式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-Collectors类中的常用方法"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">2.3.3. Collectors类中的常用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-3-1-counting-统计数量"><span class="nav-number">1.2.3.3.1.</span> <span class="nav-text">2.3.3.1 counting-统计数量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-3-2-averagingDouble-求平均值并转换成Double类型"><span class="nav-number">1.2.3.3.2.</span> <span class="nav-text">2.3.3.2 averagingDouble-求平均值并转换成Double类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-3-3-summingDouble-求和并转换成Double类型"><span class="nav-number">1.2.3.3.3.</span> <span class="nav-text">2.3.3.3 summingDouble-求和并转换成Double类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-3-4-maxBy-根据函数条件求最大值"><span class="nav-number">1.2.3.3.4.</span> <span class="nav-text">2.3.3.4 maxBy-根据函数条件求最大值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-3-5-groupingBy-分组"><span class="nav-number">1.2.3.3.5.</span> <span class="nav-text">2.3.3.5 groupingBy-分组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-3-6-partitioningBy-分区"><span class="nav-number">1.2.3.3.6.</span> <span class="nav-text">2.3.3.6 partitioningBy-分区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-3-7-summarizingDouble-计算方法总括函数"><span class="nav-number">1.2.3.3.7.</span> <span class="nav-text">2.3.3.7 summarizingDouble-计算方法总括函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-3-7-joining-连接字符串"><span class="nav-number">1.2.3.3.8.</span> <span class="nav-text">2.3.3.7 joining-连接字符串</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-3-8-toList-返回集合"><span class="nav-number">1.2.3.3.9.</span> <span class="nav-text">2.3.3.8 toList- 返回集合</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">胡啊呦</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

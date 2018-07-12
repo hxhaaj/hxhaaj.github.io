@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaSE,基础语法," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡啊呦啊" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="JavaSE 回顾-基础语法1. Java语言的特性1.1 简单性 java剔除了C++中许多很少使用、难以理解、易混淆的特性。尽可能的简单化。  1.2  面向对象 java是基于面向对象的程序设计技术设计的，将重点放在数据（即对象）和对象的接口上。  1.3 分布式 java有一个丰富的例程库，用于处理像HTTP和FTP之类的TCP/IP协议。 java 应用能通过URL打开和访问网络上的对象">
+<meta name="keywords" content="JavaSE,基础语法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaSE回顾-基础语法">
+<meta property="og:url" content="http://yoursite.com/2018/01/12/JavaSE回顾-基础语法/index.html">
+<meta property="og:site_name" content="胡啊呦啊">
+<meta property="og:description" content="JavaSE 回顾-基础语法1. Java语言的特性1.1 简单性 java剔除了C++中许多很少使用、难以理解、易混淆的特性。尽可能的简单化。  1.2  面向对象 java是基于面向对象的程序设计技术设计的，将重点放在数据（即对象）和对象的接口上。  1.3 分布式 java有一个丰富的例程库，用于处理像HTTP和FTP之类的TCP/IP协议。 java 应用能通过URL打开和访问网络上的对象">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/JavaSE回顾_Media/1530703877331.png">
+<meta property="og:updated_time" content="2018-07-12T10:20:37.153Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaSE回顾-基础语法">
+<meta name="twitter:description" content="JavaSE 回顾-基础语法1. Java语言的特性1.1 简单性 java剔除了C++中许多很少使用、难以理解、易混淆的特性。尽可能的简单化。  1.2  面向对象 java是基于面向对象的程序设计技术设计的，将重点放在数据（即对象）和对象的接口上。  1.3 分布式 java有一个丰富的例程库，用于处理像HTTP和FTP之类的TCP/IP协议。 java 应用能通过URL打开和访问网络上的对象">
+<meta name="twitter:image" content="http://yoursite.com/JavaSE回顾_Media/1530703877331.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/12/JavaSE回顾-基础语法/"/>
+
+
+
+
+
+  <title>JavaSE回顾-基础语法 | 胡啊呦啊</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">胡啊呦啊</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Java之旅</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/12/JavaSE回顾-基础语法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="胡啊呦">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="胡啊呦啊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaSE回顾-基础语法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-12T00:00:00+08:00">
+                2018-01-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="JavaSE-回顾-基础语法"><a href="#JavaSE-回顾-基础语法" class="headerlink" title="JavaSE 回顾-基础语法"></a>JavaSE 回顾-基础语法</h1><h2 id="1-Java语言的特性"><a href="#1-Java语言的特性" class="headerlink" title="1. Java语言的特性"></a>1. Java语言的特性</h2><h3 id="1-1-简单性"><a href="#1-1-简单性" class="headerlink" title="1.1 简单性"></a>1.1 简单性</h3><ul>
+<li>java剔除了C++中许多很少使用、难以理解、易混淆的特性。尽可能的简单化。</li>
+</ul>
+<h3 id="1-2-面向对象"><a href="#1-2-面向对象" class="headerlink" title="1.2  面向对象"></a>1.2  面向对象</h3><ul>
+<li>java是基于面向对象的程序设计技术设计的，将重点放在数据（即对象）和对象的接口上。</li>
+</ul>
+<h3 id="1-3-分布式"><a href="#1-3-分布式" class="headerlink" title="1.3 分布式"></a>1.3 分布式</h3><ul>
+<li>java有一个丰富的例程库，用于处理像HTTP和FTP之类的TCP/IP协议。</li>
+<li>java 应用能通过URL打开和访问网络上的对象，其便捷程度就行访问本地文件一样。</li>
+</ul>
+<h3 id="1-4-健壮性"><a href="#1-4-健壮性" class="headerlink" title="1.4  健壮性"></a>1.4  健壮性</h3><ul>
+<li>java程序具有多方面的可靠性，Java编译器能够检测许多在其他语言中仅在运行时才能够检测出来的问题。</li>
+</ul>
+<h3 id="1-5-安全性"><a href="#1-5-安全性" class="headerlink" title="1.5  安全性"></a>1.5  安全性</h3><ul>
+<li>Java适用于网络/分布式环境，为了达到这个目标，安全方面投入很大。使用java可以构建防病毒、防篡改的系统。</li>
+<li>不可信的代码在一个<code>沙箱环境</code>中执行，在这里<code>不会影响主系统</code>。Java代码不论来自哪里，都不会脱离沙箱。</li>
+</ul>
+<h3 id="1-6-体系结构中立"><a href="#1-6-体系结构中立" class="headerlink" title="1.6  体系结构中立"></a>1.6  体系结构中立</h3><ul>
+<li><p>编译器生成一个<code>体系结构中立</code>的<code>目标文件</code>格式，这是一种<code>编译过的代码</code>，只要Java运行时系统，这些编译后的代码可以在许多处理器上运行。</p>
+</li>
+<li><p>Java<code>编译器</code>通过<code>生成与特定的计算机体系结构无关</code>的<code>字节码指令</code>来实现这一特性。</p>
+</li>
+<li><p><code>字节码文件</code>可以容易的在<code>任何机器</code>上解释执行，而且还可以<code>动态翻译成本地机器码</code>。</p>
+</li>
+<li><p>Java虚拟机可以将执行最频繁的字节码序列翻译成机器吗，该过程为<code>即时编译</code>。</p>
+</li>
+<li><p>Java<code>虚拟机可以检测指令序列</code>，增强其安全性。</p>
+</li>
+</ul>
+<h3 id="1-7-可移植性"><a href="#1-7-可移植性" class="headerlink" title="1.7 可移植性"></a>1.7 可移植性</h3><ul>
+<li><code>数据类型</code>规定具有<code>固定的大小</code>。例如：Java中的int类型永远为32为的整数，不会随着操作系统或编译器不同而改变。</li>
+<li><code>二进制数据</code>以<code>固定的格式</code>进行<code>存储和传输</code>，消除了<code>字节顺序</code>的困扰。</li>
+<li><code>字符串</code>是用<code>标准的Unicode格式</code>存储的。</li>
+<li>作为<code>系统组成</code>部分的类库，<code>定义了可移植的接口</code>。例如：有一个抽象的Window类，并给出了在UNIX、Windows和Macintosh环境下的不同实现。</li>
+<li>除了用户界面有关的部分外，所有其他Java库都能很好的支持平台独立性，不用操心底层的操作系统。</li>
+<li>不仅程序是可移植的，Java API 往往也比原生的API质量更高。</li>
+</ul>
+<h3 id="1-8-解释型"><a href="#1-8-解释型" class="headerlink" title="1.8 解释型"></a>1.8 解释型</h3><ul>
+<li>Java解释器可以在<code>任何移植了解释器</code>的机器上<code>执行Java字节码</code>。</li>
+</ul>
+<h3 id="1-9-高性能"><a href="#1-9-高性能" class="headerlink" title="1.9 高性能"></a>1.9 高性能</h3><ul>
+<li><code>字节码</code>可以在运行时<code>动态翻译</code>成<code>对应运行</code>这个应用的<code>特定CPU</code>的<code>机器码</code>。</li>
+<li>即时编译器可以监控经常执行哪些代码并优化这些代码以提高速度。</li>
+</ul>
+<h3 id="1-10-多线程"><a href="#1-10-多线程" class="headerlink" title="1.10  多线程"></a>1.10  多线程</h3><ul>
+<li>Java支持<code>多线程和并发性</code>,可以带来更好的交互响应和实时行为。</li>
+</ul>
+<h3 id="1-11-动态性"><a href="#1-11-动态性" class="headerlink" title="1.11 动态性"></a>1.11 动态性</h3><ul>
+<li>适应不断发展的环境，在类库中可以<code>自由的添加新方法和实例变量</code>，而对<code>客户端不产生任何影响</code>。</li>
+</ul>
+<h2 id="2-Java-基本语法注意点"><a href="#2-Java-基本语法注意点" class="headerlink" title="2. Java 基本语法注意点"></a>2. Java 基本语法注意点</h2><h3 id="2-1-类名"><a href="#2-1-类名" class="headerlink" title="2.1  类名"></a>2.1  类名</h3><ul>
+<li><p>关键字<code>class</code> 后面<code>紧跟类名</code>。</p>
+</li>
+<li><p>类名命名规则：</p>
+<ul>
+<li>必须以<code>字母或下划线开头</code>，后面可以跟<code>字母和数字的任意组合</code>。<ul>
+<li>注意：Java中的字母和数字的范围更大。字母包括<code>&#39;A&#39;~&#39;Z&#39;、&#39;a&#39;~&#39;z&#39;、&#39;_&#39;、&#39;$&#39;</code>或者在某种语言中表示字母的任何Unicode字符。</li>
+</ul>
+</li>
+<li>长度基本上没限制。</li>
+<li>不能使用Java保留字作为类名。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> $<span class="title">Test1</span> </span>&#123;  <span class="comment">//类名还可以是 _Test  以下划线开头</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[]  args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> _a = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> $a = <span class="number">1</span>;</span><br><span class="line">		System.err.println(_a);</span><br><span class="line">		System.out.println($a);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>源代码的文件名必须与公共类名相同，并用<code>.java</code>作为拓展名。</p>
+</li>
+<li><p>类名命名规范：</p>
+<ul>
+<li>类名以大写字母开头名词</li>
+<li>骆驼命名法。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-main方法"><a href="#2-2-main方法" class="headerlink" title="2.2 main方法"></a>2.2 main方法</h3><ul>
+<li><p>Java语言规范，main 方法 必须声明为 <code>public</code>。 </p>
+</li>
+<li><p>Java SE 1.4及以后版本<code>强制</code> main 方法<code>一定是</code>public修饰的。</p>
+</li>
+<li>main 方法 必须为 <code>public static void main(String[] args)</code>  ，缺少<code>public</code>  、<code>static</code>、以及<code>String[] args</code> 参数，都不能成为class 的入口，运行不了。</li>
+</ul>
+<h3 id="2-3-注释"><a href="#2-3-注释" class="headerlink" title="2.3  注释"></a>2.3  注释</h3><ul>
+<li><p>Java一共3种注释方式：</p>
+<ul>
+<li><p><code>// xxxxx</code>    单行注释</p>
+</li>
+<li><p>多行注释  ，形成一个注释块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">  xxxx</span><br><span class="line">  xxx</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>
+<p>注意： <code>/* xxx*/</code>  注释<code>不能嵌套</code>使用。</p>
+</li>
+<li><p>文档注释   可以用来自动地生成文档。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @version</span><br><span class="line"> * @author hxh</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-4-数据类型"><a href="#2-4-数据类型" class="headerlink" title="2.4 数据类型"></a>2.4 数据类型</h3><p>Java是强类型语言。每一个变量声明一种类型。一共有8种基本类型。</p>
+<ul>
+<li>4种<code>整型</code>    <code>int</code>  <code>short</code>  <code>long</code>   <code>byte</code></li>
+<li>2种<code>浮点类型</code>  <code>float</code>   <code>double</code>  </li>
+<li>1种用于表示Unicode编码的<code>字符单元类型</code>    <code>char</code></li>
+<li>1种用于<code>表示真值</code> 类型   <code>boolean</code></li>
+</ul>
+<p>注意： Java 有一个能够表示任意精度的算术包，通常被称为“大数值” (big number)。它只是一个Java对象，不是一个数据类型。</p>
+<h4 id="2-4-1-整型"><a href="#2-4-1-整型" class="headerlink" title="2.4.1 整型"></a>2.4.1 整型</h4><blockquote>
+<p>整型用于表示没有小数部分的数值，它可以是负数据。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">字节数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">int</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center">short</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">long</td>
+<td style="text-align:center">8</td>
+</tr>
+<tr>
+<td style="text-align:center">byte</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>整型的范围与运行Java代码的机器无关。</li>
+<li><code>长整型</code>数值有一个<code>后缀L或l</code>,如：1111L</li>
+<li><code>十六进制</code>数值有一个<code>前缀0x或0X</code>，如 0xCAFE </li>
+<li><code>八进制</code>有一个<code>前缀0</code></li>
+<li>Java7开始，加上<code>前缀0b或0B</code>就可以写<code>二进制</code>数。如：0b1001就是9。</li>
+<li>Java7开始，还可以为数字字面量加下划线。如  1_000_00（0b1111_0100_0010_0100_0000）表示一百万。注意：这些下划线<code>只是为了让人易读</code>，Java<code>编译器</code>会<code>自动去除</code>这些下划线。</li>
+</ul>
+<h4 id="2-4-2-浮点类型"><a href="#2-4-2-浮点类型" class="headerlink" title="2.4.2  浮点类型"></a>2.4.2  浮点类型</h4><blockquote>
+<p>浮点类型用于表示有小数部分的数值。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">字节数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">float</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center">double</td>
+<td style="text-align:center">8</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><code>double</code>类型数值精度是<code>float类型的两倍</code>，称为<code>双精度</code>数值。</p>
+</li>
+<li><p>float类型数值有一个<code>后缀F或f</code>（3.14f），<code>没有后缀F</code>的浮点数值（3.14）<code>默认为double类型</code>。</p>
+</li>
+<li><p>所有浮点数值计算都遵循IEEE 754规范。用于表示溢出或出错情况的三个特殊浮点数值：</p>
+<ul>
+<li>正无穷大</li>
+<li>负无穷大</li>
+<li>NaN(不是一个数字)</li>
+</ul>
+<p>例如：</p>
+<p> 一个正整数除以0的结果为正无穷大。</p>
+<p>计算0/0或者负数的平方根结果为NaN。</p>
+</li>
+<li><p>浮点数值<code>不适用</code>于<code>无法接受舍入误差</code>的金融计算中。</p>
+<ul>
+<li>例如： <code>System.out.println(2.0-1.1);</code> 结果为  <code>0.8999999999999999</code> 而不是<code>正确结果0.9</code>。</li>
+<li>这种舍入误差原因是 浮点数值采用二进制系统表示，二进制系统中<code>无法精确地表示分数1/10</code>。就像十进制无法精确表示分数1/3一样。</li>
+<li>如果数值计算中不允许出现这种舍入误差，就应该采用<code>BigDecimal</code>类。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-4-3-char类型"><a href="#2-4-3-char类型" class="headerlink" title="2.4.3  char类型"></a>2.4.3  char类型</h4><ul>
+<li><p>char占2字节，16位。可在存放汉字，只能放单个字符。  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> a=<span class="string">'h'</span>;  <span class="comment">//任意单个字符，加单引号。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> a=<span class="string">'中'</span>; <span class="comment">//任意单个中文字</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> a = <span class="number">111</span>; <span class="comment">//整数。0~65535。十进制、八进制、十六进制均可。输出字符编码表中对应的字符。</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>char 类型<code>原本</code>用于表示单个字符。但是现在有所改变，有些Unicode字符可以用一个char值描述，另一些Unicode字符则需要两个char值。</p>
+</li>
+<li><p>char类型<code>字面量值</code>要用<code>单引号</code>括起来。</p>
+<ul>
+<li>例如：’A’是编码值为65所对应的字符常量。它和 “A” 不同，”A” 是包含一个字符A的字符串。</li>
+</ul>
+</li>
+<li><p>对char类型字符运行时，直接当做ASCII表对应的整数来对待。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> m=<span class="string">'a'</span>;　　<span class="comment">//a。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> m=<span class="string">'a'</span>+<span class="string">'b'</span>;　　<span class="comment">// Ã。  //char类型相加，提升为int类型，输出对应的字符。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> m=<span class="string">'a'</span>+<span class="string">'b'</span>;　　 <span class="comment">//195没有超出int范围，直接输出195。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> m=<span class="string">'a'</span>+b;　　<span class="comment">//报错。 因为b是一个赋值的变量。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> m=<span class="number">197</span>;　 <span class="comment">//输出字符编码表中对应的字符。 　——Ã。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> m=<span class="string">'197;　 //因为有单引号，表示是字符，只允许放单个字符。　——报错。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">char m='</span>a<span class="string">'+1;　　//提升为int，计算结果98对应的字符是b。——b。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">char m='</span>中<span class="string">'+'</span>国<span class="string">';　 // 42282。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">char m='</span>中<span class="string">'+'</span>国<span class="string">'+'</span>国<span class="string">'+'</span>国<span class="string">';　　// 报错。int转char有损失。因为结果已经超出char类型的范围。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">int m='</span>中<span class="string">'+'</span>国<span class="string">'+'</span>国<span class="string">'+'</span>国<span class="string">';　　//86820</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">char m='</span>中<span class="string">'+1;　　//1是int，结果提升为int，输出对应的字符。 ——丮。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">char m='</span>中<span class="string">'+"国";　　// 报错。String无法转换为char。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">System.out.println('</span>中<span class="string">'+"国");　　//没有变量附值的过程。String与任何字符用“+”相连，转换为String。——中国。</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>char+char</code>，<code>char+int</code>  ， 类型均<code>提升为int</code>，赋值给char变量后，输出<code>字符编码表中对应的字符</code>(<code>char h = 97</code>  a)。 </p>
+</li>
+<li><p>char类型的值可以表示为<code>十六进制值</code>，范围从<code>\u0000</code>到 <code>\uffff</code>。</p>
+</li>
+<li><p>除了转义序列<code>\u</code>之外，还有其他用于表示特殊字符的转义序列。</p>
+</li>
+<li><p>所有转义序列都<code>可以出现</code>在<code>加引号的字符字面量或字符串中</code>。例如： <code>&#39;\u2122&#39;</code>  <code>&quot;hello\n&quot;</code></p>
+</li>
+<li><p>转义序列<code>\u</code>还可以出现在加引号的字符常量或者字符串<code>之外</code>。<code>其他</code>转义序列<code>不可以</code>。</p>
+</li>
+<li><p>Unicode转义序列会在<code>解析代码之前</code>得到处理。</p>
+<ul>
+<li>例如： <code>&quot;\u0022+\u0022&quot;</code>并不是一个由引号包围加号构成的字符串。实际上，<code>\u0022</code>会在解析之前转换为<code>&quot;</code>，这样就会得到<code>&quot;&quot;+&quot;&quot;</code>，也就是一个<code>空串</code>。</li>
+</ul>
+</li>
+<li><p>当心注释中的<code>\u</code>。</p>
+<ul>
+<li><p><code>// Look inside C:\users</code>  会产生一个语法错误，因为<code>\u</code>后面并未跟着4个十六进制数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[]  args)</span> </span>&#123;</span><br><span class="line">		System.err.println(<span class="string">"1"</span>);<span class="comment">// Look inside C:\users</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>语法出错： 编译都通不过:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.Error: Unresolved compilation problem: </span><br><span class="line">	Invalid unicode</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>在Java中，char类型描述了UTF-16编码中的一个代码单元。建议不要在程序中使用char类型，除非缺失需要处理UTF-16代码单元。最好将字符串作为抽象画数据类型处理。</p>
+</li>
+</ul>
+<h4 id="2-4-4-boolean类型"><a href="#2-4-4-boolean类型" class="headerlink" title="2.4.4   boolean类型"></a>2.4.4   boolean类型</h4><ul>
+<li>只有两个值： <code>flase</code> 和 <code>true</code></li>
+<li>用来判断逻辑条件</li>
+<li><code>整型值</code>和<code>布尔值</code>之间<code>无法相互转换</code></li>
+</ul>
+<h3 id="2-5-变量"><a href="#2-5-变量" class="headerlink" title="2.5   变量"></a>2.5   变量</h3><h4 id="2-5-1-变量命名规定"><a href="#2-5-1-变量命名规定" class="headerlink" title="2.5.1 变量命名规定"></a>2.5.1 变量命名规定</h4><ul>
+<li>变量名必须是一个以<code>字母、下划线、$符号</code>开头并由字母或数字构成的序列。一般来说，在Java中，下划线和$均属于字母。<code>π</code>  、 其他国家的字母 也可以。</li>
+<li>不能出现 其他符号  例如 <code>+</code>  、 <code>@</code> 这样的符号 以及 空格 不能出现在变量名中。</li>
+<li>大小写敏感</li>
+<li>长度基本没有限制</li>
+<li>尽管<code>$</code>是一个合法的Java字符，但是最好不要出现在自己的代码中使用这个字符。它只用在Java编译器或者其他工具生成的名字中。</li>
+<li>不能使用Java保留字</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> _a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> $a = <span class="number">1</span>;</span><br><span class="line">System.err.println(_a);</span><br><span class="line">System.out.println($a);</span><br></pre></td></tr></table></figure>
+<h4 id="2-5-2-变量初始化"><a href="#2-5-2-变量初始化" class="headerlink" title="2.5.2 变量初始化"></a>2.5.2 变量初始化</h4><ul>
+<li>声明后的一个变量，<code>不能直接使用未初始化的变量</code>。<code>必须</code>使用赋值语句对变量进行<code>显式初始化</code>。</li>
+</ul>
+<h3 id="2-6-常量"><a href="#2-6-常量" class="headerlink" title="2.6  常量"></a>2.6  常量</h3><ul>
+<li>利用关键字<code>final</code> 指示常量。</li>
+<li>final修饰的变量只能被赋值一次，一旦赋值一次后，不能再更改。</li>
+<li>习惯上常量名使用全大写</li>
+<li>若某个常量经常<code>被一个类中的多个方法中使用</code>，通常称该常量为<code>类常量</code>。可以使用<code>static  final</code> 设置一个类常量。定义在main方法的外部。</li>
+</ul>
+<h3 id="2-7-运算符"><a href="#2-7-运算符" class="headerlink" title="2.7  运算符"></a>2.7  运算符</h3><ul>
+<li>当参与<code>/</code>运算的两个操作数都是<code>整数</code>时，表示<code>整数除法</code>；否则表示<code>浮点除法</code>。<ul>
+<li>例如 ： <code>15.0/2</code>  等于 <code>7.5</code>   而  <code>15/2</code> 等于 <code>7</code></li>
+</ul>
+</li>
+<li><code>整数被0除</code>将会产生一个<code>异常</code>，而<code>浮点数被0除</code>将会得到<code>一个无穷大或NaN结果</code>。</li>
+</ul>
+<h3 id="2-8-数值类型之间的转换"><a href="#2-8-数值类型之间的转换" class="headerlink" title="2.8   数值类型之间的转换"></a>2.8   数值类型之间的转换</h3><ul>
+<li><p>小字节类型转换成大字节类型无信息丢失转换，相反，可能会有精度损失。</p>
+</li>
+<li><p>下图中，6个实心箭头表示无信息丢失的转化，3个虚线箭头表示可能有精度损失。</p>
+<p><img src="/JavaSE回顾_Media/1530703877331.png" alt="1530703877331"></p>
+</li>
+<li><p><code>二元运算</code>时，注意：先将两个操作数转换为同一种类型，然后再进行计算。</p>
+<ul>
+<li>若 两个中有一个是double类型，另一个将会转换为double类型；</li>
+<li><code>否则</code>，若 两个中有一个是float类型，另一个将会转换成float类型；</li>
+<li><code>否则</code>，若 两个中有一个是long类型，另一个将会转换成long类型；</li>
+<li><code>否则，两个都将会转换成int类型</code>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-9-强制类型转换"><a href="#2-9-强制类型转换" class="headerlink" title="2.9   强制类型转换"></a>2.9   强制类型转换</h3><ul>
+<li><p>强制类型转换通过<code>截断小数部分</code>将<code>浮点值转换成整型</code>。</p>
+</li>
+<li><p>如果想对浮点数进行舍入运算，就需要用<code>Math.round()</code>方法，该方法返回值为<code>long类型</code>，所以只有使用<code>显式的强制转换</code>才能将<code>long类型</code>转换成<code>int类型</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> x = <span class="number">9.999</span>;</span><br><span class="line">System.err.println((<span class="keyword">int</span>)x);<span class="comment">//9</span></span><br><span class="line"></span><br><span class="line">Long hh = Math.round(x);</span><br><span class="line">System.err.println(hh);<span class="comment">//10</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> h = (<span class="keyword">int</span>) Math.round(x);</span><br><span class="line">System.err.println(h); <span class="comment">//10</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>需要注意<code>目标类型的表示范围</code>：</p>
+<ul>
+<li><p>如果试图将一个数值从一种类型强制转换成为另一种类型，而又<code>超出了目标类型的表示范围</code>，结果就会<code>截断成一个完全不同的值</code>。例如：<code>(byte)300</code>  实际值 却只为 44。 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a  = <span class="number">300</span>;</span><br><span class="line">System.out.println((<span class="keyword">byte</span>)a); <span class="comment">//44</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-10-空串与Null串"><a href="#2-10-空串与Null串" class="headerlink" title="2.10  空串与Null串"></a>2.10  空串与Null串</h3><ul>
+<li><p><code>空串</code>是长度为0的字符串，是一个<code>Java对象</code>，有自己的<code>串长度（0）和内容 （空）</code>。</p>
+</li>
+<li><p><code>String h = null;</code>  表示一个<code>Null串</code>，目前<code>没有任何对象</code>与该变量关联，<code>无引用</code>。</p>
+</li>
+<li><p>检查一个字符串，要检查它既不是null也不为空串：<code>if(str != null &amp;&amp; str.length() != 0)</code></p>
+</li>
+</ul>
+<h3 id="2-11-switch语句"><a href="#2-11-switch语句" class="headerlink" title="2.11   switch语句"></a>2.11   <code>switch</code>语句</h3><ul>
+<li><code>switch</code>语句将会从<code>与选项值相匹配的case标签</code>处开始执行直到<code>遇到break</code>语句，或者执行到switch语句的<code>结束处</code>为止。</li>
+<li>如果<code>没有匹配case分支</code>，而<code>有default子句</code>，就<code>执行default子句</code>。</li>
+<li>很有可能触发多个分支：<ul>
+<li>如果在case分支语句的<code>末尾没有break</code>语句，那么就会<code>接着执行</code>下一个case分支语句。</li>
+</ul>
+</li>
+<li><code>case标签</code>可以是：<ul>
+<li>类型为 <code>char 、byte 、short 、 int 的常量表达式</code></li>
+<li><code>枚举常量</code></li>
+<li>Java SE 7开始，<code>case标签</code>还可以是<code>字符串字面量</code>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-12-大数值"><a href="#2-12-大数值" class="headerlink" title="2.12  大数值"></a>2.12  大数值</h3><blockquote>
+<p>如果<code>基本的整数和浮点值精度不够</code>，那么可以使用<code>java.math</code>包中的两个类：<code>BigInteger</code>和<code>BigDecimal</code>。这两个类可以处理<code>包含任意长度数字序列的数值</code>。</p>
+</blockquote>
+<ul>
+<li><code>BigInteger</code>类实现了<code>任意精度的整型运算</code>。</li>
+<li><code>BigDecimal</code>类实现了<code>任意精度的浮点数运算</code>。</li>
+<li>使用静态的<code>valueOf()</code>方法可以将普通的数值转换成大数值。</li>
+</ul>
+<h4 id="2-12-1-BigDecimal"><a href="#2-12-1-BigDecimal" class="headerlink" title="2.12.1 BigDecimal"></a>2.12.1 <code>BigDecimal</code></h4><blockquote>
+<p>浮点数值<code>不适用</code>于<code>无法接受舍入误差</code>的金融计算中。</p>
+</blockquote>
+<ul>
+<li><p>例如： <code>System.out.println(2.0-1.1);</code> 结果为  <code>0.8999999999999999</code> 而不是<code>正确结果0.9</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="number">1.01</span> + <span class="number">2.02</span>);<span class="comment">//3.0300000000000002</span></span><br><span class="line">System.out.println(<span class="number">3.0</span> - <span class="number">2.1</span>);<span class="comment">//0.8999999999999999</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>这种舍入误差原因是 浮点数值采用二进制系统表示，二进制系统中<code>无法精确地表示分数1/10</code>。就像十进制无法精确表示分数1/3一样。</li>
+</ul>
+<blockquote>
+<p>如果数值计算中不允许出现这种舍入误差，就应该采用<code>BigDecimal</code>类。用来<code>对超过16位有效位的数</code>进行精确的运算。</p>
+<p>双精度浮点型变量<code>double可以处理16位有效数</code>。在实际应用中，需要对更大或者更小的数进行运算和处理。<code>float和double</code>只能用来做科学计算或者是工程计算，在<code>商业计算</code>中要用<code>java.math.BigDecimal</code>。 </p>
+</blockquote>
+<ul>
+<li><p><code>创建BigDecimal对象</code>主要有两种:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BigDecimal b1= <span class="keyword">new</span> BigDecimal(<span class="string">"3.0"</span>);<span class="comment">//new BigDecimal(Double.toString(3.0))</span></span><br><span class="line">BigDecimal b2 = BigDecimal.valueOf(<span class="number">2.1</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>b1也可以写成<code>new BigDecimal(Double.toString(3.0))</code>，直接用<code>new BigDecimal(3.0)</code>，就会出现精度问题。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BigDecimal x1 = <span class="keyword">new</span> BigDecimal(<span class="number">1.34</span>);<span class="comment">//1.3400000000000000799360577730112709105014801025390625</span></span><br><span class="line">BigDecimal x2 = <span class="keyword">new</span> BigDecimal(<span class="string">"1.34"</span>);<span class="comment">//1.34</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>除了这两种外，特殊的像0、1、10可以这样写 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">BigDecimal zero = BigDecimal.ZERO;</span><br><span class="line">BigDecimal one = BigDecimal.ONE;</span><br><span class="line">BigDecimal ten = BigDecimal.TEN;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>BigDecimal所创建的是对象，<code>不能使用传统的+、-、*、/等算术运算符</code>直接对其对象进行数学运算，而<code>必须调用其相对应的方法</code>。方法中的参数也<code>必须是BigDecimal的对象</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> BigDecimal <span class="title">add</span><span class="params">(BigDecimal value)</span></span>;<span class="comment">//加法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> BigDecimal <span class="title">subtract</span><span class="params">(BigDecimal value)</span></span>;<span class="comment">//减法 </span></span><br><span class="line"><span class="function"><span class="keyword">public</span> BigDecimal <span class="title">multiply</span><span class="params">(BigDecimal value)</span></span>;<span class="comment">//乘法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> BigDecimal <span class="title">divide</span><span class="params">(BigDecimal value)</span></span>;<span class="comment">//除法</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>BigDecimal的<code>运算不对原值进行操作</code>，而是<code>返回一个新的BigDecimal对象</code>。</p>
+</li>
+<li><p>BigDecimal的<code>比较</code>用的是BigDecimal的<code>compareTo</code>方法，将此 BigDecimal 与指定的 BigDecimal 比较。</p>
+<ul>
+<li>注意：<code>值相等</code>但具有<code>不同标度</code>的两个BigDecimal对象（如，2.0 和 2.00）被<code>认为是相等</code>的。</li>
+<li>BigDecimal 在数字上<code>小于、等于或大于</code>比较对象时，返回 <code>-1、0 或 1</code>。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">BigDecimal a = BigDecimal.valueOf(<span class="number">1</span>);</span><br><span class="line">BigDecimal b = BigDecimal.valueOf(<span class="number">20</span>);</span><br><span class="line">BigDecimal c = a.add(b);</span><br><span class="line"><span class="keyword">int</span> i1 = a.compareTo(b);<span class="comment">//-1</span></span><br><span class="line"><span class="keyword">int</span> i2 = b.compareTo(b);<span class="comment">//0</span></span><br><span class="line"><span class="keyword">int</span> i3 = c.compareTo(b);<span class="comment">//1</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaSE/" rel="tag"># JavaSE</a>
+          
+            <a href="/tags/基础语法/" rel="tag"># 基础语法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/10/Java-NIO/" rel="prev" title="JavaNIO">
+                JavaNIO <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="胡啊呦" />
+            
+              <p class="site-author-name" itemprop="name">胡啊呦</p>
+              <p class="site-description motion-element" itemprop="description">一些笔记，一些分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaSE-回顾-基础语法"><span class="nav-number">1.</span> <span class="nav-text">JavaSE 回顾-基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Java语言的特性"><span class="nav-number">1.1.</span> <span class="nav-text">1. Java语言的特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-简单性"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 简单性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-面向对象"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2  面向对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-分布式"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 分布式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-健壮性"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4  健壮性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-安全性"><span class="nav-number">1.1.5.</span> <span class="nav-text">1.5  安全性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-体系结构中立"><span class="nav-number">1.1.6.</span> <span class="nav-text">1.6  体系结构中立</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-可移植性"><span class="nav-number">1.1.7.</span> <span class="nav-text">1.7 可移植性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-8-解释型"><span class="nav-number">1.1.8.</span> <span class="nav-text">1.8 解释型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9-高性能"><span class="nav-number">1.1.9.</span> <span class="nav-text">1.9 高性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-10-多线程"><span class="nav-number">1.1.10.</span> <span class="nav-text">1.10  多线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-11-动态性"><span class="nav-number">1.1.11.</span> <span class="nav-text">1.11 动态性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Java-基本语法注意点"><span class="nav-number">1.2.</span> <span class="nav-text">2. Java 基本语法注意点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-类名"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1  类名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-main方法"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 main方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-注释"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3  注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-数据类型"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-1-整型"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">2.4.1 整型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-2-浮点类型"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">2.4.2  浮点类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-3-char类型"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">2.4.3  char类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-4-boolean类型"><span class="nav-number">1.2.4.4.</span> <span class="nav-text">2.4.4   boolean类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-变量"><span class="nav-number">1.2.5.</span> <span class="nav-text">2.5   变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-1-变量命名规定"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">2.5.1 变量命名规定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-2-变量初始化"><span class="nav-number">1.2.5.2.</span> <span class="nav-text">2.5.2 变量初始化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-常量"><span class="nav-number">1.2.6.</span> <span class="nav-text">2.6  常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-运算符"><span class="nav-number">1.2.7.</span> <span class="nav-text">2.7  运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-数值类型之间的转换"><span class="nav-number">1.2.8.</span> <span class="nav-text">2.8   数值类型之间的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-强制类型转换"><span class="nav-number">1.2.9.</span> <span class="nav-text">2.9   强制类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-10-空串与Null串"><span class="nav-number">1.2.10.</span> <span class="nav-text">2.10  空串与Null串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-11-switch语句"><span class="nav-number">1.2.11.</span> <span class="nav-text">2.11   switch语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-12-大数值"><span class="nav-number">1.2.12.</span> <span class="nav-text">2.12  大数值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-12-1-BigDecimal"><span class="nav-number">1.2.12.1.</span> <span class="nav-text">2.12.1 BigDecimal</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">胡啊呦</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
