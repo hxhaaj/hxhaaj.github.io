@@ -97,14 +97,14 @@
 <meta property="og:site_name" content="WhoAYou&#39;s Blogs">
 <meta property="og:description" content="Java NIO1. Java NIO 概念 Java NIO（New IO） 是从Java 1.4版本开始引入的一个新的IO API，可以替代标准的Java IO API。NIO与原来的IO有同样的作用和目的，但是使用的方式完全不同，NIO支持面向缓冲区的、基于通道的IO操作。NIO将以更加高效的方式进行文件的读写操作。  2. NIO与IO的主要区别   IO NIO     面向流 面向缓冲">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/03/10/Java-NIO/Java-NIO_Media/1530262134544.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/10/Java-NIO/Java-NIO_Media/1530491456931.png">
+<meta property="og:image" content="http://yoursite.com/Java-NIO_Media/1530262134544.png">
+<meta property="og:image" content="http://yoursite.com/Java-NIO_Media/1530491456931.png">
 <meta property="og:image" content="http://yoursite.com/Java-NIO_Media/1530524051395.png">
-<meta property="og:updated_time" content="2018-07-12T11:56:24.753Z">
+<meta property="og:updated_time" content="2018-07-13T03:46:47.721Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaNIO">
 <meta name="twitter:description" content="Java NIO1. Java NIO 概念 Java NIO（New IO） 是从Java 1.4版本开始引入的一个新的IO API，可以替代标准的Java IO API。NIO与原来的IO有同样的作用和目的，但是使用的方式完全不同，NIO支持面向缓冲区的、基于通道的IO操作。NIO将以更加高效的方式进行文件的读写操作。  2. NIO与IO的主要区别   IO NIO     面向流 面向缓冲">
-<meta name="twitter:image" content="http://yoursite.com/2018/03/10/Java-NIO/Java-NIO_Media/1530262134544.png">
+<meta name="twitter:image" content="http://yoursite.com/Java-NIO_Media/1530262134544.png">
 
 
 
@@ -427,7 +427,7 @@
 <li><p>缓冲区用于来回运送数据</p>
 </li>
 </ul>
-<p><img src="Java-NIO_Media/1530262134544.png" alt="NIO基于通道的双向缓冲区"></p>
+<p><img src="/Java-NIO_Media/1530262134544.png" alt="NIO基于通道的双向缓冲区"></p>
 <blockquote>
 <p>NIO核心在于：通道（Channel）和缓冲区（Buffer）。通道表示打开到IO设备（例如：文件、套接字）的连接。若需要使用NIO系统，需要获取用于连接IO设备的通道以及用于容纳数据的缓冲区。然后操作缓冲区，对数据进行处理。</p>
 </blockquote>
@@ -450,7 +450,7 @@
 <li><code>mark</code>  标记 ， 表示记录当前position的位置，可以通过<code>reset()</code>恢复到mark的位置。</li>
 <li><code>0 &lt;= mark &lt;= position &lt;= limit &lt;= capacity</code></li>
 </ol>
-<h4 id="3-3-1-position、limit、capacity-值的关系"><a href="#3-3-1-position、limit、capacity-值的关系" class="headerlink" title="3.3.1 position、limit、capacity 值的关系"></a>3.3.1 position、limit、capacity 值的关系</h4><p><img src="Java-NIO_Media/1530491456931.png" alt="1530491456931"></p>
+<h4 id="3-3-1-position、limit、capacity-值的关系"><a href="#3-3-1-position、limit、capacity-值的关系" class="headerlink" title="3.3.1 position、limit、capacity 值的关系"></a>3.3.1 position、limit、capacity 值的关系</h4><p><img src="/Java-NIO_Media/1530491456931.png" alt="1530491456931"></p>
 <ul>
 <li><p>当<code>allocate(10)</code>分配10个字节大小的缓冲区后，position的位置为0，capacity(容量)的值为10，limit（界限）值为10。</p>
 </li>

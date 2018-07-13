@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/03/10/Java-NIO/</loc>
+    
+    <lastmod>2018-07-13T03:46:47.721Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/05/12/Java8-%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8%E5%92%8C%E6%9E%84%E9%80%A0%E5%99%A8%E5%BC%95%E7%94%A8/</loc>
     
     <lastmod>2018-07-13T00:55:41.961Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>http://yoursite.com/2018/05/11/Java8-StreamAPI/</loc>
     
     <lastmod>2018-07-12T11:56:30.633Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/03/10/Java-NIO/</loc>
-    
-    <lastmod>2018-07-12T11:56:24.753Z</lastmod>
     
   </url>
   
