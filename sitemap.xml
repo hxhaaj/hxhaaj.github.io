@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/05/11/Java8-StreamAPI/</loc>
+    
+    <lastmod>2018-07-15T12:04:48.405Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/03/10/Java-NIO/</loc>
     
     <lastmod>2018-07-13T03:46:47.721Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>http://yoursite.com/2018/04/03/Git/</loc>
     
     <lastmod>2018-07-12T12:01:36.027Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/05/11/Java8-StreamAPI/</loc>
-    
-    <lastmod>2018-07-12T11:56:30.633Z</lastmod>
     
   </url>
   

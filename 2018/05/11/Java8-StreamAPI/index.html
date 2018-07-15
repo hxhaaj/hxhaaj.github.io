@@ -97,13 +97,13 @@
 <meta property="og:site_name" content="WhoAYou&#39;s Blogs">
 <meta property="og:description" content="流（Stream）1. 流的概念 流是数据渠道，用于操作数据源，所生成一种新的元素序列。集合讲的是数据，流讲的是计算,是操作。  Stream是Java8中处理集合的关键抽象概念，它可以指定希望对集合的操作，可以执行复杂的查找、过滤和映射数据等操作。 使用Stream API 对集合的数据进行操作，类似于SQL执行的数据库查询，也可以用来并行执行操作，其提供了一种高效且易于使用的处理数据方式。 注">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="d:/info/note/pic/StreamAPI的map映射.png">
-<meta property="og:image" content="d:/info/note/pic/StreamAPI的flatmap映射.png">
-<meta property="og:updated_time" content="2018-07-12T11:56:30.633Z">
+<meta property="og:image" content="http://yoursite.com/2018/05/11/Java8-StreamAPI/StreamAPI的map映射.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/11/Java8-StreamAPI/StreamAPI的flatmap映射.png">
+<meta property="og:updated_time" content="2018-07-15T12:04:48.405Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java8-StreamAPI常用知识">
 <meta name="twitter:description" content="流（Stream）1. 流的概念 流是数据渠道，用于操作数据源，所生成一种新的元素序列。集合讲的是数据，流讲的是计算,是操作。  Stream是Java8中处理集合的关键抽象概念，它可以指定希望对集合的操作，可以执行复杂的查找、过滤和映射数据等操作。 使用Stream API 对集合的数据进行操作，类似于SQL执行的数据库查询，也可以用来并行执行操作，其提供了一种高效且易于使用的处理数据方式。 注">
-<meta name="twitter:image" content="d:/info/note/pic/StreamAPI的map映射.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/05/11/Java8-StreamAPI/StreamAPI的map映射.png">
 
 
 
@@ -501,8 +501,8 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; stringList = Arrays.asList(<span class="string">"aa"</span>, <span class="string">"bb"</span>, <span class="string">"cc"</span>, <span class="string">"dd"</span>);</span><br><span class="line">Stream&lt;Stream&lt;Character&gt;&gt; st1 = stringList.stream()</span><br><span class="line">    .map(TestStream::filterCharacter);</span><br><span class="line"><span class="comment">//此时流的内容为 &#123;&#123;"aa"&#125;,&#123;"bb"&#125;,&#123;"cc"&#125;,&#123;"dd"&#125;&#125; 4个单独的字符流对象组成的流</span></span><br><span class="line">st1.forEach(System.out::println);</span><br><span class="line"><span class="comment">/*  再次遍历后</span></span><br><span class="line"><span class="comment">    结果：4个流对象 即 Stream&lt;Character&gt;  &#123;&#123;"aa"&#125;,&#123;"bb"&#125;,&#123;"cc"&#125;,&#123;"dd"&#125;&#125;</span></span><br><span class="line"><span class="comment">    java.util.stream.ReferencePipeline$Head@470e2030</span></span><br><span class="line"><span class="comment">    java.util.stream.ReferencePipeline$Head@3fb4f649</span></span><br><span class="line"><span class="comment">    java.util.stream.ReferencePipeline$Head@33833882</span></span><br><span class="line"><span class="comment">    java.util.stream.ReferencePipeline$Head@200a570f</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">System.out.println(<span class="string">"----------------"</span>);</span><br><span class="line"></span><br><span class="line">Stream&lt;Character&gt; st2 = stringList.stream().flatMap(TestStream::filterCharacter);</span><br><span class="line"><span class="comment">//此时流的内容为&#123;"a","a","b","b","c","c","d","d"&#125;</span></span><br><span class="line">st2.forEach(System.out::println);</span><br><span class="line"><span class="comment">/*  再次遍历后</span></span><br><span class="line"><span class="comment">    结果直接返回了单个的字符流</span></span><br><span class="line"><span class="comment">    a</span></span><br><span class="line"><span class="comment">    a</span></span><br><span class="line"><span class="comment">    b</span></span><br><span class="line"><span class="comment">    b</span></span><br><span class="line"><span class="comment">    c</span></span><br><span class="line"><span class="comment">    c</span></span><br><span class="line"><span class="comment">    d</span></span><br><span class="line"><span class="comment">    d</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p><img src="D:/info/note/pic/StreamAPI的map映射.png" alt="image"></p>
-<p><img src="D:/info/note/pic/StreamAPI的flatmap映射.png" alt="image"></p>
+<p><img src="StreamAPI的map映射.png" alt="image"></p>
+<p><img src="StreamAPI的flatmap映射.png" alt="image"></p>
 <h4 id="2-2-3-排序"><a href="#2-2-3-排序" class="headerlink" title="2.2.3 排序"></a>2.2.3 排序</h4><h4 id="2-2-3-1-自然排序"><a href="#2-2-3-1-自然排序" class="headerlink" title="2.2.3.1 自然排序"></a>2.2.3.1 自然排序</h4><p><code>sorted()</code> </p>
 <ul>
 <li>自然排序(Comparable方式)，按照<code>字典顺序</code>进行排序</li>
