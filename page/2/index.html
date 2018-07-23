@@ -297,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/20/Java多线程回顾-线程安全和死锁问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/20/Java多线程回顾-线程的实例方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="胡啊呦">
@@ -316,7 +316,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/20/Java多线程回顾-线程安全和死锁问题/" itemprop="url">Java多线程基础-线程安全和死锁问题</a></h1>
+                <a class="post-title-link" href="/2018/06/20/Java多线程回顾-线程的实例方法/" itemprop="url">Java多线程基础-线程的实例方法</a></h1>
         
 
         <div class="post-meta">
@@ -392,16 +392,15 @@
       
         
           
-          线程安全
-如果你的代码在多线程下执行和在单线程下执行永远都能获得一样的结果，那么你的代码就是线程安全的
+          线程相关实例方法获取线程ID- getId
+在一个Java应用程序中，有一个long型的全局唯一的线程ID生成器threadSeqNumber，每new出来一个线程就会自增一次，从0开始，并且赋值给线程的tid属性。
+用户只能获取ID，不能执行一个线程的ID，这是Thread类内部自己完成的。
 
-线程安全级别
-1、不可变
-像String、Integer、Long这些，都是final类型的类，任何一个线程都改变不了它们的值，要改变除非新创建一个，因此这些不可变对象不需要任何同步手段就可以直
+获
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/20/Java多线程回顾-线程安全和死锁问题/#more" rel="contents">
+            <a class="btn" href="/2018/06/20/Java多线程回顾-线程的实例方法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
