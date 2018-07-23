@@ -97,7 +97,7 @@
 <meta property="og:site_name" content="WhoAYou&#39;s Blogs">
 <meta property="og:description" content="线程组线程组概述 Java中用ThreadGroup来表示线程组，它可以对一批线程进行分类管理，Java允许程序直接对线程组进行控制。  默认情况下，所有的线程都属于主线程组。  public final ThreadGroup getThreadGroup()  通过线程对象获取所属的线程组 public final String getName()  通过线程组对象获取线程组的名字  1234">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-17T12:46:27.204Z">
+<meta property="og:updated_time" content="2018-07-18T02:30:03.716Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java多线程基础-线程组和线程池">
 <meta name="twitter:description" content="线程组线程组概述 Java中用ThreadGroup来表示线程组，它可以对一批线程进行分类管理，Java允许程序直接对线程组进行控制。  默认情况下，所有的线程都属于主线程组。  public final ThreadGroup getThreadGroup()  通过线程对象获取所属的线程组 public final String getName()  通过线程组对象获取线程组的名字  1234">
@@ -475,7 +475,8 @@
 <li>代码示例：</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ExecutorService pool = Executors.newFixedThreadPool(<span class="number">2</span>);</span><br><span class="line"><span class="comment">// 可以执行Runnable对象</span></span><br><span class="line"><span class="comment">//或者Callable对象代表的线程</span></span><br><span class="line">pool.submit(<span class="keyword">new</span> MyRunnable());</span><br><span class="line">pool.submit(<span class="keyword">new</span> MyRunnable());</span><br><span class="line"><span class="comment">//结束线程池</span></span><br><span class="line">pool.shutdown();</span><br></pre></td></tr></table></figure>
-<h3 id="Future-接口"><a href="#Future-接口" class="headerlink" title="Future 接口"></a>Future<v> 接口</v></h3><p><code>Future</code> 表示异步计算的结果。</p>
+<h3 id="使用线程池的风险"><a href="#使用线程池的风险" class="headerlink" title="使用线程池的风险"></a>使用线程池的风险</h3><p>​    虽然线程池是构建多线程应用程序的强大机制，但使用它并不是没有风险的。使用线程池构建的应用程序容易遭受任何其他多线程应用程序<code>容易遭受的所有并发风险</code>，例如<code>同步错误</code>、<code>死锁</code>、<code>资源不足</code>和<code>线程泄露</code>。</p>
+<h4 id=""><a href="#" class="headerlink" title=" "></a> </h4><h3 id="Future-接口"><a href="#Future-接口" class="headerlink" title="Future 接口"></a>Future<v> 接口</v></h3><p><code>Future</code> 表示异步计算的结果。</p>
 <ul>
 <li>它提供了<code>检查计算是否完成</code>的方法，以等待计算的完成，并<code>获取计算的结果</code>。</li>
 <li>计算完成后只能使用  <code>get</code> 方法来获取结果，如有必要，计算完成前可以阻塞此方法。</li>
@@ -580,8 +581,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/20/Java多线程回顾-开启多线程常用的两种方式和Callable方式/" rel="next" title="Java多线程基础-多线程的实现方式">
-                <i class="fa fa-chevron-left"></i> Java多线程基础-多线程的实现方式
+              <a href="/2018/05/13/Java内置的四大核心函数式接口/" rel="next" title="Java8-Lambda表达式-函数式接口">
+                <i class="fa fa-chevron-left"></i> Java8-Lambda表达式-函数式接口
               </a>
             
           </div>
@@ -589,6 +590,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/20/Java多线程回顾-线程安全和死锁问题/" rel="prev" title="Java多线程基础-线程安全和死锁问题">
+                Java多线程基础-线程安全和死锁问题 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -674,7 +679,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -685,7 +690,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -696,7 +701,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -746,7 +751,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程组"><span class="nav-text">线程组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程组概述"><span class="nav-text">线程组概述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池"><span class="nav-text">线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么会有线程池？（线程池概述）"><span class="nav-text">为什么会有线程池？（线程池概述）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内置线程池"><span class="nav-text">内置线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Future-接口"><span class="nav-text">Future 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现多线程的第三种方式"><span class="nav-text">实现多线程的第三种方式</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程组"><span class="nav-text">线程组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程组概述"><span class="nav-text">线程组概述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池"><span class="nav-text">线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么会有线程池？（线程池概述）"><span class="nav-text">为什么会有线程池？（线程池概述）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内置线程池"><span class="nav-text">内置线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用线程池的风险"><span class="nav-text">使用线程池的风险</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#"><span class="nav-text"> </span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Future-接口"><span class="nav-text">Future 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现多线程的第三种方式"><span class="nav-text">实现多线程的第三种方式</span></a></li></ol></li></ol></div>
             
 
           </div>
