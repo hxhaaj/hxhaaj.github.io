@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-07-23T12:32:42.949Z</updated>
+  <updated>2018-07-23T12:56:07.573Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Java面向对象（一）- 类与对象以及方法</title>
-    <link href="http://yoursite.com/2018/06/23/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%80%EF%BC%89-%20%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%92%8C%E6%96%B9%E6%B3%95/"/>
-    <id>http://yoursite.com/2018/06/23/Java面向对象（一）- 类与对象和方法/</id>
+    <title>Java面向对象(二) 静态域、代码块和内存区域图</title>
+    <link href="http://yoursite.com/2018/06/23/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1(%E4%BA%8C)%20%E9%9D%99%E6%80%81%E5%9F%9F%E5%92%8C%E4%BB%A3%E7%A0%81%E5%9D%97%E4%BB%A5%E5%8F%8A%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/"/>
+    <id>http://yoursite.com/2018/06/23/Java面向对象(二) 静态域和代码块以及内存区域/</id>
     <published>2018-06-22T16:00:00.000Z</published>
-    <updated>2018-07-23T12:32:42.949Z</updated>
+    <updated>2018-07-23T12:56:07.573Z</updated>
     
     <summary type="html">
     
@@ -29,7 +29,7 @@
       
         
         
-          &lt;h1 id=&quot;Java面向对象（一）-类与对象以及方法&quot;&gt;&lt;a href=&quot;#Java面向对象（一）-类与对象以及方法&quot; class=&quot;headerlink&quot; title=&quot;Java面向对象（一）- 类与对象以及方法&quot;&gt;&lt;/a&gt;Java面向对象（一）-
+          &lt;h1 id=&quot;Java面向对象-二-静态域、代码块和内存区域图&quot;&gt;&lt;a href=&quot;#Java面向对象-二-静态域、代码块和内存区域图&quot; class=&quot;headerlink&quot; title=&quot;Java面向对象(二) 静态域、代码块和内存区域图&quot;&gt;&lt;/a&gt;Java面向对象(二)
         
       
     
@@ -43,11 +43,11 @@
   </entry>
   
   <entry>
-    <title>Java面向对象（二）-静态域、代码块和内存区域图</title>
-    <link href="http://yoursite.com/2018/06/23/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%BA%8C%EF%BC%89-%E9%9D%99%E6%80%81%E5%9F%9F%E5%92%8C%E4%BB%A3%E7%A0%81%E5%9D%97%E4%BB%A5%E5%8F%8A%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/"/>
-    <id>http://yoursite.com/2018/06/23/Java面向对象（二）-静态域和代码块以及内存区域/</id>
+    <title>Java面向对象(一) 类与对象以及方法</title>
+    <link href="http://yoursite.com/2018/06/23/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1(%E4%B8%80)%20%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%92%8C%E6%96%B9%E6%B3%95/"/>
+    <id>http://yoursite.com/2018/06/23/Java面向对象(一) 类与对象和方法/</id>
     <published>2018-06-22T16:00:00.000Z</published>
-    <updated>2018-07-23T12:40:56.421Z</updated>
+    <updated>2018-07-23T12:57:05.607Z</updated>
     
     <summary type="html">
     
@@ -55,7 +55,7 @@
       
         
         
-          &lt;h1 id=&quot;Java面向对象（二）-静态域、代码块和内存区域图&quot;&gt;&lt;a href=&quot;#Java面向对象（二）-静态域、代码块和内存区域图&quot; class=&quot;headerlink&quot;
+          &lt;h1 id=&quot;Java面向对象-一-类与对象以及方法&quot;&gt;&lt;a href=&quot;#Java面向对象-一-类与对象以及方法&quot; class=&quot;headerlink&quot; title=&quot;Java面向对象(一) 类与对象以及方法&quot;&gt;&lt;/a&gt;Java面向对象(一)
         
       
     
@@ -65,176 +65,6 @@
     
     
       <category term="Java面向对象" scheme="http://yoursite.com/tags/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java多线程基础-互斥锁Lock和Condition</title>
-    <link href="http://yoursite.com/2018/06/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80-%E4%BA%92%E6%96%A5%E9%94%81ReentrantLock%E5%92%8CCondition/"/>
-    <id>http://yoursite.com/2018/06/20/Java多线程基础-互斥锁ReentrantLock和Condition/</id>
-    <published>2018-06-19T16:00:00.000Z</published>
-    <updated>2018-07-17T12:45:29.747Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;互斥锁&quot;&gt;&lt;a href=&quot;#互斥锁&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="Java多线程基础" scheme="http://yoursite.com/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-      <category term="互斥锁" scheme="http://yoursite.com/tags/%E4%BA%92%E6%96%A5%E9%94%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java多线程基础-线程安全和死锁问题</title>
-    <link href="http://yoursite.com/2018/06/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9B%9E%E9%A1%BE-%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E5%92%8C%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/"/>
-    <id>http://yoursite.com/2018/06/20/Java多线程回顾-线程安全和死锁问题/</id>
-    <published>2018-06-19T16:00:00.000Z</published>
-    <updated>2018-07-17T12:40:56.578Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;线程安全&quot;&gt;&lt;a href=&quot;#线程安全&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="Java多线程基础" scheme="http://yoursite.com/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-      <category term="线程安全" scheme="http://yoursite.com/tags/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/"/>
-    
-      <category term="死锁问题" scheme="http://yoursite.com/tags/%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java多线程基础-多线程同步</title>
-    <link href="http://yoursite.com/2018/06/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9B%9E%E9%A1%BE-%E5%90%8C%E6%AD%A5%E4%BB%A3%E7%A0%81/"/>
-    <id>http://yoursite.com/2018/06/20/Java多线程回顾-同步代码/</id>
-    <published>2018-06-19T16:00:00.000Z</published>
-    <updated>2018-07-17T12:40:20.710Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;同步代码&quot;&gt;&lt;a href=&quot;#同步代码&quot; class=&quot;headerlink&quot; title=&quot;同步代码&quot;&gt;&lt;/a&gt;同步代码&lt;/h2&gt;&lt;h3 id=&quot;需要同步的情况&quot;&gt;&lt;a href=&quot;#需要同步的情况&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="Java多线程基础" scheme="http://yoursite.com/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-      <category term="多线程同步" scheme="http://yoursite.com/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JavaSE回顾-多线程基础知识整合</title>
-    <link href="http://yoursite.com/2018/06/20/JavaSE%E5%9B%9E%E9%A1%BE-%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    <id>http://yoursite.com/2018/06/20/JavaSE回顾-多线程/</id>
-    <published>2018-06-19T16:00:00.000Z</published>
-    <updated>2018-07-17T12:17:13.771Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;JavaSE回顾-多线程基础知识整合&quot;&gt;&lt;a href=&quot;#JavaSE回顾-多线程基础知识整合&quot; class=&quot;headerlink&quot; title=&quot;JavaSE回顾-多线程基础知识整合&quot;&gt;&lt;/a&gt;JavaSE回顾-多线程基础知识整合&lt;/h1&gt;&lt;h2
-        
-      
-    
-    </summary>
-    
-      <category term="JavaSE回顾" scheme="http://yoursite.com/categories/JavaSE%E5%9B%9E%E9%A1%BE/"/>
-    
-    
-      <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-      <category term="线程安全" scheme="http://yoursite.com/tags/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/"/>
-    
-      <category term="死锁问题" scheme="http://yoursite.com/tags/%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/"/>
-    
-      <category term="线程池" scheme="http://yoursite.com/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java多线程基础-一些重要的基本概念</title>
-    <link href="http://yoursite.com/2018/06/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9B%9E%E9%A1%BE-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/"/>
-    <id>http://yoursite.com/2018/06/20/Java多线程回顾-多线程的一些基本概念/</id>
-    <published>2018-06-19T16:00:00.000Z</published>
-    <updated>2018-07-17T12:38:28.277Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;多线程&quot;&gt;&lt;a href=&quot;#多线程&quot; class=&quot;headerlink&quot; title=&quot;多线程&quot;&gt;&lt;/a&gt;多线程&lt;/h2&gt;&lt;h3 id=&quot;基本概念&quot;&gt;&lt;a href=&quot;#基本概念&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="Java多线程基础" scheme="http://yoursite.com/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java多线程基础-线程的实例方法</title>
-    <link href="http://yoursite.com/2018/06/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9B%9E%E9%A1%BE-%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE/"/>
-    <id>http://yoursite.com/2018/06/20/Java多线程回顾-线程的实例方法和线程状态转换图/</id>
-    <published>2018-06-19T16:00:00.000Z</published>
-    <updated>2018-07-17T12:44:14.674Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;线程相关实例方法&quot;&gt;&lt;a href=&quot;#线程相关实例方法&quot; class=&quot;headerlink&quot; title=&quot;线程相关实例方法&quot;&gt;&lt;/a&gt;线程相关实例方法&lt;/h2&gt;&lt;h3 id=&quot;获取线程ID-getId&quot;&gt;&lt;a href=&quot;#获取线程ID-getId&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="Java多线程基础" scheme="http://yoursite.com/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
     
   </entry>
   
@@ -252,60 +82,6 @@
         
         
           &lt;h2 id=&quot;多线程的实现方式&quot;&gt;&lt;a href=&quot;#多线程的实现方式&quot; class=&quot;headerlink&quot; title=&quot;多线程的实现方式&quot;&gt;&lt;/a&gt;多线程的实现方式&lt;/h2&gt;&lt;h3 id=&quot;方式一：-继承Thread类&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-      <category term="Java多线程基础" scheme="http://yoursite.com/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java多线程基础-线程的状态转换</title>
-    <link href="http://yoursite.com/2018/06/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9B%9E%E9%A1%BE-%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE/"/>
-    <id>http://yoursite.com/2018/06/20/Java多线程回顾-线程状态转换图/</id>
-    <published>2018-06-19T16:00:00.000Z</published>
-    <updated>2018-07-17T12:50:21.136Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;线程六大状态&quot;&gt;&lt;a href=&quot;#线程六大状态&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="Java多线程基础" scheme="http://yoursite.com/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-      <category term="线程状态" scheme="http://yoursite.com/tags/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java多线程基础-线程的实例方法</title>
-    <link href="http://yoursite.com/2018/06/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9B%9E%E9%A1%BE-%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95/"/>
-    <id>http://yoursite.com/2018/06/20/Java多线程回顾-线程的实例方法/</id>
-    <published>2018-06-19T16:00:00.000Z</published>
-    <updated>2018-07-17T12:42:57.642Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;线程相关实例方法&quot;&gt;&lt;a href=&quot;#线程相关实例方法&quot; class=&quot;headerlink&quot; title=&quot;线程相关实例方法&quot;&gt;&lt;/a&gt;线程相关实例方法&lt;/h2&gt;&lt;h3 id=&quot;获取线程ID-getId&quot;&gt;&lt;a href=&quot;#获取线程ID-getId&quot;
         
       
     
@@ -345,6 +121,230 @@
       <category term="线程池" scheme="http://yoursite.com/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
     
       <category term="线程组" scheme="http://yoursite.com/tags/%E7%BA%BF%E7%A8%8B%E7%BB%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java多线程基础-互斥锁Lock和Condition</title>
+    <link href="http://yoursite.com/2018/06/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80-%E4%BA%92%E6%96%A5%E9%94%81ReentrantLock%E5%92%8CCondition/"/>
+    <id>http://yoursite.com/2018/06/20/Java多线程基础-互斥锁ReentrantLock和Condition/</id>
+    <published>2018-06-19T16:00:00.000Z</published>
+    <updated>2018-07-17T12:45:29.747Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;互斥锁&quot;&gt;&lt;a href=&quot;#互斥锁&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Java多线程基础" scheme="http://yoursite.com/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
+    
+    
+      <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+      <category term="互斥锁" scheme="http://yoursite.com/tags/%E4%BA%92%E6%96%A5%E9%94%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java多线程基础-线程的实例方法</title>
+    <link href="http://yoursite.com/2018/06/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9B%9E%E9%A1%BE-%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE/"/>
+    <id>http://yoursite.com/2018/06/20/Java多线程回顾-线程的实例方法和线程状态转换图/</id>
+    <published>2018-06-19T16:00:00.000Z</published>
+    <updated>2018-07-17T12:44:14.674Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;线程相关实例方法&quot;&gt;&lt;a href=&quot;#线程相关实例方法&quot; class=&quot;headerlink&quot; title=&quot;线程相关实例方法&quot;&gt;&lt;/a&gt;线程相关实例方法&lt;/h2&gt;&lt;h3 id=&quot;获取线程ID-getId&quot;&gt;&lt;a href=&quot;#获取线程ID-getId&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Java多线程基础" scheme="http://yoursite.com/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
+    
+    
+      <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java多线程基础-多线程同步</title>
+    <link href="http://yoursite.com/2018/06/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9B%9E%E9%A1%BE-%E5%90%8C%E6%AD%A5%E4%BB%A3%E7%A0%81/"/>
+    <id>http://yoursite.com/2018/06/20/Java多线程回顾-同步代码/</id>
+    <published>2018-06-19T16:00:00.000Z</published>
+    <updated>2018-07-17T12:40:20.710Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;同步代码&quot;&gt;&lt;a href=&quot;#同步代码&quot; class=&quot;headerlink&quot; title=&quot;同步代码&quot;&gt;&lt;/a&gt;同步代码&lt;/h2&gt;&lt;h3 id=&quot;需要同步的情况&quot;&gt;&lt;a href=&quot;#需要同步的情况&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Java多线程基础" scheme="http://yoursite.com/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
+    
+    
+      <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+      <category term="多线程同步" scheme="http://yoursite.com/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java多线程基础-一些重要的基本概念</title>
+    <link href="http://yoursite.com/2018/06/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9B%9E%E9%A1%BE-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/"/>
+    <id>http://yoursite.com/2018/06/20/Java多线程回顾-多线程的一些基本概念/</id>
+    <published>2018-06-19T16:00:00.000Z</published>
+    <updated>2018-07-17T12:38:28.277Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;多线程&quot;&gt;&lt;a href=&quot;#多线程&quot; class=&quot;headerlink&quot; title=&quot;多线程&quot;&gt;&lt;/a&gt;多线程&lt;/h2&gt;&lt;h3 id=&quot;基本概念&quot;&gt;&lt;a href=&quot;#基本概念&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Java多线程基础" scheme="http://yoursite.com/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
+    
+    
+      <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaSE回顾-多线程基础知识整合</title>
+    <link href="http://yoursite.com/2018/06/20/JavaSE%E5%9B%9E%E9%A1%BE-%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    <id>http://yoursite.com/2018/06/20/JavaSE回顾-多线程/</id>
+    <published>2018-06-19T16:00:00.000Z</published>
+    <updated>2018-07-17T12:17:13.771Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;JavaSE回顾-多线程基础知识整合&quot;&gt;&lt;a href=&quot;#JavaSE回顾-多线程基础知识整合&quot; class=&quot;headerlink&quot; title=&quot;JavaSE回顾-多线程基础知识整合&quot;&gt;&lt;/a&gt;JavaSE回顾-多线程基础知识整合&lt;/h1&gt;&lt;h2
+        
+      
+    
+    </summary>
+    
+      <category term="JavaSE回顾" scheme="http://yoursite.com/categories/JavaSE%E5%9B%9E%E9%A1%BE/"/>
+    
+    
+      <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+      <category term="线程安全" scheme="http://yoursite.com/tags/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/"/>
+    
+      <category term="死锁问题" scheme="http://yoursite.com/tags/%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/"/>
+    
+      <category term="线程池" scheme="http://yoursite.com/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java多线程基础-线程的状态转换</title>
+    <link href="http://yoursite.com/2018/06/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9B%9E%E9%A1%BE-%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE/"/>
+    <id>http://yoursite.com/2018/06/20/Java多线程回顾-线程状态转换图/</id>
+    <published>2018-06-19T16:00:00.000Z</published>
+    <updated>2018-07-17T12:50:21.136Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;线程六大状态&quot;&gt;&lt;a href=&quot;#线程六大状态&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Java多线程基础" scheme="http://yoursite.com/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
+    
+    
+      <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+      <category term="线程状态" scheme="http://yoursite.com/tags/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java多线程基础-线程安全和死锁问题</title>
+    <link href="http://yoursite.com/2018/06/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9B%9E%E9%A1%BE-%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E5%92%8C%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2018/06/20/Java多线程回顾-线程安全和死锁问题/</id>
+    <published>2018-06-19T16:00:00.000Z</published>
+    <updated>2018-07-17T12:40:56.578Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;线程安全&quot;&gt;&lt;a href=&quot;#线程安全&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Java多线程基础" scheme="http://yoursite.com/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
+    
+    
+      <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+      <category term="线程安全" scheme="http://yoursite.com/tags/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/"/>
+    
+      <category term="死锁问题" scheme="http://yoursite.com/tags/%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java多线程基础-线程的实例方法</title>
+    <link href="http://yoursite.com/2018/06/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9B%9E%E9%A1%BE-%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95/"/>
+    <id>http://yoursite.com/2018/06/20/Java多线程回顾-线程的实例方法/</id>
+    <published>2018-06-19T16:00:00.000Z</published>
+    <updated>2018-07-17T12:42:57.642Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;线程相关实例方法&quot;&gt;&lt;a href=&quot;#线程相关实例方法&quot; class=&quot;headerlink&quot; title=&quot;线程相关实例方法&quot;&gt;&lt;/a&gt;线程相关实例方法&lt;/h2&gt;&lt;h3 id=&quot;获取线程ID-getId&quot;&gt;&lt;a href=&quot;#获取线程ID-getId&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Java多线程基础" scheme="http://yoursite.com/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
+    
+    
+      <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
     
   </entry>
   
