@@ -69,32 +69,6 @@
   </entry>
   
   <entry>
-    <title>计算机操作系统常用知识</title>
-    <link href="http://yoursite.com/2018/06/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E7%9F%A5%E8%AF%86/"/>
-    <id>http://yoursite.com/2018/06/20/计算机操作系统常用知识/</id>
-    <published>2018-06-19T16:00:00.000Z</published>
-    <updated>2018-09-18T15:24:30.194Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;计算机操作系统常用知识&quot;&gt;&lt;a href=&quot;#计算机操作系统常用知识&quot; class=&quot;headerlink&quot; title=&quot;计算机操作系统常用知识&quot;&gt;&lt;/a&gt;计算机操作系统常用知识&lt;/h1&gt;&lt;h2 id=&quot;进程和线程的具体含义，作用和区别&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-      <category term="理论" scheme="http://yoursite.com/categories/%E7%90%86%E8%AE%BA/"/>
-    
-    
-      <category term="计算机操作系统" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Java多线程基础-一些重要的基本概念</title>
     <link href="http://yoursite.com/2018/06/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9B%9E%E9%A1%BE-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/"/>
     <id>http://yoursite.com/2018/06/20/Java多线程回顾-多线程的一些基本概念/</id>
@@ -117,6 +91,32 @@
     
     
       <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>计算机操作系统常用知识</title>
+    <link href="http://yoursite.com/2018/06/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%B8%B8%E7%94%A8%E7%9F%A5%E8%AF%86/"/>
+    <id>http://yoursite.com/2018/06/20/计算机操作系统常用知识/</id>
+    <published>2018-06-19T16:00:00.000Z</published>
+    <updated>2018-09-18T15:24:30.194Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;计算机操作系统常用知识&quot;&gt;&lt;a href=&quot;#计算机操作系统常用知识&quot; class=&quot;headerlink&quot; title=&quot;计算机操作系统常用知识&quot;&gt;&lt;/a&gt;计算机操作系统常用知识&lt;/h1&gt;&lt;h2 id=&quot;进程和线程的具体含义，作用和区别&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="理论" scheme="http://yoursite.com/categories/%E7%90%86%E8%AE%BA/"/>
+    
+    
+      <category term="计算机操作系统" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
   </entry>
   
@@ -313,6 +313,32 @@
   </entry>
   
   <entry>
+    <title>Java多线程基础-多线程的实现方式</title>
+    <link href="http://yoursite.com/2018/05/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9B%9E%E9%A1%BE-%E5%BC%80%E5%90%AF%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%92%8CCallable%E6%96%B9%E5%BC%8F/"/>
+    <id>http://yoursite.com/2018/05/20/Java多线程回顾-开启多线程常用的两种方式和Callable方式/</id>
+    <published>2018-05-19T16:00:00.000Z</published>
+    <updated>2018-09-18T15:32:02.453Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;多线程的实现方式&quot;&gt;&lt;a href=&quot;#多线程的实现方式&quot; class=&quot;headerlink&quot; title=&quot;多线程的实现方式&quot;&gt;&lt;/a&gt;多线程的实现方式&lt;/h2&gt;&lt;h3 id=&quot;方式一：-继承Thread类&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="Java多线程基础" scheme="http://yoursite.com/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
+    
+    
+      <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java多线程基础-多线程同步</title>
     <link href="http://yoursite.com/2018/05/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9B%9E%E9%A1%BE-%E5%90%8C%E6%AD%A5%E4%BB%A3%E7%A0%81/"/>
     <id>http://yoursite.com/2018/05/20/Java多线程回顾-同步代码/</id>
@@ -337,32 +363,6 @@
       <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
     
       <category term="多线程同步" scheme="http://yoursite.com/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java多线程基础-多线程的实现方式</title>
-    <link href="http://yoursite.com/2018/05/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9B%9E%E9%A1%BE-%E5%BC%80%E5%90%AF%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%92%8CCallable%E6%96%B9%E5%BC%8F/"/>
-    <id>http://yoursite.com/2018/05/20/Java多线程回顾-开启多线程常用的两种方式和Callable方式/</id>
-    <published>2018-05-19T16:00:00.000Z</published>
-    <updated>2018-09-18T15:32:02.453Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;多线程的实现方式&quot;&gt;&lt;a href=&quot;#多线程的实现方式&quot; class=&quot;headerlink&quot; title=&quot;多线程的实现方式&quot;&gt;&lt;/a&gt;多线程的实现方式&lt;/h2&gt;&lt;h3 id=&quot;方式一：-继承Thread类&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-      <category term="Java多线程基础" scheme="http://yoursite.com/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
     
   </entry>
   
@@ -511,6 +511,36 @@
   </entry>
   
   <entry>
+    <title>Java多线程基础-线程组和线程池</title>
+    <link href="http://yoursite.com/2018/04/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80-%E7%BA%BF%E7%A8%8B%E7%BB%84%E3%80%81%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%92%8CCallable%E6%8E%A5%E5%8F%A3/"/>
+    <id>http://yoursite.com/2018/04/20/Java多线程基础-线程组、线程池和Callable接口/</id>
+    <published>2018-04-19T16:00:00.000Z</published>
+    <updated>2018-09-18T15:31:22.113Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;线程组&quot;&gt;&lt;a href=&quot;#线程组&quot; class=&quot;headerlink&quot; title=&quot;线程组&quot;&gt;&lt;/a&gt;线程组&lt;/h2&gt;&lt;h3 id=&quot;线程组概述&quot;&gt;&lt;a href=&quot;#线程组概述&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Java多线程基础" scheme="http://yoursite.com/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
+    
+    
+      <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+      <category term="线程池" scheme="http://yoursite.com/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+    
+      <category term="线程组" scheme="http://yoursite.com/tags/%E7%BA%BF%E7%A8%8B%E7%BB%84/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java多线程基础-线程安全和死锁问题</title>
     <link href="http://yoursite.com/2018/04/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9B%9E%E9%A1%BE-%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E5%92%8C%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/"/>
     <id>http://yoursite.com/2018/04/20/Java多线程回顾-线程安全和死锁问题/</id>
@@ -537,34 +567,6 @@
       <category term="线程安全" scheme="http://yoursite.com/tags/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/"/>
     
       <category term="死锁问题" scheme="http://yoursite.com/tags/%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java多线程基础-线程的状态转换</title>
-    <link href="http://yoursite.com/2018/04/20/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9B%9E%E9%A1%BE-%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE/"/>
-    <id>http://yoursite.com/2018/04/20/Java多线程回顾-线程状态转换图/</id>
-    <published>2018-04-19T16:00:00.000Z</published>
-    <updated>2018-09-18T15:31:34.202Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;线程六大状态&quot;&gt;&lt;a href=&quot;#线程六大状态&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="Java多线程基础" scheme="http://yoursite.com/categories/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="Java多线程" scheme="http://yoursite.com/tags/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-      <category term="线程状态" scheme="http://yoursite.com/tags/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81/"/>
     
   </entry>
   
