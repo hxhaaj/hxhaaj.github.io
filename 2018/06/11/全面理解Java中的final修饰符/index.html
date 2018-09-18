@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="final," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WhoAYou's Blogs" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="final修饰符 final 可用于修饰类、变量和方法，用于表示它修饰的类、方法和变量不可改变。 final修饰的大都应用于基本类型域，或不可变类。 不可变类：如果类中的每个方法都不会改变其对象，这种类是不可变的类。例如String类。   对于可变类，使用final修饰只是表示存储在对象变量中的对象引用不会再指向其他对象，不过这个对象中的属性可以更改。  final修饰特点 修饰类时，类不能被继">
+<meta name="keywords" content="final">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解Java中的final">
+<meta property="og:url" content="http://yoursite.com/2018/06/11/全面理解Java中的final修饰符/index.html">
+<meta property="og:site_name" content="WhoAYou&#39;s Blogs">
+<meta property="og:description" content="final修饰符 final 可用于修饰类、变量和方法，用于表示它修饰的类、方法和变量不可改变。 final修饰的大都应用于基本类型域，或不可变类。 不可变类：如果类中的每个方法都不会改变其对象，这种类是不可变的类。例如String类。   对于可变类，使用final修饰只是表示存储在对象变量中的对象引用不会再指向其他对象，不过这个对象中的属性可以更改。  final修饰特点 修饰类时，类不能被继">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-18T15:21:46.013Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="理解Java中的final">
+<meta name="twitter:description" content="final修饰符 final 可用于修饰类、变量和方法，用于表示它修饰的类、方法和变量不可改变。 final修饰的大都应用于基本类型域，或不可变类。 不可变类：如果类中的每个方法都不会改变其对象，这种类是不可变的类。例如String类。   对于可变类，使用final修饰只是表示存储在对象变量中的对象引用不会再指向其他对象，不过这个对象中的属性可以更改。  final修饰特点 修饰类时，类不能被继">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/11/全面理解Java中的final修饰符/"/>
+
+
+
+
+
+  <title>理解Java中的final | WhoAYou's Blogs</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WhoAYou's Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">没有人天生倔强，只因梦想寸土不让</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/全面理解Java中的final修饰符/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="胡啊呦">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WhoAYou's Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">理解Java中的final</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-11T00:00:00+08:00">
+                2018-06-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaSE/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaSE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <span class="post-meta-divider"> | <i class="fa fa-eye"></i></span>
+            <span id="busuanzi_value_page_pv"></span>次阅读
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="final修饰符"><a href="#final修饰符" class="headerlink" title="final修饰符"></a>final修饰符</h2><ul>
+<li>final 可用于修饰<code>类</code>、<code>变量</code>和<code>方法</code>，用于表示它修饰的类、方法和变量不可改变。</li>
+<li>final修饰的大都应用于<code>基本类型域</code>，或<code>不可变类</code>。<ul>
+<li>不可变类：如果<code>类中的每个方法都不会改变其对象</code>，这种类是不可变的类。例如<code>String</code>类。</li>
+</ul>
+</li>
+<li>对于<code>可变类</code>，使用final修饰<code>只是</code>表示<code>存储在对象变量中的对象引用不会再指向其他对象</code>，不过<code>这个对象中的属性可以更改</code>。</li>
+</ul>
+<h3 id="final修饰特点"><a href="#final修饰特点" class="headerlink" title="final修饰特点"></a>final修饰特点</h3><ul>
+<li>修饰<code>类</code>时，<code>类不能被继承</code>。</li>
+<li>修饰<code>变量</code>时，变量就变成了<code>常量</code>，表示该变量<code>一旦获取了初始值</code>就<code>不可被改变</code>，就<code>不能被重新赋值</code>。包括类变量（静态）和实例变量（非静态）。一般与 <code>public static</code> 配合使用。</li>
+<li>修饰<code>方法</code>时，方法<code>不能被重写</code>。</li>
+<li>final修饰局部变量时：<ul>
+<li>方法内部或者方法声明上</li>
+<li>基本类型：值不能被改变</li>
+<li><code>引用类型</code>：<code>地址引用不能被改变，不会再指向其他对象，但是对象中的属性可以改变。</code>会报 “无法为最终变量x分配值” 的错误</li>
+</ul>
+</li>
+</ul>
+<h3 id="final变量的初始化时机"><a href="#final变量的初始化时机" class="headerlink" title="final变量的初始化时机"></a>final变量的初始化时机</h3><h4 id="final成员变量"><a href="#final成员变量" class="headerlink" title="final成员变量"></a>final成员变量</h4><ul>
+<li><p><code>final</code>修饰的成员变量<code>必须显式的进行初始化赋值来指定初始值</code>，否则默认值的是个<code>无效值</code>，会报“<code>可能尚未初始化变量xxx</code>”的错误。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方式1：直接进行显式得初始化赋值，不进行赋值，会报错</span></span><br><span class="line">Class Demo&#123;</span><br><span class="line">    <span class="keyword">final</span>  <span class="keyword">int</span> num ; <span class="comment">//没有显式赋值，报错</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> num = <span class="number">10</span>； <span class="comment">//进行显式得初始化赋值</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Demo</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>也可以在<code>构造方法执行完毕前</code>对其进行<code>初始化赋值</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方式2：在构造方法执行完毕之前进行赋值初始化</span></span><br><span class="line">Class Demo&#123;</span><br><span class="line">    <span class="keyword">final</span>  <span class="keyword">int</span> num;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Demo</span><span class="params">()</span></span>&#123;</span><br><span class="line">        num = <span class="number">10</span>; <span class="comment">//在构造方法执行完毕之前进行赋值初始化</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当<code>类初始化</code>时，系统会为类的<code>类变量</code>分配内存并分配<code>默认值</code>；当<code>创建对象</code>时，系统会为该对象的<code>实例变量</code>分配内存，并分配<code>默认值</code>。也就是说，当执行<code>静态初始化块</code>是可以对<code>类变量</code>赋<code>初始化值</code>，当执行<code>普通初始化块、构造器</code>时可对<code>实例变量</code>赋<code>初始化值</code>。即<code>成员变量的初始化值可以在定义该变量时指定默认值，可以在初始化块、构造器中初始化值。</code></p>
+</li>
+<li><p><strong>为什么final修饰的成员变量必须显式的进行初始化呢？</strong></p>
+<ul>
+<li>对于<code>final</code>修饰的成员变量而言，<code>一旦有了初始化值，就不能被重新赋值</code>。如果<code>既没有</code>在<code>定义</code>成员变量时<code>指定初始值</code>，<code>也没有在初始化、构造器中</code>为成员变量<code>指定</code>初始值，那么<strong>这些成员变量的值就会一直是系统默认值，即系统默认分配的0、’\u0000’、false或null，那么这么成员变量就无任何意义</strong>。所以<code>final修饰的成员变量必须由程序员显式的指定初始化值</code>。</li>
+</ul>
+</li>
+<li><p><strong>归纳一下final修饰的类变量、实例变量能指定初始值的地方：</strong></p>
+<ul>
+<li><code>类变量</code>：必须在<code>静态初始化块</code>中指定初始值或在<code>声明定义该变量时</code>指定初始值，并且只能在这<code>两处的其中之一指定</code>。</li>
+<li><code>实例变量</code>：必须在<code>非静态初始化块</code>中、<code>声明该实例变量时</code>或<code>构造器中</code>指定初始值，并且只能在<code>三个地方之一指定</code>。</li>
+<li>final<code>实例</code>变量  <code>不能</code>在<code>静态代码块</code>中指定初始值<ul>
+<li>因为静态代码块是静态成员，<code>不能访问非静态成员</code>。</li>
+</ul>
+</li>
+<li><code>final类变量</code>（静态变量）<code>不能</code>放在<code>普通初始化块</code>中指定初始值<ul>
+<li>因为<code>类变量在类初始化时已经被初始化了</code>，普通初始化块<code>不能再</code>对其<code>重新赋值</code>了。</li>
+</ul>
+</li>
+<li>final成员变量都<code>不能在普通方法中</code>初始化值。</li>
+<li><strong>以下代码示例为final成员变量初始化总结：</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FinalVariableTest</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="comment">// 定义成员变量时指定默认值，合法。</span></span><br><span class="line">	<span class="keyword">final</span> <span class="keyword">int</span> a = <span class="number">6</span>;</span><br><span class="line">	<span class="comment">// 下面变量将在构造器或初始化块中分配初始值</span></span><br><span class="line">	<span class="keyword">final</span> String str;</span><br><span class="line">	<span class="keyword">final</span> <span class="keyword">int</span> c;</span><br><span class="line">	<span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> d;</span><br><span class="line">	<span class="comment">// 既没有指定默认值，又没有在初始化块、构造器中指定初始值，</span></span><br><span class="line">	<span class="comment">// 下面定义的ch实例变量是不合法的。</span></span><br><span class="line">	<span class="comment">// final char ch;</span></span><br><span class="line">	<span class="comment">// 初始化块，可对没有指定默认值的实例变量指定初始值</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//在初始化块中为实例变量指定初始值，合法</span></span><br><span class="line">		str = <span class="string">"Hello"</span>;</span><br><span class="line">		<span class="comment">// 定义a实例变量时已经指定了默认值，</span></span><br><span class="line">		<span class="comment">// 不能为a重新赋值，因此下面赋值语句非法</span></span><br><span class="line">		<span class="comment">// a = 9;</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 静态初始化块，可对没有指定默认值的类变量指定初始值</span></span><br><span class="line">	<span class="keyword">static</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// 在静态初始化块中为类变量指定初始值，合法</span></span><br><span class="line">		d = <span class="number">5.6</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 构造器，可对既没有指定默认值、有没有在初始化块中</span></span><br><span class="line">	<span class="comment">// 指定初始值的实例变量指定初始值</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">FinalVariableTest</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="comment">// 如果在初始化块中已经对str指定了初始化值，</span></span><br><span class="line">		<span class="comment">// 构造器中不能对final变量重新赋值，下面赋值语句非法</span></span><br><span class="line">		<span class="comment">// str = "java";</span></span><br><span class="line">		c = <span class="number">5</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changeFinal</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="comment">// 普通方法不能为final修饰的成员变量赋值</span></span><br><span class="line">		<span class="comment">// d = 1.2;</span></span><br><span class="line">		<span class="comment">// 不能在普通方法中为final成员变量指定初始值</span></span><br><span class="line">		<span class="comment">// ch = 'a';</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		FinalVariableTest ft = <span class="keyword">new</span> FinalVariableTest();</span><br><span class="line">		System.out.println(ft.a);</span><br><span class="line">		System.out.println(ft.c);</span><br><span class="line">		System.out.println(ft.d);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>final成员变量在<code>显式初始化</code>之前<code>不能直接</code>访问，但<code>可以通过方法来间接访问</code>，但建议开发者<code>尽量避免</code>在final变量显式初始化之前访问它，此时访问，其值是系统默认值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FinalErrorTest</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="comment">// 定义一个final修饰的实例变量</span></span><br><span class="line">	<span class="comment">// 系统不会对final成员变量进行默认初始化</span></span><br><span class="line">	<span class="keyword">final</span> <span class="keyword">int</span> age;</span><br><span class="line">	&#123;</span><br><span class="line">		System.out.println(<span class="string">"初始化块执行"</span>);</span><br><span class="line">		<span class="comment">// age没有初始化，所以此处代码将引起错误。</span></span><br><span class="line"><span class="comment">//		System.out.println(age);</span></span><br><span class="line">		printAge();  <span class="comment">//合法，会访问到age变量，值为默认值0</span></span><br><span class="line">		age = <span class="number">6</span>;</span><br><span class="line">		System.out.println(age);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printAge</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(age);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">new</span> FinalErrorTest();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="final局部变量"><a href="#final局部变量" class="headerlink" title="final局部变量"></a>final局部变量</h4><ul>
+<li><p>系统不会对局部变量就行初始化，<code>局部变量必须由程序员显式初始化</code>。</p>
+</li>
+<li><p>如果final局部变量在定义时没有指定初始值，则可以在后面代码中对其赋初值，但<code>只能一次</code>，不能重复赋值。</p>
+</li>
+<li><p>如果在<code>定义时已经指定</code>初始值，那么在后面代码中<code>不能再</code>对该变量赋值。</p>
+</li>
+<li><p>final修饰形参，形参在调用该方法时，<code>由系统根据传入的参数来完成初始化</code>，因此使用final修饰的形参不能再被赋值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FinalLocalVariableTest</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">final</span> <span class="keyword">int</span> a)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="comment">// 不能对final修饰的形参赋值，下面语句非法</span></span><br><span class="line">		<span class="comment">// a = 5;</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="comment">// 定义final局部变量时指定默认值，则str变量无法重新赋值</span></span><br><span class="line">		<span class="keyword">final</span> String str = <span class="string">"hello"</span>;</span><br><span class="line">		<span class="comment">// 下面赋值语句非法</span></span><br><span class="line">		<span class="comment">// str = "Java";</span></span><br><span class="line">		<span class="comment">// 定义final局部变量时没有指定默认值，则d变量可被赋值一次</span></span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">double</span> d;</span><br><span class="line">		<span class="comment">// 第一次赋初始值，成功</span></span><br><span class="line">		d = <span class="number">5.6</span>;</span><br><span class="line">		<span class="comment">// 对final变量重复赋值，下面语句非法</span></span><br><span class="line">		<span class="comment">// d = 3.4;</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="可执行“宏替换”的final变量"><a href="#可执行“宏替换”的final变量" class="headerlink" title="可执行“宏替换”的final变量"></a>可执行“宏替换”的final变量</h3><ul>
+<li><p>对于一个final变量，只要满足三个条件，这个final变量就不再是一个变量，而是相当于一个<code>直接量</code>。</p>
+<ul>
+<li>使用final修饰</li>
+<li>在<code>定义</code>该final变量时<code>指定了初始值</code></li>
+<li>该初始值可以在<code>编译时</code>就被确定下来</li>
+</ul>
+<p>举个示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FinalTest</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line">        System.out.println(a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面示例中，final变量在定义时就指定了初始化值为5。在程序执行过程中，变量a其实根本不存在，当程序执行到 <code>System.out.println(a);</code>时，实际转换为执行 <code>System.out.println(5);</code>。此时这个现象就被称为<code>宏替换</code>。</p>
+</li>
+<li><p>当定义final变量时就为该变量指定了初始值，而且<code>该初始值可以在编译时就确定下来</code>，那么这个final变量本质上就是一个宏变量，<code>编译器</code>会把程序中<code>所有用到该变量的地方直接替换成该变量的值</code>。</p>
+</li>
+<li><p>如果被赋的表达式只是<code>基本的算术表达式</code>或<code>字符串连接运算</code>，<code>没有访问普通变量，调用方法</code>，Java编译器同样会将这种final变量<code>当成“宏变量”处理</code>。示例如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FinalReplaceTest</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="comment">// 下面定义了4个final“宏变量”</span></span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">int</span> a = <span class="number">5</span> + <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">double</span> b = <span class="number">1.2</span> / <span class="number">3</span>;</span><br><span class="line">		<span class="keyword">final</span> String str = <span class="string">"胡"</span> + <span class="string">"啊呦"</span>;</span><br><span class="line">		<span class="keyword">final</span> String book = <span class="string">"Java核心技术："</span> + <span class="number">99.0</span>;</span><br><span class="line">		<span class="comment">// 下面的book2变量的值因为调用了方法，所以无法在编译时被确定下来</span></span><br><span class="line">		<span class="keyword">final</span> String book2 = <span class="string">"Java核心技术："</span> + String.valueOf(<span class="number">99.0</span>);  <span class="comment">//①</span></span><br><span class="line">		System.out.println(book == <span class="string">"Java核心技术：99.0"</span>);  <span class="comment">//true</span></span><br><span class="line">		System.out.println(book2 == <span class="string">"Java核心技术：99.0"</span>); <span class="comment">//false</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例中，<strong>即使字符串连接运算中包含隐式类型（将数值转换成字符串）转换，编译器依然可以<code>在编译时就确定a，b，str，book这4个变量的值</code>，因此它们都是“宏变量”。</strong></p>
+<p>定义book2变量时显式使用方法将数值99.0转换为字符串，但由于该变量的值<code>需要调用String类的方法</code>，因此编译器<code>无法编译时确定</code>book2的值，book2<code>不会被当成宏变量处理</code>。</p>
+<p><code>book</code>是一个<code>宏变量</code>，他将被<code>直接替换成&quot;Java核心技术：99.0&quot;</code>，所以第一个判断为<code>true</code>，相等。book2则<code>不相等</code>。</p>
+</li>
+<li><p>Java中会<code>使用常量池来管理曾经用过的字符串直接量</code>，例如执行<code>String a = &quot;java&quot;;</code> 语句之后，常量池中就会<code>缓存一个字符串&quot;java&quot;</code>；如果程序<code>再次执行String b = &quot;java&quot;</code>；系统将<code>会让b直接指向常量池中的&quot;java&quot;字符串</code>。因此a==b将返回<code>true</code>。</p>
+</li>
+<li><p><strong>分析以下代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringJoinTest</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		String s1 = <span class="string">"疯狂Java"</span>;</span><br><span class="line">		<span class="comment">// s2变量引用的字符串可以编译时就确定出来，</span></span><br><span class="line">		<span class="comment">// 因此s2直接引用常量池中已有的"疯狂Java"字符串</span></span><br><span class="line">		String s2 = <span class="string">"疯狂"</span> + <span class="string">"Java"</span>;</span><br><span class="line">		System.out.println(s1 == s2); <span class="comment">// 输出true</span></span><br><span class="line">		<span class="comment">// 定义2个字符串直接量</span></span><br><span class="line">		String str1 = <span class="string">"疯狂"</span>;     <span class="comment">//①</span></span><br><span class="line">		String str2 = <span class="string">"Java"</span>;     <span class="comment">//②</span></span><br><span class="line">		<span class="comment">// 将str1和str2进行连接运算</span></span><br><span class="line">		String s3 = str1 + str2;</span><br><span class="line">		System.out.println(s1 == s3); <span class="comment">// 输出false</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>s2在<code>编译时期就能确定</code>值，系统会让s2<code>直接指向常量池</code>中已经缓存的“疯狂Java”字符串。</p>
+<p>str1、str2只是<code>两个普通变量</code>，编译器<code>不会执行宏替换</code>，所以在<code>编译时无法确定s3的值</code>，就无法让其指向字符串池中的已有值，所以<code>s1==s3为false</code>；只有它们用<code>final</code>修饰后，<code>才能够宏替换</code>，这样编译器即可<code>在编译阶段就确定</code>s3的值，就让让<code>s3指向常量池中的值</code>，那么就会变成<code>true</code>。</p>
+</li>
+</ul>
+<h3 id="final方法"><a href="#final方法" class="headerlink" title="final方法"></a>final方法</h3><ul>
+<li><p><code>不希望子类重写父类的某个方法</code>，则可以<code>使用final修饰该方法</code>，如果子类试图重写该方法，就会引发<code>编译错误</code>。</p>
+<ul>
+<li>Object类中就有个一个final方法：getClass()，因为Java不希望任何类重写这个方法，所以使用final把这个方法密封起来。</li>
+</ul>
+</li>
+<li><p>即使使用final修饰一个<code>private</code>访问权限的方法，依然<code>可以在其子类中定义与该方法具有相同方法名、相同形参列表、相同返回值类型的方法</code>。该方法<code>不是重写</code>，只是子类中的方法定义与其恰巧相同。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PrivateFinalTest</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sub</span> <span class="keyword">extends</span> <span class="title">PrivateFinalTest</span></span>&#123;</span><br><span class="line">    <span class="comment">//该方法不是重写，而是一个新的子类中的方法，只是一样</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>final方法<code>仅仅</code>是<code>不能被重写</code>，<code>可以被重载</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FinalOverload</span></span>&#123;</span><br><span class="line">    <span class="comment">//final修饰的方法，可以被重载，不能被重写</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(String str)</span></span>&#123;&#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="final类"><a href="#final类" class="headerlink" title="final类"></a>final类</h3><ul>
+<li>final修饰的类<code>不可以有子类，不能被继承</code>。final类试图被其他类继承，那么会发生<code>编译错误</code>。</li>
+<li>为了安全因素，保证某个类不可被继承，则可以使用final修饰这个类。</li>
+</ul>
+<h3 id="不可变类"><a href="#不可变类" class="headerlink" title="不可变类"></a>不可变类</h3><ul>
+<li><p>不可变类的意思是创建该类实例后，该实例的<code>实例变量是不可改变的</code>。</p>
+<ul>
+<li>Java中的<code>8个包装类</code>和<code>java.lang.String类</code>都是不可变类，当创建它们的实例后，其<code>实例变量</code>不可改变。</li>
+</ul>
+</li>
+<li><p>如果需要创建自定义的不可变类，遵循以下规则：</p>
+<ul>
+<li><p>使用<code>private</code>和<code>final</code>修饰符来修饰该类的<code>成员变量</code></p>
+</li>
+<li><p>提供<code>带参数构造器</code>，用于<code>根据传入参数来初始化类中的成员变量</code></p>
+</li>
+<li><p>仅为该类的成员变量<code>提供getter方法</code>，<code>不要</code>为该类的成员变量提供setter方法，因为普通方法无法修改final修饰的成员变量</p>
+</li>
+<li><p>如果有必要，重写hashCode()和equals()。</p>
+<ul>
+<li>equals()方法根据关键成员变量来作为两个对象是否相等的标准</li>
+<li>应保证<code>两个用equals()方法判断为相等的对象的hashCode()也相等</code></li>
+</ul>
+<p>例如String类对象里的<code>字符序列作为相等的标准</code>，其<code>hashCode()</code>方法也是根据<code>字符序列</code>计算得到的。</p>
+<p>String类中的<code>equals()</code>方法源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object anObject)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span> == anObject) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (anObject <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">            String anotherString = (String)anObject;</span><br><span class="line">            <span class="keyword">int</span> n = value.length;</span><br><span class="line">            <span class="keyword">if</span> (n == anotherString.value.length) &#123;</span><br><span class="line">                <span class="keyword">char</span> v1[] = value;</span><br><span class="line">                <span class="keyword">char</span> v2[] = anotherString.value;</span><br><span class="line">                <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">while</span> (n-- != <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (v1[i] != v2[i])</span><br><span class="line">                        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                    i++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>String类中的hashCode()方法的源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h = hash;</span><br><span class="line">    <span class="keyword">if</span> (h == <span class="number">0</span> &amp;&amp; value.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">char</span> val[] = value;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; value.length; i++) &#123;</span><br><span class="line">            h = <span class="number">31</span> * h + val[i];</span><br><span class="line">        &#125;</span><br><span class="line">        hash = h;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> h;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><code>可变类</code>的含义是该类的<code>实例变量</code>是<code>可变的</code>。大部分创建的类都是可变类，特别是JavaBean，因为总是为其实例变量提供了setter和getter方法。</p>
+</li>
+<li><p>与可变类相比，<code>不可变类的实例在整个生命周期中永远处于初始化状态</code>，它的实例变量不可改变。因此对不可变类的实例的控制将更加简单。</p>
+</li>
+<li><p>如果需要设计一个不可变类，尤其要注意其<code>引用类型的成员变量</code>，如果<code>引用类型的成员变量的类是可变的</code>，就必须采取必要的措施来<code>保护该成员变量所引用的对象不会被修改</code>，这样才能创建真正的不可变类。</p>
+</li>
+</ul>
+<h3 id="缓存不可变类"><a href="#缓存不可变类" class="headerlink" title="缓存不可变类"></a>缓存不可变类</h3><ul>
+<li><p>不可变类的实例状态不可改变，可以很<code>方便的被多个对象共享</code>。如果程序经常使用相同的不可变实例，就应该考虑<code>缓存</code>这种<code>不可变类的实例</code>。毕竟<code>重复创建相同的对象没有意义，而且会加大系统开销</code>。</p>
+</li>
+<li><p>用<code>数组创建缓存池</code>，用于缓存实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CacheImmutale</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> MAX_SIZE = <span class="number">10</span>;</span><br><span class="line">	<span class="comment">// 使用数组来缓存已有的实例</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> CacheImmutale[] cache</span><br><span class="line">		= <span class="keyword">new</span> CacheImmutale[MAX_SIZE];</span><br><span class="line">	<span class="comment">// 记录缓存实例在缓存中的位置,cache[pos-1]是最新缓存的实例</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> pos = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> String name;</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">CacheImmutale</span><span class="params">(String name)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> CacheImmutale <span class="title">valueOf</span><span class="params">(String name)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="comment">// 遍历已缓存的对象，</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; MAX_SIZE; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">// 如果已有相同实例，直接返回该缓存的实例</span></span><br><span class="line">			<span class="keyword">if</span> (cache[i] != <span class="keyword">null</span></span><br><span class="line">				&amp;&amp; cache[i].getName().equals(name))</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">return</span> cache[i];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 如果缓存池已满</span></span><br><span class="line">		<span class="keyword">if</span> (pos == MAX_SIZE)</span><br><span class="line">		&#123;</span><br><span class="line">            <span class="comment">//先进先出</span></span><br><span class="line">			<span class="comment">// 把缓存的第一个对象覆盖，即把刚刚生成的对象放在缓存池的最开始位置。</span></span><br><span class="line">			cache[<span class="number">0</span>] = <span class="keyword">new</span> CacheImmutale(name);</span><br><span class="line">			<span class="comment">// 把pos设为1</span></span><br><span class="line">			pos = <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">// 把新创建的对象缓存起来，pos加1</span></span><br><span class="line">			cache[pos++] = <span class="keyword">new</span> CacheImmutale(name);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> cache[pos - <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">this</span> == obj)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (obj != <span class="keyword">null</span> &amp;&amp; obj.getClass() == CacheImmutale.class)</span><br><span class="line">		&#123;</span><br><span class="line">			CacheImmutale ci = (CacheImmutale)obj;</span><br><span class="line">			<span class="keyword">return</span> name.equals(ci.getName());</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name.hashCode();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CacheImmutaleTest</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		CacheImmutale c1 = CacheImmutale.valueOf(<span class="string">"hello"</span>);</span><br><span class="line">		CacheImmutale c2 = CacheImmutale.valueOf(<span class="string">"hello"</span>);</span><br><span class="line">		<span class="comment">// 下面代码将输出true</span></span><br><span class="line">		System.out.println(c1 == c2);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p><strong>是否需要隐藏缓存池类的构造器完全取决于系统需求。盲目乱用缓存也可能导致系统性能下降，缓存的对象会占用系统内存，如果某个对象只使用一次，重复使用的概率不大，缓存该实例就弊大于利；反之，如果某个对象需要频繁地重复使用，缓存该实例就利大于弊。</strong></p>
+</li>
+<li><p>Java中<code>Integer</code>类就采取了上述CacheImmutale类相同的处理策略，如果采用<code>new构造器</code>来创建Integetr对象，则每次返回<code>全新的Integer对象</code>；如果采用<code>valueOf()方法来创建Integer对象</code>，则会<code>缓存该方法创建的对象</code>。</p>
+</li>
+<li><p>由于new构造器方式创建Integer对象不会启用缓存，因此性能较差，所以<code>Java9</code>中已经将该构造器标记为过时，全面采用valueOf()方法创建。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IntegerCacheTest</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="comment">// 生成新的Integer对象</span></span><br><span class="line">		Integer in1 = <span class="keyword">new</span> Integer(<span class="number">6</span>);</span><br><span class="line">		<span class="comment">// 生成新的Integer对象，并缓存该对象</span></span><br><span class="line">		Integer in2 = Integer.valueOf(<span class="number">6</span>);</span><br><span class="line">		<span class="comment">// 直接从缓存中取出Ineger对象</span></span><br><span class="line">		Integer in3 = Integer.valueOf(<span class="number">6</span>);</span><br><span class="line">		System.out.println(in1 == in2); <span class="comment">// 输出false</span></span><br><span class="line">		System.out.println(in2 == in3); <span class="comment">// 输出true</span></span><br><span class="line">		<span class="comment">// 由于Integer只缓存-128~127之间的值，</span></span><br><span class="line">		<span class="comment">// 因此200对应的Integer对象没有被缓存。</span></span><br><span class="line">		Integer in4 = Integer.valueOf(<span class="number">200</span>);</span><br><span class="line">		Integer in5 = Integer.valueOf(<span class="number">200</span>);</span><br><span class="line">		System.out.println(in4 == in5); <span class="comment">//输出false</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>由于Integer只缓存-128~127之间的Integer对象，因此两次通过<code>Integer.valueOf(200)</code>方法生成的Integer对象不是同一个。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/final/" rel="tag"># final</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/09/Java中组合关系/" rel="next" title="Java中的组合关系">
+                <i class="fa fa-chevron-left"></i> Java中的组合关系
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/11/Java-缓存不可变类/" rel="prev" title="缓存不可变类">
+                缓存不可变类 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zODAyNy8xNDU1Nw"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="胡啊呦" />
+            
+              <p class="site-author-name" itemprop="name">胡啊呦</p>
+              <p class="site-description motion-element" itemprop="description">一些笔记，一些感悟，一些分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/hxhaaj" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-CSDN"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#final修饰符"><span class="nav-text">final修饰符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#final修饰特点"><span class="nav-text">final修饰特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#final变量的初始化时机"><span class="nav-text">final变量的初始化时机</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#final成员变量"><span class="nav-text">final成员变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#final局部变量"><span class="nav-text">final局部变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可执行“宏替换”的final变量"><span class="nav-text">可执行“宏替换”的final变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#final方法"><span class="nav-text">final方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#final类"><span class="nav-text">final类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不可变类"><span class="nav-text">不可变类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存不可变类"><span class="nav-text">缓存不可变类</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">胡啊呦</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":100,"height":150},"mobile":{"show":false}});</script></body>
+</html>
