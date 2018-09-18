@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java多线程," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WhoAYou's Blogs" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="多线程的实现方式方式一： 继承Thread类 Thread类实现了Runnable接口，在java.long包下。  创建执行线程方法一：将类继承Thread类，重写Thread类的run方法。接下来就可以分配并启动该子类的实例。  具体步骤：  继承Thread类 重写run方法 将执行的代码写在run方法中 创建Thread类的子类对象 使用start方法开启线程。   注意：调用run方法不">
+<meta name="keywords" content="Java多线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java多线程基础-多线程的实现方式">
+<meta property="og:url" content="http://yoursite.com/2018/05/20/Java多线程回顾-开启多线程常用的两种方式和Callable方式/index.html">
+<meta property="og:site_name" content="WhoAYou&#39;s Blogs">
+<meta property="og:description" content="多线程的实现方式方式一： 继承Thread类 Thread类实现了Runnable接口，在java.long包下。  创建执行线程方法一：将类继承Thread类，重写Thread类的run方法。接下来就可以分配并启动该子类的实例。  具体步骤：  继承Thread类 重写run方法 将执行的代码写在run方法中 创建Thread类的子类对象 使用start方法开启线程。   注意：调用run方法不">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-18T15:32:02.453Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java多线程基础-多线程的实现方式">
+<meta name="twitter:description" content="多线程的实现方式方式一： 继承Thread类 Thread类实现了Runnable接口，在java.long包下。  创建执行线程方法一：将类继承Thread类，重写Thread类的run方法。接下来就可以分配并启动该子类的实例。  具体步骤：  继承Thread类 重写run方法 将执行的代码写在run方法中 创建Thread类的子类对象 使用start方法开启线程。   注意：调用run方法不">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/20/Java多线程回顾-开启多线程常用的两种方式和Callable方式/"/>
+
+
+
+
+
+  <title>Java多线程基础-多线程的实现方式 | WhoAYou's Blogs</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WhoAYou's Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">没有人天生倔强，只因梦想寸土不让</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/20/Java多线程回顾-开启多线程常用的两种方式和Callable方式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="胡啊呦">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WhoAYou's Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java多线程基础-多线程的实现方式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-20T00:00:00+08:00">
+                2018-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java多线程基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Java多线程基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <span class="post-meta-divider"> | <i class="fa fa-eye"></i></span>
+            <span id="busuanzi_value_page_pv"></span>次阅读
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="多线程的实现方式"><a href="#多线程的实现方式" class="headerlink" title="多线程的实现方式"></a>多线程的实现方式</h2><h3 id="方式一：-继承Thread类"><a href="#方式一：-继承Thread类" class="headerlink" title="方式一： 继承Thread类"></a>方式一： 继承Thread类</h3><ul>
+<li><p>Thread类实现了<code>Runnable接口</code>，在<code>java.long</code>包下。</p>
+</li>
+<li><p>创建执行线程方法一：将类继承<code>Thread</code>类，重写<code>Thread</code>类的<code>run</code>方法。接下来就可以分配并启动该子类的实例。</p>
+</li>
+<li><p>具体步骤：</p>
+<ol>
+<li>继承Thread类</li>
+<li>重写run方法</li>
+<li>将执行的代码写在run方法中</li>
+<li>创建Thread类的子类对象</li>
+<li>使用start方法开启线程。</li>
+</ol>
+</li>
+<li><p>注意：<strong>调用run方法不能开启多线程</strong>。</p>
+</li>
+<li><p><code>只有调用了start()方法，才会表现出多线程的特性，不同线程的run()方法里面的代码交替执行</code>。如果<code>只是调用run()方法</code>，那么代码<code>还是同步执行的</code>，<code>必须等待一个线程的run()方法</code>里面的代码<code>全部执行完毕之后</code>，<code>另外一个线程才可以执行</code>其run()方法里面的代码。 </p>
+</li>
+<li><p><strong>一个线程不能多次开启是非法的</strong></p>
+</li>
+<li><p>代码示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//4，创建Thread类的子类对象</span></span><br><span class="line">        MyThread mt = <span class="keyword">new</span> MyThread();</span><br><span class="line">        mt.start();<span class="comment">//5，使用start方法开启线程</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">            System.out.println(<span class="string">"main"</span> + i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span>  <span class="title">MyThread</span> <span class="keyword">extends</span>  <span class="title">Thread</span></span>&#123; <span class="comment">//1.继承Thread类</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//2，重写run方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//3，将执行的代码写在run方法中</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;<span class="number">10000</span> ; i++) &#123;</span><br><span class="line">            System.out.println(<span class="string">"mt"</span>+i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="方式二：实现Runnable接口（常用，优点多）"><a href="#方式二：实现Runnable接口（常用，优点多）" class="headerlink" title="方式二：实现Runnable接口（常用，优点多）"></a>方式二：实现Runnable接口（常用，优点多）</h3><ul>
+<li><p>声明实现Runnable接口的类，实现Runnable接口中仅有的run方法，然后分配实例对象，在创建Thread时作为一个参数来传递并启动。</p>
+</li>
+<li><p>具体步骤</p>
+<ul>
+<li>1，定义类实现Runnable接口</li>
+<li>2，在该类中实现Runnable接口中的<code>run()</code>方法</li>
+<li>3，线程中具体要执行的东西写在<code>run()</code>方法中</li>
+<li>4，创建Thread类的对象，并在该对象中传入该<code>实现Runnable</code>接口的对象作参数</li>
+<li>5，Thread类的对象调用<code>start()</code>方法开启新线程，其内部会自动的调用run方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RunnableTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MyRunnable  mr =  <span class="keyword">new</span> MyRunnable(); <span class="comment">//4、创建自己定义的Runnable实现类的对象</span></span><br><span class="line">        Thread  thread = <span class="keyword">new</span> Thread(mr); <span class="comment">//5、创建Thread类的对象，并将自定义Runnable实现类的对象作为参数传递给Thread的构造函数</span></span><br><span class="line">        thread.start(); <span class="comment">//使用thread类的start方法开启线程。</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) &#123;</span><br><span class="line">            System.out.println(<span class="string">"main+"</span>+i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//1、定义一个Runnable实现类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyRunnable</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="comment">//2、实现Runnable接口中的抽象方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//3、在run方法中写入要使用多线程的具体方法</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;<span class="number">1000</span>; i++) &#123;</span><br><span class="line">            System.out.println(<span class="string">"mr"</span>+i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现Runnable接口方式的实现原理</p>
+<ul>
+<li><p>1、查看Thread 类的<code>构造函数</code>，传递了Runnable接口的引用，直接调用了<code>init</code>方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Thread</span><span class="params">(Runnable target)</span> </span>&#123;</span><br><span class="line">       init(<span class="keyword">null</span>, target, <span class="string">"Thread-"</span> + nextThreadNum(), <span class="number">0</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2、追踪<code>init</code>方法，在init方法体中找到了传递的<code>target</code>参数，赋值给了Thread类的Runnable接口的<code>成员变量的target</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.target = target;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* What will be run. */</span></span><br><span class="line">   <span class="keyword">private</span> Runnable target;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>3、查看run方法时，发现run方法中有判断，如果target不为null就会调用实现Runnable接口子类对象的run方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (target != <span class="keyword">null</span>) &#123;</span><br><span class="line">        target.run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="为什么实例效果不明显？"><a href="#为什么实例效果不明显？" class="headerlink" title="为什么实例效果不明显？"></a>为什么实例效果不明显？</h3><ul>
+<li>多线程指的是多个线程的代码块可以同时运行，而不必一个线程去等待另一个线程执行完才可以进行。</li>
+<li>对于单核CPU来说，无法做到真正意义上的多线程特性。只能会让用户看起来像是同时执行的，因为每个时间点上，CPU都会执行特定的代码，由于CPU执行代码时间非常快，多个线程代码块就会轮询执行，速度很快，但是同一个线程进行的轮询操作。</li>
+<li>具体执行某段代码多长时间和分时机制系统密切相关。</li>
+<li><code>分时系统</code>把<code>CPU时间</code>划分为多个<code>时间片</code>，操作系统以时间片为单位执行各个线程的代码，时间片越小，执行效率越高。</li>
+</ul>
+<h3 id="多线程的两种实现方式的区别"><a href="#多线程的两种实现方式的区别" class="headerlink" title="多线程的两种实现方式的区别"></a>多线程的两种实现方式的区别</h3><ul>
+<li>源码中的区别<ul>
+<li>继承Thread类方式：由于子类重写了Thread类的run()，当调用start()时，直接找子类的run()方法(Java虚拟机自动完成)</li>
+<li>实现Runnable方式：构造函数中传入了Runnable的引用，传给了Thread类中的成员变量，start()调用了run()方法时的内部判断成员变量Runnable的引用是否为空，若不为空，编译时看的是Runnable的run()，运行时执行的是具体实现类中的run()</li>
+</ul>
+</li>
+<li>优缺点：<ul>
+<li>继承Thread类方式<ul>
+<li>好处：可以直接使用Thread类中的方法，代码简单</li>
+<li>弊端：同样也是面向对象中的继承的缺点：<code>如果该具体类已经有了其他的父类，那么就不能多重继承Thread类</code>，就不能使用这种方法。此时<code>面向接口编程</code>的优势脱颖而出。</li>
+</ul>
+</li>
+<li>实现Runnable接口方式<ul>
+<li>好处：即继承的弊端：即使自己定义的<code>线程类有了其他父类也可以实现该Runnable接口</code>。Java中的接口是<code>多实现</code>的，继承是<code>单继承</code>，比较有局限性。</li>
+<li>弊端：<code>不能直接使用Thread类中的方法</code>，需要先把Runnable具体实现类对象传递给Thread类并获取到<code>线程对象</code>后，才能得到Thread类的方法，代码相对复杂</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="匿名内部类实现线程的两种方式"><a href="#匿名内部类实现线程的两种方式" class="headerlink" title="匿名内部类实现线程的两种方式"></a>匿名内部类实现线程的两种方式</h3><p>即直接使用匿名内部类的方式简化代码：</p>
+<ul>
+<li><p>继承Thread类方式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//匿名内部类</span></span><br><span class="line"><span class="keyword">new</span> Thread()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) &#123;</span><br><span class="line">            System.out.println(<span class="string">"t+"</span>+i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;.start();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>实现Runnable接口方式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//匿名内部类</span></span><br><span class="line"><span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;<span class="number">1000</span>; i++) &#123;</span><br><span class="line">            System.out.println(<span class="string">"mr"</span>+i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).start();</span><br></pre></td></tr></table></figure>
+<p><code>Runnable</code>接口是一个<code>函数式接口</code>，可以直接用<code>Lambda表达式</code>代替:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Lambda表达式</span></span><br><span class="line"><span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;<span class="number">1000</span>; i++) &#123;</span><br><span class="line">        System.out.println(<span class="string">"mr"</span>+i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).start();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="方式三：实现Callable接口"><a href="#方式三：实现Callable接口" class="headerlink" title="方式三：实现Callable接口"></a>方式三：实现Callable接口</h3><ul>
+<li>步骤：<ol>
+<li>创建实体类，实现<code>Callable</code>接口</li>
+<li>实现接口中的<code>call()</code>方法</li>
+<li>利用 <code>ExecutorService</code>线程池对象 的 <code>&lt;T&gt;  Future&lt;T&gt;  submit(Callable&lt;T&gt; task()</code>方法提交该Callable接口的线程任务。</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建线程池</span></span><br><span class="line">ExecutorService pool = Executors.newFixedThreadPool(<span class="number">2</span>);</span><br><span class="line"><span class="comment">// 可以执行Runnable对象或者Callable对象代表的线程</span></span><br><span class="line">Future&lt;Integer&gt; f1 = pool.submit(<span class="keyword">new</span> MyCallable(<span class="number">100</span>));</span><br><span class="line">Future&lt;Integer&gt; f2 = pool.submit(<span class="keyword">new</span> MyCallable(<span class="number">200</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// V get()</span></span><br><span class="line">Integer i1 = f1.get();</span><br><span class="line">Integer i2 = f2.get();</span><br><span class="line"></span><br><span class="line">System.out.println(i1);</span><br><span class="line">System.out.println(i2);</span><br><span class="line"><span class="comment">// 结束</span></span><br><span class="line">pool.shutdown();</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyCallable</span> <span class="keyword">implements</span> <span class="title">Callable</span>&lt;<span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> number;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">MyCallable</span><span class="params">(<span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.number = number;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Integer <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">1</span>; x &lt;= number; x++) &#123;</span><br><span class="line">			sum += x;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> sum;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>利用匿名内部类方式：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ExecutorService service = Executors.newSingleThreadExecutor();</span><br><span class="line">         Future&lt;String&gt; future = service.submit(<span class="keyword">new</span> Callable() &#123;</span><br><span class="line">             <span class="meta">@Override</span></span><br><span class="line">             <span class="function"><span class="keyword">public</span> String <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                 <span class="keyword">return</span> <span class="string">"通过实现Callable接口"</span>;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;);</span><br><span class="line">         <span class="keyword">try</span> &#123;</span><br><span class="line">             String result = future.get();</span><br><span class="line">             System.out.println(result);</span><br><span class="line">         &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">         &#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">         &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Lambda表达式方式：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CallableTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ExecutionException, InterruptedException </span>&#123;</span><br><span class="line">        <span class="comment">//使用Executors工厂类创建一个单线程池</span></span><br><span class="line">        ExecutorService es =  Executors.newSingleThreadExecutor();</span><br><span class="line">        <span class="comment">//使用这个单线程提交一个Callable接口线程服务，返回值为String</span></span><br><span class="line">        <span class="comment">//Callable接口是一个函数式接口，Java8开始可以直接使用Lambda表达式表示</span></span><br><span class="line">        <span class="comment">//其内部实现了call()方法  V call() throws Exception;</span></span><br><span class="line">        <span class="comment">//并得到该结果值打印</span></span><br><span class="line">        System.out.println( es.submit(()-&gt;<span class="string">"使用lambda表达式的Callable接口"</span>).get());</span><br><span class="line">        es.shutdown(); <span class="comment">//关闭该线程池</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>实现callable接口，提交给<code>ExecutorService返回值</code>是<code>异步执行</code>的。 </li>
+<li>该方式的优缺点：<ul>
+<li>优点：<ul>
+<li><code>有返回值</code></li>
+<li><code>可以抛出异常</code></li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>代码较复杂，需要利用线程池</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java多线程/" rel="tag"># Java多线程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/13/Java内置的四大核心函数式接口/" rel="next" title="Java8-Lambda表达式-函数式接口">
+                <i class="fa fa-chevron-left"></i> Java8-Lambda表达式-函数式接口
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/20/Java多线程回顾-同步代码/" rel="prev" title="Java多线程基础-多线程同步">
+                Java多线程基础-多线程同步 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zODAyNy8xNDU1Nw"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="胡啊呦" />
+            
+              <p class="site-author-name" itemprop="name">胡啊呦</p>
+              <p class="site-description motion-element" itemprop="description">一些笔记，一些感悟，一些分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/hxhaaj" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-CSDN"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#多线程的实现方式"><span class="nav-text">多线程的实现方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方式一：-继承Thread类"><span class="nav-text">方式一： 继承Thread类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方式二：实现Runnable接口（常用，优点多）"><span class="nav-text">方式二：实现Runnable接口（常用，优点多）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么实例效果不明显？"><span class="nav-text">为什么实例效果不明显？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程的两种实现方式的区别"><span class="nav-text">多线程的两种实现方式的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匿名内部类实现线程的两种方式"><span class="nav-text">匿名内部类实现线程的两种方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方式三：实现Callable接口"><span class="nav-text">方式三：实现Callable接口</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">胡啊呦</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":100,"height":150},"mobile":{"show":false}});</script></body>
+</html>

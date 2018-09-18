@@ -297,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/20/Java多线程回顾-线程状态转换图/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/09/Java中组合关系/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="胡啊呦">
@@ -316,7 +316,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/20/Java多线程回顾-线程状态转换图/" itemprop="url">Java多线程基础-线程的状态转换</a></h1>
+                <a class="post-title-link" href="/2018/06/09/Java中组合关系/" itemprop="url">Java中的组合关系</a></h1>
         
 
         <div class="post-meta">
@@ -328,8 +328,161 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-20T00:00:00+08:00">
-                2018-06-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-09T00:00:00+08:00">
+                2018-06-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaSE/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaSE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          组合组合关系概述
+实现类的复用除了继承外，还可以使用组合的方式，把该类当成另一个类的组合成分，从而允许新类直接复用该类的public方法。
+不管继承还是组合，都允许在新类（对于继承就是子类）中直接复用旧类的方法。
+组合是把旧类对象作为新类的成员变量组合起来，用以实现新类的功能，用户看到的是新类的方法
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/09/Java中组合关系/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/20/Java多线程回顾-同步代码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="胡啊呦">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WhoAYou's Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/20/Java多线程回顾-同步代码/" itemprop="url">Java多线程基础-多线程同步</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-20T00:00:00+08:00">
+                2018-05-20
               </time>
             
 
@@ -392,14 +545,16 @@
       
         
           
-          线程六大状态根据Thread类中定义的枚举类型State值，可以看出有6中状态：
-1234567public enum State &#123;    NEW,    RUNNABLE,    WAITING,    TIMED_WAITING,    TERMINATED;&#125;
+          同步代码需要同步的情况
+当多线程并发，有多段代码同时执行时，希望某一段代码执行的过程中，CPU不要切换到其他线程上，此时就需要同步。
+如果有两段代码是同步进行的，那么同一时间只能执行其中一段，在一段代码没执行结束之前，不会执行另外一段代码。
 
-新建状态
+同步代码块操作
+使用synchronized关键字加上一
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/20/Java多线程回顾-线程状态转换图/#more" rel="contents">
+            <a class="btn" href="/2018/05/20/Java多线程回顾-同步代码/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -450,7 +605,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/20/Java多线程回顾-线程的实例方法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/20/Java多线程回顾-开启多线程常用的两种方式和Callable方式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="胡啊呦">
@@ -469,7 +624,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/20/Java多线程回顾-线程的实例方法/" itemprop="url">Java多线程基础-线程的实例方法</a></h1>
+                <a class="post-title-link" href="/2018/05/20/Java多线程回顾-开启多线程常用的两种方式和Callable方式/" itemprop="url">Java多线程基础-多线程的实现方式</a></h1>
         
 
         <div class="post-meta">
@@ -481,162 +636,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-20T00:00:00+08:00">
-                2018-06-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java多线程基础/" itemprop="url" rel="index">
-                    <span itemprop="name">Java多线程基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          线程相关实例方法获取线程ID- getId
-在一个Java应用程序中，有一个long型的全局唯一的线程ID生成器threadSeqNumber，每new出来一个线程就会自增一次，从0开始，并且赋值给线程的tid属性。
-用户只能获取ID，不能执行一个线程的ID，这是Thread类内部自己完成的。
-
-获
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/20/Java多线程回顾-线程的实例方法/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/20/Java多线程回顾-开启多线程常用的两种方式和Callable方式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="胡啊呦">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WhoAYou's Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/20/Java多线程回顾-开启多线程常用的两种方式和Callable方式/" itemprop="url">Java多线程基础-多线程的实现方式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-20T00:00:00+08:00">
-                2018-06-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-20T00:00:00+08:00">
+                2018-05-20
               </time>
             
 
@@ -712,7 +713,7 @@ Thread类实现了Runnable接口，在java.long包下。
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/20/Java多线程回顾-开启多线程常用的两种方式和Callable方式/#more" rel="contents">
+            <a class="btn" href="/2018/05/20/Java多线程回顾-开启多线程常用的两种方式和Callable方式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -763,7 +764,7 @@ Thread类实现了Runnable接口，在java.long包下。
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/20/Java多线程回顾-线程安全和死锁问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/13/Java内置的四大核心函数式接口/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="胡啊呦">
@@ -782,7 +783,7 @@ Thread类实现了Runnable接口，在java.long包下。
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/20/Java多线程回顾-线程安全和死锁问题/" itemprop="url">Java多线程基础-线程安全和死锁问题</a></h1>
+                <a class="post-title-link" href="/2018/05/13/Java内置的四大核心函数式接口/" itemprop="url">Java8-Lambda表达式-函数式接口</a></h1>
         
 
         <div class="post-meta">
@@ -794,8 +795,776 @@ Thread类实现了Runnable接口，在java.long包下。
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-20T00:00:00+08:00">
-                2018-06-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-13T00:00:00+08:00">
+                2018-05-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java8/" itemprop="url" rel="index">
+                    <span itemprop="name">Java8</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          1. Java内置的四大核心函数式接口12345678Consumer&lt;T&gt;  消费型接口 消费对象    void accept(T t);Supplier&lt;T&gt;  供给型接口 生成对象    T get();Function&lt;R,T&gt;  函数型接口 指定特定功
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/13/Java内置的四大核心函数式接口/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/12/Java8-方法引用和构造器引用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="胡啊呦">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WhoAYou's Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/12/Java8-方法引用和构造器引用/" itemprop="url">Java8-方法引用和构造器引用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T00:00:00+08:00">
+                2018-05-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java8/" itemprop="url" rel="index">
+                    <span itemprop="name">Java8</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          1. 方法引用
+若lambda体中的内容有方法已经实现了，我们可以使用‘方法引用’，可以理解为方法引用是lambda表达式的另外一种表现形式。双冒号形式主要有三种语法格式
+
+使用要求（注意点）：
+
+Lambda体中调用方法的参数列表、返回值类型 ，必须要和接口实现方法的参数列表、返回值保持一致
+
+1
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/12/Java8-方法引用和构造器引用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/11/Java8-StreamAPI/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="胡啊呦">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WhoAYou's Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/11/Java8-StreamAPI/" itemprop="url">Java8-StreamAPI常用知识</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-11T00:00:00+08:00">
+                2018-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java8/" itemprop="url" rel="index">
+                    <span itemprop="name">Java8</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          流（Stream）1. 流的概念
+流是数据渠道，用于操作数据源，所生成一种新的元素序列。集合讲的是数据，流讲的是计算,是操作。
+
+Stream是Java8中处理集合的关键抽象概念，它可以指定希望对集合的操作，可以执行复杂的查找、过滤和映射数据等操作。
+使用Stream API 对集合的数据进行操作，
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/11/Java8-StreamAPI/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/11/Lambda表达式基础语法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="胡啊呦">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WhoAYou's Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/11/Lambda表达式基础语法/" itemprop="url">Java8-Lambda表达式基础知识</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-11T00:00:00+08:00">
+                2018-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java8/" itemprop="url" rel="index">
+                    <span itemprop="name">Java8</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Lambda表达式
+Lambda是一个匿名函数，我们可以把Lambda表达式理解为是一段可以传递的代码（将代码像数据一样进行传递），其可以代替实现接口中的抽象方法时的书写匿名内部类的繁琐代码。
+
+举个栗子：
+Java中有个Runnable接口，直接使用该接口，需要重写实现其接口内部中的抽象方法。如下
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/11/Lambda表达式基础语法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/20/Java多线程基础-互斥锁ReentrantLock和Condition/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="胡啊呦">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WhoAYou's Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/20/Java多线程基础-互斥锁ReentrantLock和Condition/" itemprop="url">Java多线程基础-互斥锁Lock和Condition</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-20T00:00:00+08:00">
+                2018-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java多线程基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Java多线程基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          互斥锁
+JDK1.5版本提供了java.util.concurrent.locks包，该包中提供了锁和等待条件的接口和类，可以用于代替JDK1.5之前的synchronized同步和监视器机制。
+互斥锁指的是一次最多只能有一个线程持有的锁。
+互斥锁在Java中的体现是Lock接口和其实现类Reent
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/20/Java多线程基础-互斥锁ReentrantLock和Condition/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/20/Java多线程回顾-线程安全和死锁问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="胡啊呦">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WhoAYou's Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/20/Java多线程回顾-线程安全和死锁问题/" itemprop="url">Java多线程基础-线程安全和死锁问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-20T00:00:00+08:00">
+                2018-04-20
               </time>
             
 
@@ -867,7 +1636,7 @@ Thread类实现了Runnable接口，在java.long包下。
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/20/Java多线程回顾-线程安全和死锁问题/#more" rel="contents">
+            <a class="btn" href="/2018/04/20/Java多线程回顾-线程安全和死锁问题/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -918,7 +1687,7 @@ Thread类实现了Runnable接口，在java.long包下。
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/20/计算机操作系统常用知识/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/20/Java多线程回顾-线程状态转换图/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="胡啊呦">
@@ -937,7 +1706,7 @@ Thread类实现了Runnable接口，在java.long包下。
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/20/计算机操作系统常用知识/" itemprop="url">计算机操作系统常用知识</a></h1>
+                <a class="post-title-link" href="/2018/04/20/Java多线程回顾-线程状态转换图/" itemprop="url">Java多线程基础-线程的状态转换</a></h1>
         
 
         <div class="post-meta">
@@ -949,168 +1718,8 @@ Thread类实现了Runnable接口，在java.long包下。
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-20T00:00:00+08:00">
-                2018-06-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/理论/" itemprop="url" rel="index">
-                    <span itemprop="name">理论</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          计算机操作系统常用知识进程和线程的具体含义，作用和区别进程
-进程是具有一定功能的程序关于某个数据集合上的一次运行活动
-进程是系统进行资源调度和分配的一个独立单位。
-进程是正在运行的程序
-
-线程
-线程是进程的实体
-线程是CPU调度和分派的基本单位。
-线程是比进程更小的，能独立运行的基本单位。
-
-区别一
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/20/计算机操作系统常用知识/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/20/Java多线程回顾-线程的实例方法和线程状态转换图/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="胡啊呦">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WhoAYou's Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/20/Java多线程回顾-线程的实例方法和线程状态转换图/" itemprop="url">Java多线程基础-线程的实例方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-20T00:00:00+08:00">
-                2018-06-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-20T00:00:00+08:00">
+                2018-04-20
               </time>
             
 
@@ -1173,664 +1782,14 @@ Thread类实现了Runnable接口，在java.long包下。
       
         
           
-          线程相关实例方法获取线程ID- getId
-在一个Java应用程序中，有一个long型的全局唯一的线程ID生成器threadSeqNumber，每new出来一个线程就会自增一次，从0开始，并且赋值给线程的tid属性。
-用户只能获取ID，不能执行一个线程的ID，这是Thread类内部自己完成的。
+          线程六大状态根据Thread类中定义的枚举类型State值，可以看出有6中状态：
+1234567public enum State &#123;    NEW,    RUNNABLE,    WAITING,    TIMED_WAITING,    TERMINATED;&#125;
 
-获
+新建状态
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/20/Java多线程回顾-线程的实例方法和线程状态转换图/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/16/理解Java中的多态和instanceof/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="胡啊呦">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WhoAYou's Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/16/理解Java中的多态和instanceof/" itemprop="url">理解Java中的多态和instanceof</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-16T00:00:00+08:00">
-                2018-06-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaSE/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaSE</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          多态
-事物 存在的多种形态
-
-多态的前提
-有继承关系
-有方法重写
-有父类引用指向子类对象
-
-多态成员访问特点
-成员变量
-
-编译看左边（父类），运行看左边（父类）。
-
-
-成员方法
-
-编译看左边（父类），运行看右边（子类）。动态绑定
-
-
-静态方法
-
-编译看左边（父类），运行看左边（父类）。
-静态和类相关
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/16/理解Java中的多态和instanceof/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/16/缓存问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="胡啊呦">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WhoAYou's Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/16/缓存问题/" itemprop="url">一些缓存问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-16T00:00:00+08:00">
-                2018-06-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/缓存/" itemprop="url" rel="index">
-                    <span itemprop="name">缓存</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          缓存问题缓存的雪崩场景
-原因： 缓存大面积的同时失效
-
-解决：避免缓存设置相近的有效期
-
-为有效期增加随机值
-统一规划有效期，失效时间均匀分布
-
-
-
-如果是热点信息，持续高并发
-增加互斥锁（Jvm锁机制，分布式锁机制）
-实现缓存永不过期，异步更新
-优点：不阻塞线程，用户体验好，不会出现雪崩场景
-缺点
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/16/缓存问题/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/13/Java Excel和CSV类型数据文件自动录入小工具/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="胡啊呦">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WhoAYou's Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/13/Java Excel和CSV类型数据文件自动录入小工具/" itemprop="url">Excel和CSV类型数据文件自动录入重构封装</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-13T00:00:00+08:00">
-                2018-06-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/重构/" itemprop="url" rel="index">
-                    <span itemprop="name">重构</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          Excel和CSV类型数据文件自动录入重构封装GitHub链接jar包和依赖包链接：https://pan.baidu.com/s/1QsA6wzu1ofIBbXQbXm9TAw 密码：tdop
-依赖包
-java8
-dom4j-1.6.1.jar
-poi-3.7-20101029.jar （POI 
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/13/Java Excel和CSV类型数据文件自动录入小工具/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/Java-缓存不可变类/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="胡啊呦">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WhoAYou's Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/11/Java-缓存不可变类/" itemprop="url">缓存不可变类</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-11T00:00:00+08:00">
-                2018-06-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaSE/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaSE</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          不可变类
-不可变类的意思是创建该类实例后，该实例的实例变量是不可改变的。
-
-Java中的8个包装类和java.lang.String类都是不可变类，当创建它们的实例后，其实例变量不可改变。
-
-
-如果需要创建自定义的不可变类，遵循以下规则：
-
-使用private和final修饰符来修饰该类的成员变量
-
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/11/Java-缓存不可变类/#more" rel="contents">
+            <a class="btn" href="/2018/04/20/Java多线程回顾-线程状态转换图/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

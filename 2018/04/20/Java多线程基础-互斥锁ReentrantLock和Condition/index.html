@@ -76,7 +76,7 @@
 
 
 
-  <meta name="keywords" content="计算机网络," />
+  <meta name="keywords" content="Java多线程,互斥锁," />
 
 
 
@@ -89,18 +89,18 @@
 
 
 
-<meta name="description" content="计算机网络知识OSI和TCP/IP各层的结构和功能OSI体系协议应用层 表示层 会话层 运输层 网络层 数据链路层 物理层 TCP/IP协议体系应用层 运输层 网际层 网络接口层 五层协议体系应用层 运输层 网络层 数据链路层 物理层 各层的作用应用层 通过应用进程间的交互来完成特定的网络应用 应用层的协议定义的是应用进程间的通信和交互的规则 对于不同的网络应用需要使用不同的应用层协议 常用的应用">
-<meta name="keywords" content="计算机网络">
+<meta name="description" content="互斥锁 JDK1.5版本提供了java.util.concurrent.locks包，该包中提供了锁和等待条件的接口和类，可以用于代替JDK1.5之前的synchronized同步和监视器机制。 互斥锁指的是一次最多只能有一个线程持有的锁。 互斥锁在Java中的体现是Lock接口和其实现类ReentrantLock。 Lock接口的出现主要替代了synchronized关键字的用处，其提供了一个比">
+<meta name="keywords" content="Java多线程,互斥锁">
 <meta property="og:type" content="article">
-<meta property="og:title" content="计算机网络知识">
-<meta property="og:url" content="http://yoursite.com/2018/06/21/计算机网络知识/index.html">
+<meta property="og:title" content="Java多线程基础-互斥锁Lock和Condition">
+<meta property="og:url" content="http://yoursite.com/2018/04/20/Java多线程基础-互斥锁ReentrantLock和Condition/index.html">
 <meta property="og:site_name" content="WhoAYou&#39;s Blogs">
-<meta property="og:description" content="计算机网络知识OSI和TCP/IP各层的结构和功能OSI体系协议应用层 表示层 会话层 运输层 网络层 数据链路层 物理层 TCP/IP协议体系应用层 运输层 网际层 网络接口层 五层协议体系应用层 运输层 网络层 数据链路层 物理层 各层的作用应用层 通过应用进程间的交互来完成特定的网络应用 应用层的协议定义的是应用进程间的通信和交互的规则 对于不同的网络应用需要使用不同的应用层协议 常用的应用">
+<meta property="og:description" content="互斥锁 JDK1.5版本提供了java.util.concurrent.locks包，该包中提供了锁和等待条件的接口和类，可以用于代替JDK1.5之前的synchronized同步和监视器机制。 互斥锁指的是一次最多只能有一个线程持有的锁。 互斥锁在Java中的体现是Lock接口和其实现类ReentrantLock。 Lock接口的出现主要替代了synchronized关键字的用处，其提供了一个比">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-18T15:25:02.461Z">
+<meta property="og:updated_time" content="2018-09-18T15:31:28.681Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="计算机网络知识">
-<meta name="twitter:description" content="计算机网络知识OSI和TCP/IP各层的结构和功能OSI体系协议应用层 表示层 会话层 运输层 网络层 数据链路层 物理层 TCP/IP协议体系应用层 运输层 网际层 网络接口层 五层协议体系应用层 运输层 网络层 数据链路层 物理层 各层的作用应用层 通过应用进程间的交互来完成特定的网络应用 应用层的协议定义的是应用进程间的通信和交互的规则 对于不同的网络应用需要使用不同的应用层协议 常用的应用">
+<meta name="twitter:title" content="Java多线程基础-互斥锁Lock和Condition">
+<meta name="twitter:description" content="互斥锁 JDK1.5版本提供了java.util.concurrent.locks包，该包中提供了锁和等待条件的接口和类，可以用于代替JDK1.5之前的synchronized同步和监视器机制。 互斥锁指的是一次最多只能有一个线程持有的锁。 互斥锁在Java中的体现是Lock接口和其实现类ReentrantLock。 Lock接口的出现主要替代了synchronized关键字的用处，其提供了一个比">
 
 
 
@@ -130,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/06/21/计算机网络知识/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/20/Java多线程基础-互斥锁ReentrantLock和Condition/"/>
 
 
 
 
 
-  <title>计算机网络知识 | WhoAYou's Blogs</title>
+  <title>Java多线程基础-互斥锁Lock和Condition | WhoAYou's Blogs</title>
   
 
 
@@ -297,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/21/计算机网络知识/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/20/Java多线程基础-互斥锁ReentrantLock和Condition/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="胡啊呦">
@@ -314,7 +314,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">计算机网络知识</h1>
+          <h1 class="post-title" itemprop="name headline">Java多线程基础-互斥锁Lock和Condition</h1>
         
 
         <div class="post-meta">
@@ -326,8 +326,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-21T00:00:00+08:00">
-                2018-06-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-20T00:00:00+08:00">
+                2018-04-20
               </time>
             
 
@@ -349,8 +349,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/理论/" itemprop="url" rel="index">
-                    <span itemprop="name">理论</span>
+                  <a href="/categories/Java多线程基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Java多线程基础</span>
                   </a>
                 </span>
 
@@ -391,137 +391,81 @@
       
 
       
-        <h1 id="计算机网络知识"><a href="#计算机网络知识" class="headerlink" title="计算机网络知识"></a>计算机网络知识</h1><h2 id="OSI和TCP-IP各层的结构和功能"><a href="#OSI和TCP-IP各层的结构和功能" class="headerlink" title="OSI和TCP/IP各层的结构和功能"></a>OSI和TCP/IP各层的结构和功能</h2><h3 id="OSI体系协议"><a href="#OSI体系协议" class="headerlink" title="OSI体系协议"></a>OSI体系协议</h3><p>应用层</p>
-<p>表示层</p>
-<p>会话层</p>
-<p>运输层</p>
-<p>网络层</p>
-<p>数据链路层</p>
-<p>物理层</p>
-<h3 id="TCP-IP协议体系"><a href="#TCP-IP协议体系" class="headerlink" title="TCP/IP协议体系"></a>TCP/IP协议体系</h3><p>应用层</p>
-<p>运输层</p>
-<p>网际层</p>
-<p>网络接口层</p>
-<h3 id="五层协议体系"><a href="#五层协议体系" class="headerlink" title="五层协议体系"></a>五层协议体系</h3><p>应用层</p>
-<p>运输层</p>
-<p>网络层</p>
-<p>数据链路层</p>
-<p>物理层</p>
-<h2 id="各层的作用"><a href="#各层的作用" class="headerlink" title="各层的作用"></a>各层的作用</h2><h3 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h3><ul>
-<li><strong>通过应用进程间的交互来完成特定的网络应用</strong></li>
-<li>应用层的协议定义的是应用进程间的通信和交互的规则</li>
-<li>对于不同的网络应用需要使用不同的应用层协议</li>
-<li>常用的应用层协议有：DNS（域名系统）HTTP（超文本传输协议） 支持电子邮件的SMTP协议</li>
-<li>应用层交互的数据单元称为报文。</li>
+        <h2 id="互斥锁"><a href="#互斥锁" class="headerlink" title="互斥锁"></a>互斥锁</h2><ul>
+<li>JDK1.5版本提供了<code>java.util.concurrent.locks</code>包，该包中提供了锁和等待条件的接口和类，可以用于代替JDK1.5之前的<code>synchronized</code>同步和<code>监视器机制</code>。</li>
+<li>互斥锁指的是<strong>一次最多只能有一个线程持有的锁</strong>。</li>
+<li>互斥锁在Java中的体现是<code>Lock接口</code>和其<code>实现类ReentrantLock</code>。</li>
+<li>Lock接口的出现主要替代了synchronized关键字的用处，其提供了一个比sychronized机制更广泛的锁定操作</li>
 </ul>
-<h4 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h4><ul>
-<li>域名系统（Domain Name System）  是因特网的一项核心服务，它作为可以将域名和IP地址相互映射的分布式数据库，能够使人更方便的访问互联网，而不用去记住能够被机器直接读取的IP数串。</li>
+<h3 id="Lock和sychronized机制的主要区别"><a href="#Lock和sychronized机制的主要区别" class="headerlink" title="Lock和sychronized机制的主要区别"></a>Lock和sychronized机制的主要区别</h3><ul>
+<li>synchronized机制提供了对于每个对象相关的<code>隐式监视器锁</code>的访问，并<code>强制所有锁获取和释放都要出现在一个块结构中</code>。</li>
+<li>当<code>获取了多个锁</code>时（多个<code>synchronized代码块嵌套</code>时），它们必<code>须以相反的顺序释放</code>。</li>
+<li>synchronized机制对锁的释放是隐式的，只要线程运行的代码<code>超出了synchronized语句块</code>范围，持有的锁对象就会<code>自动释放</code>。</li>
+<li>锁定和取消锁定出现在不同作用范围中时，必须谨慎地确保保持锁定时所执行的所有代码用 try-finally 或 try-catch 加以保护，以确保在必要时释放锁</li>
+<li><strong>Lock机制必须是显式调用Lock对象的unlock()方法才能释放锁。</strong></li>
+<li><strong>Lock机制可以不在同一个块结构中获取和释放锁，更加自由的释放锁</strong>。</li>
 </ul>
-<h4 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h4><ul>
-<li>超文本传输协议，是互联网上应用最为广泛的一种网络协议，所有的万维网文件都必须遵守这个标准，设计HTTP最初是为了提供一种发布和接收HTML页面的方法。</li>
+<h3 id="Lock接口"><a href="#Lock接口" class="headerlink" title="Lock接口"></a>Lock接口</h3><ul>
+<li><code>Lock</code> 实现提供了使用 <code>synchronized</code>  方法和语句所没有的其他功能，包括提供了一个非块结构的获取锁尝试 <code>tryLock()</code>、一个获取可中断锁的尝试  <code>lockInterruptibly()</code>  和一个获取超时失效锁的尝试 <code>tryLock(long,  TimeUnit)</code>。  </li>
+<li><code>Lock</code>  类还可以提供与隐式监视器锁完全不同的行为和语义，如保证排序、非重入用法或死锁检测。如果某个实现提供了这样特殊的语义，则该实现必须对这些语义加以记录。  </li>
+<li>注意，<code>Lock</code> 实例只是普通的对象，其本身可以在 <code>synchronized</code> 语句中作为目标使用。获取  <code>Lock</code> 实例的监视器锁与调用该实例的任何 <code>lock()</code>方法没有特别的关系。为了避免混淆，建议除了在其自身的实现中之外，决不要以这种方式使用 <code>Lock</code> 实例。 </li>
 </ul>
-<h3 id="运输层"><a href="#运输层" class="headerlink" title="运输层"></a>运输层</h3><ul>
-<li>主要作用是<strong>负责两台主机进程之间的通信，提供通用的数据传输服务。</strong></li>
-<li>运输层主要使用以下两种协议：<ul>
-<li>传输控制协议 TCP（Transmission Control Protocol）提供面向连接的，可靠的数据传输服务</li>
-<li>用户数据协议 UDP（User  Datagram Protocol）提供无连接的，尽最大努力的数据传输服务，不保证数据可靠性</li>
+<h4 id="lock"><a href="#lock" class="headerlink" title="lock"></a>lock</h4><p><code>void lock()</code>  获取锁</p>
+<ul>
+<li>如果锁处于<code>空闲</code>状态，当前线程将直接获取该lock对象锁。</li>
+<li>相反，如果<code>锁已经被其他线程持有，将禁用当前线程，直到当前线程获取到锁.</code></li>
+</ul>
+<h4 id="unlock"><a href="#unlock" class="headerlink" title="unlock"></a>unlock</h4><p><code>void unlock()</code> 释放锁</p>
+<ul>
+<li>当前线程将释放持有的锁。</li>
+<li><strong>锁只能由持有者释放。</strong></li>
+<li>如果线程并不持有锁，却执行了该方法，可能会导致异常的发生。</li>
+</ul>
+<h4 id="tryLock"><a href="#tryLock" class="headerlink" title="tryLock"></a>tryLock</h4><p><code>boolean  tryLock()</code></p>
+<ul>
+<li><p>仅在调用时锁为空闲状态才获取该锁。</p>
+</li>
+<li><p>如果锁可用，则获取锁，并返回true</p>
+</li>
+<li><p>如果锁不可用，立即返回false</p>
+</li>
+<li><p><strong>此方法可确保如果获取了锁，则会释放锁，如果未获取锁，则不会试图将其释放。即通常配合unlock()使用来释放锁。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line"><span class="keyword">if</span>(lock.tryLock())&#123;</span><br><span class="line">  <span class="keyword">try</span>&#123;</span><br><span class="line">     <span class="comment">//获取到锁的一些操作</span></span><br><span class="line">  &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">      <span class="comment">//确保了获取锁，才能释放</span></span><br><span class="line">      lock.unlock();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">//未获取到锁的一些操作</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p><code>tryLock()</code>和<code>lock()</code>方法的区别：</p>
+<ul>
+<li><code>tryLock()</code>方法只是<code>试图获取锁，如果锁不可用，当前线程仍然可以继续往下执行.</code></li>
+<li><code>lock()</code>方法是一定要获取到锁，如果<code>锁不可用，就会一直等待下去，锁定当前线程，在未获取指定锁对象之前，当前线程不会继续向下执行</code>。</li>
 </ul>
 </li>
 </ul>
-<h4 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h4><ol>
-<li>UDP是无连接的</li>
-<li>UDP使用尽最大努力交付，不保证可靠交付，因此主机不需要维持复杂的链接状态</li>
-<li>UDP是面向报文的</li>
-<li>UDP没有拥塞控制，因此网络出现拥塞不会使源主机的发送速率降低，所以对实时传输应用很有用，如 直播，实时视频会议等</li>
-<li>UDP支持一对一、一对多、多对一和多对多的交互通信</li>
-<li>UDP的首部开销小，只有8个字节，比TCP的20个字节首部要短</li>
-</ol>
-<h4 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h4><ol>
-<li>TCP是面向连接的，传输数据之前要先建立连接，传输结束之后，要释放连接。</li>
-<li>每一条TCP连接只能由两个端点，每一条TCP连接只能是点对点的，一对一的</li>
-<li>TCP提供可靠交付的服务。通过TCP连接传送的数据，无差错，不丢失，不重复，并且按序到达。</li>
-<li>TCP面向字节流。流是指流入进程或从进程流出的字节序列。面向字节流的含义是： 虽然应用程序和TCP的交互是一次一个数据块（大小不等），但TCP把应用程序交下来的数据仅仅看成是一连串的无结构的字节流。</li>
-<li>TCP提供全双工通信。TCP允许通信双方的应用进程在任何时候都能发送数据。</li>
-</ol>
-<h3 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h3><ul>
-<li><strong>主要负责为分组交换网上的不同主机提供通信服务，并且选择合适的路由，使源主机运输层所传下来的分组，能通过网络层中的路由器找到目的主机。</strong></li>
-<li>在发送数据时，网络层把运输层产生的报文段或用户数据报封装成分组和包进行传送。在TCP/IP体系结构中，由于网络层使用IP协议，因此分组也叫IP数据报，简称 数据报。</li>
+<h3 id="Condition接口-条件"><a href="#Condition接口-条件" class="headerlink" title="Condition接口 - 条件"></a>Condition接口 - 条件</h3><ul>
+<li><p><code>Condition</code>将<code>Object</code>监视器方法<code>wait、notify、notifyAll方法</code>分解成<code>不同的对象</code>，为了方便<code>通过将这些对象与任意Lock对象实现组合使用</code>，为每个对象提供了多个等待set（wait-set）。其中，<strong>Lock替代了synchronized方法和语句的使用，Condition替代了Object监视器方法的使用</strong>。</p>
+</li>
+<li><p>使用<code>Condition</code>对象的相关方法，可以方便的挂起和唤醒线程，而且<code>可以特定的唤醒其其中某个线程</code>。这也是和Object对象的wait()、notify()、notifyAll()方法的区别。</p>
+</li>
+<li>Object对象的wait()、notify()、notifyAll()方法存在一个问题：<strong>如果多个线程调用了obj的wait()方法而挂起，那么我们无法做到调用obj的notify()和notifyAll()方法唤醒其中特定的一个线程，而Conditon对象就可以做到。</strong></li>
+<li>Condition对象<code>只能通过Lock类的newCondition()方法获取</code>，因此<code>一个Condition对象必然会有一个与其绑定的Lock锁</code>。</li>
 </ul>
-<h3 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h3><ul>
-<li><strong>两台主机之间的数据传输，总是在一段一段的链路上传送的，这就需要使用专门的链路层协议</strong>。在两个相邻节点之间传送数据时，数据链路层将网络层交下来的IP数据报组装成帧，在两个相邻界节点间的链路上传送帧。每一帧包括数据和必要的控制信息（如同步信息，地址信息，差错控制等）</li>
-<li>在接收数据时，控制信息使接收端能够知道一个帧从哪个比特开始和到哪个比特结束。这样，数据链路层在收到一个帧后，就可从中提出数据部分，上交给网络层。 控制信息还使接收端能够检测到所收到的帧中有误差错。如果发现差错，数据链路层就简单地丢弃这个出了差错的帧，以避免继续在网络中传送下去白白浪费网络资源。如果需要改正数据在链路层传输时出现差错（这就是说，数据链路层不仅要检错，而且还要纠错），那么就要采用可靠性传输协议来纠正出现的差错。这种方法会使链路层的协议复杂些。</li>
+<h4 id="await"><a href="#await" class="headerlink" title="await"></a>await</h4><p><code>void await()</code>  <strong>造成当前线程再接到信号或被中断之前一直处于等待状态</strong></p>
+<ul>
+<li>将当前线程处于<code>等待</code>状态，并<code>释放</code>该Condition对象<code>所绑定的锁</code>.</li>
+<li>使用<code>await()方法前</code>，<code>当前线程必须持有与该Condition对象绑定的锁</code>，否则程序可能会抛出异常。</li>
 </ul>
-<h3 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h3><ul>
-<li>物理层的作用是<strong>实现相邻计算机节点之间比特流的透明传送，尽可能屏蔽掉具体传输介质和物理设备的差异。</strong>使其上面的数据链路层不必考虑网络的具体传输介质是什么。</li>
+<h4 id="signal"><a href="#signal" class="headerlink" title="signal"></a>signal</h4><p><code>void signal()</code>  唤醒一个在该Condition对象上挂起的线程</p>
+<ul>
+<li>如果存在<code>多个线程同时等待</code>该Condition对象的唤醒，则<code>随机选择其中一个</code>唤醒。</li>
+<li>线程<code>被唤醒之前，必须重新获取到锁</code>，即与该Condition对象绑定的Lock对象。</li>
 </ul>
-<h2 id="TCP协议如何保证可靠传输"><a href="#TCP协议如何保证可靠传输" class="headerlink" title="TCP协议如何保证可靠传输"></a>TCP协议如何保证可靠传输</h2><ol>
-<li>应用数据被分割成TCP认为最适合发送的数据块</li>
-<li>TCP给发送的每一个包进行编号，接收方对数据包进行排序，把有序数据传送给应用层。</li>
-<li>校验和： TCP将保持它首部和数据的校验和。</li>
-<li>TCP的接收daunting会丢弃重复的数据</li>
-<li>流量控制</li>
-<li>拥塞控制</li>
-<li>停止等待协议</li>
-<li>超时重传</li>
-</ol>
-<h2 id="打开一个网页，整个过程会使用哪些协议"><a href="#打开一个网页，整个过程会使用哪些协议" class="headerlink" title="打开一个网页，整个过程会使用哪些协议"></a>打开一个网页，整个过程会使用哪些协议</h2><ol>
-<li>DNS：获取域名对应的IP地址</li>
-<li>TCP：与服务器建立TCP连接</li>
-<li>IP：建立TCP连接时，需要使用网络层的IP协议发送数据</li>
-<li>OPSF：IP数据包在路由之间，路由选择时使用OPSF协议</li>
-<li>ARP：地址解析协议，路由器在与服务器通信时，需要将IP地址转换成MAC地址，需要使用ARP协议</li>
-<li>HTTP：在TCP建立连接完成后，使用HTTP协议访问网页</li>
-</ol>
-<h2 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h2><table>
-<thead>
-<tr>
-<th>状态码</th>
-<th>类别</th>
-<th>原因短语</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1XX</td>
-<td>信息性状态码</td>
-<td>接收的请求正在处理</td>
-</tr>
-<tr>
-<td>2xx</td>
-<td>成功状态码</td>
-<td>请求正在处理完毕</td>
-</tr>
-<tr>
-<td>3xx</td>
-<td>重定向状态码</td>
-<td>需要进行附加操作以完成请求</td>
-</tr>
-<tr>
-<td>4xx</td>
-<td>客户端错误状态码</td>
-<td>服务器无法处理请求</td>
-</tr>
-<tr>
-<td>5xx</td>
-<td>服务器错误状态码</td>
-<td>服务器处理请求出错</td>
-</tr>
-</tbody>
-</table>
-<h2 id="HTTP长连接和短连接"><a href="#HTTP长连接和短连接" class="headerlink" title="HTTP长连接和短连接"></a>HTTP长连接和短连接</h2><p>在HTTP/1.0中默认使用短连接。也就是说，客户端和服务器每进行一次连接，任务结束就中断连接。当客户端浏览器访问的某个html或其他类型的web页中包含有其他的web资源（如js、图像、css等），没遇见这样一个web资源，浏览器就会重新建立一个HTTP会话。</p>
-<p>而从HTTP/1.1起，默认使用长连接，用以保持连接特性。使用长连接的HTTP协议，会在响应投加入这行代码：<code>Connection:keep-alive</code> </p>
-<p>在使用长连接时，当一个网页打开完成后，客户端和服务器之间用于传输HTTP数据的TCP连接不会关闭，客户端再次访问这个服务器时，会继续使用这一条已经建立的连接。</p>
-<p>Keep-Alive不会永久保持连接，它有一个保持时间，可以在不同的服务器软件中设定这个时间。实现长连接需要客户端和服务端都支持长连接。</p>
-<h2 id="TCP的三次握手过程中，accept发生在三次握手的哪个阶段？"><a href="#TCP的三次握手过程中，accept发生在三次握手的哪个阶段？" class="headerlink" title="TCP的三次握手过程中，accept发生在三次握手的哪个阶段？"></a>TCP的三次握手过程中，accept发生在三次握手的哪个阶段？</h2><p>发生在三次握手之后，分析一下“三次握手”的过程：</p>
-<p>1、服务端处于LISTEN状态，客户端处于CLOSED状态；</p>
-<p>2、客户端打开，并进行SYN的发送，处于SYN_SENT状态；</p>
-<p>3、服务端收到此条消息后，转为SYN_RCVD状态，并对客户端进行消息回复；</p>
-<p>4、客户端收到此条消息后，转为ESTABLISHED状态，并发送一个ACK的确认消息。</p>
-<p>5、服务端收到此条消息后，转为ESTABLISHED状态。</p>
-<p>至此，三次握手完成。</p>
-<p>然而，聪明的你，通过上面的分析，你可能会得到这样的结论：accept()发生在第3步，原因是，此时accept()函数需要给此次连接分配资源。的确，最初是想这样设计的。但是，设想一个情景，若有10000个客户端都和该服务端进行连接，发送SYN，服务端收到之后，这些客户端却不再理会服务端的回复，然而此时服务端的资源却都用accept()分配了。这就是所谓的“DDOS攻击”。</p>
-<p>为了解决这个问题，accept()于是被放在三次握手之后。</p>
-<p>当然，这样也不能保证不能被攻击，当然这是后话</p>
+<h4 id="signalAll"><a href="#signalAll" class="headerlink" title="signalAll"></a>signalAll</h4><p><code>void signalAll()</code>  唤醒<code>所有</code>在该Condition对象上挂起的线程</p>
+<ul>
+<li><strong>所有被唤醒的线程将竞争与该Condition对象绑定的锁，只有获取到锁的线程才能恢复到运行状态。</strong></li>
+</ul>
+<h4 id="一个实例"><a href="#一个实例" class="headerlink" title="一个实例"></a>一个实例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">问题的描述:</span><br><span class="line"></span><br><span class="line">启动3个线程打印递增的数字, 线程1先打印1,2,3,4,5, </span><br><span class="line">然后是线程2打印6,7,8,9,10,然后是线程3打印11,12,13,14,15.</span><br><span class="line">接着再由线程1打印16,17,18,19,20....以此类推,</span><br><span class="line">直到打印到75. 程序的输出结果应该为:</span><br><span class="line"></span><br><span class="line"> 线程1: 1</span><br><span class="line"> 线程1: 2</span><br><span class="line"> 线程1: 3</span><br><span class="line"> 线程1: 4</span><br><span class="line"> 线程1: 5</span><br><span class="line"> 线程2: 6</span><br><span class="line"> 线程2: 7</span><br><span class="line"> 线程2: 8</span><br><span class="line"> 线程2: 9</span><br><span class="line"> 线程2: 10</span><br><span class="line"> ...</span><br><span class="line"> 线程3: 71</span><br><span class="line"> 线程3: 72</span><br><span class="line"> 线程3: 73</span><br><span class="line"> 线程3: 74</span><br><span class="line"> 线程3: 75</span><br></pre></td></tr></table></figure>
+<p>利用<code>ReentrantLock</code>和<code>Condition</code>接口组合，可以轻松指定和分配各个线程该完成的操作。代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReentrantLockTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        NumPrinter n = <span class="keyword">new</span> NumPrinter();</span><br><span class="line">        <span class="comment">//此处确定每个线程应该执行几次，总共75个数分3个线程，每个线程分25个数字，</span></span><br><span class="line">        <span class="comment">// 5*5=25，每个线程执行5次，每次打印5个数字</span></span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">            <span class="comment">//每个线程执行5次</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span> ; i++) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    n.print1();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;<span class="number">5</span> ; i++) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    n.print2();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span> ; i++) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    n.print3();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NumPrinter</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span>  <span class="keyword">int</span> num = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span>  <span class="keyword">int</span> flag = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//使用ReentrantLock类和Condition接口来配合使用，指定唤醒哪个线程</span></span><br><span class="line">    <span class="keyword">private</span> ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="keyword">private</span> Condition c1 = lock.newCondition();</span><br><span class="line">    <span class="keyword">private</span> Condition c2 = lock.newCondition();</span><br><span class="line">    <span class="keyword">private</span> Condition c3 = lock.newCondition();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print1</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="comment">//三个线程同时占用临界区的资源，应该使用同步</span></span><br><span class="line">        lock.lock();   <span class="comment">//获取锁 和 下面的 unlock  代替了 synchronized</span></span><br><span class="line">        <span class="keyword">if</span>(flag != <span class="number">1</span>)  <span class="comment">//当flag不为1时，c1进行等待，因为此时其他的线程正在执行他们的操作</span></span><br><span class="line">            c1.await();</span><br><span class="line">        <span class="keyword">if</span>(num &lt;= <span class="number">75</span>)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">                System.out.println(<span class="string">"1---"</span>+num++);</span><br><span class="line">            &#125;</span><br><span class="line">        flag = <span class="number">2</span>;       <span class="comment">//标记指定为2，在print2中限制除了flag不为2时，c2进行等待</span></span><br><span class="line">        c2.signal();    <span class="comment">//唤醒指定的c2</span></span><br><span class="line">        lock.unlock();  <span class="comment">//释放锁</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print2</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">if</span>(flag != <span class="number">2</span>)</span><br><span class="line">            c2.await();</span><br><span class="line">        <span class="keyword">if</span>(num &lt;= <span class="number">75</span>)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">                System.out.println(<span class="string">"2---"</span>+num++);</span><br><span class="line">            &#125;</span><br><span class="line">        flag = <span class="number">3</span>;</span><br><span class="line">        c3.signal();</span><br><span class="line">        lock.unlock();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print3</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">if</span>(flag != <span class="number">3</span>)</span><br><span class="line">            c3.await();</span><br><span class="line">        <span class="keyword">if</span>(num &lt;= <span class="number">75</span>)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">                System.out.println(<span class="string">"3---"</span>+num++);</span><br><span class="line">            &#125;</span><br><span class="line">        flag = <span class="number">1</span>;</span><br><span class="line">        c1.signal();</span><br><span class="line">        lock.unlock();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -539,7 +483,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
+            <a href="/tags/Java多线程/" rel="tag"># Java多线程</a>
+          
+            <a href="/tags/互斥锁/" rel="tag"># 互斥锁</a>
           
         </div>
       
@@ -552,8 +498,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/21/数据库高并发下乐观锁的原理/" rel="next" title="数据库高并发下乐观锁的原理">
-                <i class="fa fa-chevron-left"></i> 数据库高并发下乐观锁的原理
+              <a href="/2018/04/20/Java多线程回顾-线程安全和死锁问题/" rel="next" title="Java多线程基础-线程安全和死锁问题">
+                <i class="fa fa-chevron-left"></i> Java多线程基础-线程安全和死锁问题
               </a>
             
           </div>
@@ -561,6 +507,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/11/Lambda表达式基础语法/" rel="prev" title="Java8-Lambda表达式基础知识">
+                Java8-Lambda表达式基础知识 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -718,7 +668,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机网络知识"><span class="nav-text">计算机网络知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#OSI和TCP-IP各层的结构和功能"><span class="nav-text">OSI和TCP/IP各层的结构和功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OSI体系协议"><span class="nav-text">OSI体系协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP协议体系"><span class="nav-text">TCP/IP协议体系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五层协议体系"><span class="nav-text">五层协议体系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#各层的作用"><span class="nav-text">各层的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用层"><span class="nav-text">应用层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS"><span class="nav-text">DNS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP"><span class="nav-text">HTTP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运输层"><span class="nav-text">运输层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UDP"><span class="nav-text">UDP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP"><span class="nav-text">TCP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络层"><span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据链路层"><span class="nav-text">数据链路层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物理层"><span class="nav-text">物理层</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP协议如何保证可靠传输"><span class="nav-text">TCP协议如何保证可靠传输</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打开一个网页，整个过程会使用哪些协议"><span class="nav-text">打开一个网页，整个过程会使用哪些协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#状态码"><span class="nav-text">状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP长连接和短连接"><span class="nav-text">HTTP长连接和短连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP的三次握手过程中，accept发生在三次握手的哪个阶段？"><span class="nav-text">TCP的三次握手过程中，accept发生在三次握手的哪个阶段？</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#互斥锁"><span class="nav-text">互斥锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lock和sychronized机制的主要区别"><span class="nav-text">Lock和sychronized机制的主要区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lock接口"><span class="nav-text">Lock接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#lock"><span class="nav-text">lock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#unlock"><span class="nav-text">unlock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tryLock"><span class="nav-text">tryLock</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Condition接口-条件"><span class="nav-text">Condition接口 - 条件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#await"><span class="nav-text">await</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#signal"><span class="nav-text">signal</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#signalAll"><span class="nav-text">signalAll</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个实例"><span class="nav-text">一个实例</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
