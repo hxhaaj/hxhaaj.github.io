@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SQL优化,索引," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WhoAYou's Blogs" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="SQL优化和索引分析优化性能下降的分析 索引失效  关联查询太多join  设计缺陷或不得已的需求   服务器调优及各个参数设置  缓冲 线程数    SQL语句的执行顺序手写SQL的顺序 机读的执行顺序 从 from开始执行读取      SQL解析过程 7种Join连接 两表共有部分：inner join 内连接 select  xx  from TableA  A  inner join T">
+<meta name="keywords" content="SQL优化,索引">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL优化和索引分析优化">
+<meta property="og:url" content="http://yoursite.com/2018/07/01/SQL优化和索引分析优化/index.html">
+<meta property="og:site_name" content="WhoAYou&#39;s Blogs">
+<meta property="og:description" content="SQL优化和索引分析优化性能下降的分析 索引失效  关联查询太多join  设计缺陷或不得已的需求   服务器调优及各个参数设置  缓冲 线程数    SQL语句的执行顺序手写SQL的顺序 机读的执行顺序 从 from开始执行读取      SQL解析过程 7种Join连接 两表共有部分：inner join 内连接 select  xx  from TableA  A  inner join T">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/SQL优化_Media/手写SQL的顺序.png">
+<meta property="og:image" content="http://yoursite.com/SQL优化_Media/sql机读的执行顺序.png">
+<meta property="og:image" content="http://yoursite.com/SQL优化_Media/SQL解析过程.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/01/SQL优化和索引分析优化/索引结构.png">
+<meta property="og:image" content="http://yoursite.com/SQL优化_Media/BTree结构.png">
+<meta property="og:image" content="http://yoursite.com/SQL优化_Media/B+Tree结构.png">
+<meta property="og:image" content="http://blog.codinglabs.org/uploads/pictures/theory-of-mysql-index/4.png">
+<meta property="og:image" content="http://yoursite.com/SQL优化_Media/mysql索引图.jpg">
+<meta property="og:image" content="http://yoursite.com/SQL优化_Media/MyISAM主索引图.png">
+<meta property="og:image" content="http://yoursite.com/SQL优化_Media/MyISAM辅助索引图.png">
+<meta property="og:image" content="http://yoursite.com/SQL优化_Media/InnoDB主索引图.png">
+<meta property="og:image" content="http://yoursite.com/SQL优化_Media/InnoDB辅助索引图.png">
+<meta property="og:image" content="http://blog.codinglabs.org/uploads/pictures/theory-of-mysql-index/13.png">
+<meta property="og:image" content="http://blog.codinglabs.org/uploads/pictures/theory-of-mysql-index/14.png">
+<meta property="og:image" content="http://yoursite.com/SQL优化_Media/exists用法.png">
+<meta property="og:updated_time" content="2018-10-07T07:13:40.319Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SQL优化和索引分析优化">
+<meta name="twitter:description" content="SQL优化和索引分析优化性能下降的分析 索引失效  关联查询太多join  设计缺陷或不得已的需求   服务器调优及各个参数设置  缓冲 线程数    SQL语句的执行顺序手写SQL的顺序 机读的执行顺序 从 from开始执行读取      SQL解析过程 7种Join连接 两表共有部分：inner join 内连接 select  xx  from TableA  A  inner join T">
+<meta name="twitter:image" content="http://yoursite.com/SQL优化_Media/手写SQL的顺序.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/01/SQL优化和索引分析优化/"/>
+
+
+
+
+
+  <title>SQL优化和索引分析优化 | WhoAYou's Blogs</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WhoAYou's Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">没有人天生倔强，只因梦想寸土不让</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/01/SQL优化和索引分析优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="胡啊呦">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WhoAYou's Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SQL优化和索引分析优化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-01T00:00:00+08:00">
+                2018-07-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SQL优化/" itemprop="url" rel="index">
+                    <span itemprop="name">SQL优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <span class="post-meta-divider"> | <i class="fa fa-eye"></i></span>
+            <span id="busuanzi_value_page_pv"></span>次阅读
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="SQL优化和索引分析优化"><a href="#SQL优化和索引分析优化" class="headerlink" title="SQL优化和索引分析优化"></a>SQL优化和索引分析优化</h1><h2 id="性能下降的分析"><a href="#性能下降的分析" class="headerlink" title="性能下降的分析"></a>性能下降的分析</h2><ul>
+<li><p>索引失效</p>
+</li>
+<li><p>关联查询太多join</p>
+<ul>
+<li>设计缺陷或不得已的需求</li>
+</ul>
+</li>
+<li><p>服务器调优及各个参数设置</p>
+<ul>
+<li>缓冲</li>
+<li>线程数</li>
+</ul>
+</li>
+</ul>
+<h2 id="SQL语句的执行顺序"><a href="#SQL语句的执行顺序" class="headerlink" title="SQL语句的执行顺序"></a>SQL语句的执行顺序</h2><h2 id="手写SQL的顺序"><a href="#手写SQL的顺序" class="headerlink" title="手写SQL的顺序"></a>手写SQL的顺序</h2><p><img src="/SQL优化_Media/手写SQL的顺序.png" alt="1538460297737"></p>
+<h2 id="机读的执行顺序"><a href="#机读的执行顺序" class="headerlink" title="机读的执行顺序"></a>机读的执行顺序</h2><ul>
+<li>从 from开始执行读取   </li>
+</ul>
+<p><img src="/SQL优化_Media/sql机读的执行顺序.png" alt="1538460170651"></p>
+<h2 id="SQL解析过程"><a href="#SQL解析过程" class="headerlink" title="SQL解析过程"></a>SQL解析过程</h2><p><img src="/SQL优化_Media/SQL解析过程.png" alt="1538460388979"></p>
+<h2 id="7种Join连接"><a href="#7种Join连接" class="headerlink" title="7种Join连接"></a>7种Join连接</h2><ul>
+<li><p>两表<code>共有部分</code>：inner join 内连接</p>
+<p><code>select  xx  from TableA  A  inner join TableB  B on A.key = B.key</code></p>
+</li>
+<li><p>两表<code>共有部分+A表部分</code> ： left join  左外连接</p>
+<p><code>select xx  from TableA  A left  join  TableB B on A.ley = B.key</code></p>
+</li>
+<li><p>两表<code>共有部分+B表部分</code>： right join  右外连接</p>
+<p><code>select xx from TableA A  right join TableB B  on A.key = B.key</code></p>
+</li>
+<li><p>两表中的<code>A表独有部分</code> ： left join   where B.key is  null  左连接之后去掉两表的共有部分，只要左外连接之后的B表为null 的部分</p>
+<p><code>select xx  from TableA  A left  join  TableB B on A.ley = B.key    where  B.key is null</code></p>
+</li>
+<li><p>两表中的<code>B表独有部分</code> ： right join   where A.key is  null  左连接之后去掉两表的共有部分，只要左外连接之后的B表为null 的部分</p>
+<p><code>select xx  from TableA  A right join  TableB B on  A.ley = B.key    where  A.key is null</code></p>
+</li>
+<li><p>两表的<code>全集</code>： A独有部分+共有部分+B独有部分 </p>
+<p>利用 <code>union</code> 联合加去重 ： <code>left join</code>   union    <code>right  join</code> </p>
+<p><code>select xx  from TableA  A  left  join  TableB  B on A.ley = B.key   union  select xx from TableA  A  right join TableB B  on A.key = B.key</code> </p>
+</li>
+<li><p>两表中的全集，并去掉共有部分： A独有部分+B独有部分 ，利用 union：    left join   where B.key is  null   union   right join   where A.key is  null</p>
+<p><code>select xx  from TableA  A left  join  TableB B on A.ley = B.key    where  B.key is null   union   select xx  from TableA  A right join  TableB B on  A.ley = B.key    where  A.key is null</code></p>
+</li>
+</ul>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>索引 Index 是帮助Mysql高效获取数据的<code>数据结构</code>，可以理解为 <code>排好序的快速查找数据结构</code>  </p>
+<p>主要用于排序和查找，索引会影响排序和查找</p>
+<p>B树索引 （多路搜索树）</p>
+<p><img src="索引结构.png" alt="1538482995573"></p>
+<h3 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h3><ul>
+<li>降低数据库的IO成本，提高数据检索效率</li>
+<li>降低CPU的消耗，降低数据排序的成本</li>
+</ul>
+<h3 id="坏处"><a href="#坏处" class="headerlink" title="坏处"></a>坏处</h3><ul>
+<li>降低更新表的速度，更改数据时，不仅要保存数据，还要更新一下索引文件，每次更新添加了索引列的字段，都会调整因为更新所带来的键值变化后的索引信息。</li>
+<li>创建索引和维护索引要耗费时间，这种时间随着数据量的增加而增加</li>
+<li>索引需要占物理空间，除了数据表占数据空间之外，每一个索引还要占一定的物理空间，如果要建立聚簇索引，那么需要的空间就会更大</li>
+</ul>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><ul>
+<li><p>单列索引 </p>
+<p>一个索引只包含单个列，一个表可以有多个单列索引</p>
+</li>
+<li><p>主键索引</p>
+<p>主键就是一个索引列  唯一非空</p>
+</li>
+<li><p>唯一索引</p>
+<p>索引列的值必须唯一，但允许有空值</p>
+</li>
+<li><p>复合索引</p>
+<p>一个索引包含多个列</p>
+</li>
+<li><p>全文索引</p>
+<p>fullText   InnoDB引擎不支持  MyISAM支持</p>
+</li>
+<li><p>聚簇和非聚簇索引</p>
+<p>InnoDB引擎是聚簇索引，其索引文件和表数据文件存储在一起，在B+树的叶子节点上，其data域直接保存了完整的数据信息记录。InnoDB的辅助索引数据域存储的也是相应<code>记录主键的值而不是地址</code>，所以当以辅助索引查找时，会先<code>根据辅助索引找到主键</code>，再根据<code>主键索引找到实际的数据</code>。所以<code>Innodb不建议使用过长的主键</code>，否则会使辅助索引变得过大。建议使用<code>自增的字段</code>作为主键，这样<code>B+Tree的每一个结点都会被顺序的填满</code>，而不会频繁的分裂调整，会有效的提升插入数据的效率。</p>
+</li>
+</ul>
+<p>  MyISAM引擎是非聚簇索引，其<code>索引文件和表数据文件分离存放</code>，在B+树中的叶子节点上的data数据域上只存放了对应数据的地址值，还需要根据地址值再次寻址到数据。如果指定的Key存在，则取出其data域的值，然后以<code>data域的值为地址，根据data域的值去读取相应数据记录</code>。索引文件保存在“表名.MYI”文件中，数据文件保存在“表名.MYD”文件中。</p>
+<h2 id="哪些情况需要创建索引"><a href="#哪些情况需要创建索引" class="headerlink" title="哪些情况需要创建索引"></a>哪些情况需要创建索引</h2><ol>
+<li>主键自动回建立主键索引，也是唯一索引</li>
+<li>频繁作为查询条件的字段应创建索引</li>
+<li>查询中与其他表关联的字段，外键关系建立索引</li>
+<li>单列索引和组合索引的选择，在高并发情况下建立组合索引好</li>
+<li>查询中排序的字段，排序字段若通过索引去访问将大大调高排序的效率，因为索引的B+树结构，本身也是排过序的</li>
+<li>查询中统计或者分组的字段，因为分组的前提是排序，所以也可以通过索引来提高效率</li>
+</ol>
+<h2 id="哪些情况不要创建索引"><a href="#哪些情况不要创建索引" class="headerlink" title="哪些情况不要创建索引"></a>哪些情况不要创建索引</h2><ol>
+<li>where条件里用不到的字段不创建索引</li>
+<li>频繁更新的字段不合适创建索引，因为每次更新数据，还需要更新索引信息</li>
+<li>表的记录太少了</li>
+<li>经常增删改的表，因为要更新索引信息</li>
+<li>数据的差异率不高，数据重复率高，并且分布平均的字段，数据列中包含许多重复的内容。</li>
+</ol>
+<h2 id="索引的原理"><a href="#索引的原理" class="headerlink" title="索引的原理"></a>索引的原理</h2><p>为了探究为什么使用BTree这种数据结构作为索引，搜了一些资料，下面理论知识引用于一篇很好的博客，作为摘记：<a href="http://blog.codinglabs.org/articles/theory-of-mysql-index.html" target="_blank" rel="noopener">http://blog.codinglabs.org/articles/theory-of-mysql-index.html</a></p>
+<h3 id="B-Tree"><a href="#B-Tree" class="headerlink" title="B-Tree"></a>B-Tree</h3><p>为了描述B-Tree，首先定义一条数据记录为一个<code>二元组[key, data]，key为记录的键值，对于不同数据记录，key是互不相同的；data为数据记录除key外的数据</code>。那么B-Tree是满足下列条件的数据结构：</p>
+<p>d为大于1的一个正整数，称为B-Tree的度。</p>
+<p>h为一个正整数，称为B-Tree的高度。</p>
+<p><strong>每个非叶子节点由n-1个key和n个指针组成，其中d&lt;=n&lt;=2d</strong>。</p>
+<p><strong>每个叶子节点最少包含一个key和两个指针，最多包含2d-1个key和2d个指针，叶节点的指针均为null</strong> 。</p>
+<p>所有叶节点具有相同的深度，等于树高h。</p>
+<p>key和指针互相间隔，节点两端是指针。</p>
+<p>一个节点中的key从左到右非递减排列。</p>
+<p>所有节点组成树结构。</p>
+<p>每个指针要么为null，要么指向另外一个节点。</p>
+<p>如果某个指针在节点node最左边且不为null，则其指向节点的所有key小于v(key1)v(key1)，其中v(key1)v(key1)为node的第一个key的值。</p>
+<p>如果某个指针在节点node最右边且不为null，则其指向节点的所有key大于v(keym)v(keym)，其中v(keym)v(keym)为node的最后一个key的值。</p>
+<p>如果某个指针在节点node的左右相邻key分别是keyikeyi和keyi+1keyi+1且不为null，则其指向节点的所有key小于v(keyi+1)v(keyi+1)且大于v(keyi)v(keyi)。</p>
+<p><img src="/SQL优化_Media/BTree结构.png" alt="BTree结构"></p>
+<p>关于B-Tree有一系列有趣的性质，例如一个度为d的B-Tree，设其索引N个key，则其树高h的上限为logd((N+1)/2)logd((N+1)/2)，检索一个key，其查找节点个数的渐进复杂度为O(logdN)O(logdN)。从这点可以看出，B-Tree是一个非常有效率的索引数据结构。</p>
+<h3 id="B-Tree-1"><a href="#B-Tree-1" class="headerlink" title="B+Tree"></a>B+Tree</h3><p>B-Tree有许多变种，其中最常见的是B+Tree，例如MySQL就普遍使用B+Tree实现其索引结构。</p>
+<p>与B-Tree相比，B+Tree有以下不同点：</p>
+<p>每个节点的指针上限为2d而不是2d+1。</p>
+<p>内节点不存储data，只存储key；叶子节点不存储指针。</p>
+<p>图3是一个简单的B+Tree示意。</p>
+<p><img src="/SQL优化_Media/B+Tree结构.png" alt="B+Tree结构"></p>
+<p>由于并不是所有节点都具有相同的域，因此B+Tree中叶节点和内节点一般大小不同。这点与B-Tree不同，虽然B-Tree中不同节点存放的key和指针可能数量不一致，但是每个节点的域和上限是一致的，所以在实现中B-Tree往往对每个节点申请同等大小的空间。</p>
+<p>一般来说，B+Tree比B-Tree更适合实现外存储索引结构，具体原因与外存储器原理及计算机存取原理有关，将在下面讨论。</p>
+<h3 id="带有顺序访问指针的B-Tree"><a href="#带有顺序访问指针的B-Tree" class="headerlink" title="带有顺序访问指针的B+Tree"></a>带有顺序访问指针的B+Tree</h3><p>一般在数据库系统或文件系统中使用的B+Tree结构都在经典B+Tree的基础上进行了优化，增加了顺序访问指针。</p>
+<p><img src="http://blog.codinglabs.org/uploads/pictures/theory-of-mysql-index/4.png" alt="img"></p>
+<p>如图4所示，在B+Tree的每个叶子节点增加一个指向相邻叶子节点的指针，就形成了带有顺序访问指针的B+Tree。做这个优化的目的是为了提高区间访问的性能，例如图4中如果要查询key为从18到49的所有数据记录，当找到18后，只需顺着节点和指针顺序遍历就可以一次性访问到所有数据节点，极大提到了区间查询效率。</p>
+<p>这一节对B-Tree和B+Tree进行了一个简单的介绍，下一节结合存储器存取原理介绍为什么目前B+Tree是数据库系统实现索引的首选数据结构。</p>
+<h2 id="为什么使用B-Tree（B-Tree）"><a href="#为什么使用B-Tree（B-Tree）" class="headerlink" title="为什么使用B-Tree（B+Tree）"></a>为什么使用B-Tree（B+Tree）</h2><p>上文说过，红黑树等数据结构也可以用来实现索引，但是文件系统及数据库系统普遍采用B-/+Tree作为索引结构，这一节将结合计算机组成原理相关知识讨论B-/+Tree作为索引的理论基础。</p>
+<p>一般来说，索引本身也很大，不可能全部存储在内存中，因此索引往往以索引文件的形式存储的磁盘上。这样的话，索引查找过程中就要产生磁盘I/O消耗，相对于内存存取，I/O存取的消耗要高几个数量级，所以评价一个数据结构作为索引的优劣最重要的指标就是在查找过程中磁盘I/O操作次数的渐进复杂度。换句话说，索引的结构组织要尽量减少查找过程中磁盘I/O的存取次数。下面先介绍内存和磁盘存取原理，然后再结合这些原理分析B-/+Tree作为索引的效率。</p>
+<h3 id="局部性原理与磁盘预读"><a href="#局部性原理与磁盘预读" class="headerlink" title="局部性原理与磁盘预读"></a>局部性原理与磁盘预读</h3><p>由于存储介质的特性，磁盘本身存取就比主存慢很多，再加上机械运动耗费，磁盘的存取速度往往是主存的几百分分之一，因此为了提高效率，要尽量减少磁盘I/O。为了达到这个目的，<code>磁盘往往不是严格按需读取，而是每次都会预读，即使只需要一个字节，磁盘也会从这个位置开始，顺序向后读取一定长度的数据放入内存</code>。这样做的理论依据是计算机科学中著名的局部性原理：</p>
+<p>当一个数据被用到时，其附近的数据也通常会马上被使用。</p>
+<p>程序运行期间所需要的数据通常比较集中。</p>
+<p>由于磁盘顺序读取的效率很高（不需要寻道时间，只需很少的旋转时间），因此对于具有局部性的程序来说，预读可以提高I/O效率。</p>
+<p><strong>预读的长度一般为页（page）的整倍数。页是计算机管理存储器的逻辑块，硬件及操作系统往往将主存和磁盘存储区分割为连续的大小相等的块，每个存储块称为一页（在许多操作系统中，页得大小通常为4k），主存和磁盘以页为单位交换数据</strong>。当程序要读取的数据不在主存中时，会触发一个缺页异常，此时系统会向磁盘发出读盘信号，磁盘会找到数据的起始位置并向后连续读取一页或几页载入内存中，然后异常返回，程序继续运行。</p>
+<h3 id="B-Tree索引的性能分析"><a href="#B-Tree索引的性能分析" class="headerlink" title="B-/+Tree索引的性能分析"></a>B-/+Tree索引的性能分析</h3><p>上文说过一般使用磁盘I/O次数评价索引结构的优劣。先从B-Tree分析，根据B-Tree的定义，可知检索一次最多需要访问h个节点。数据库系统的设计者巧妙<code>利用了磁盘预读原理</code>，<code>将一个节点的大小设为等于一个页，这样每个节点只需要一次I/O就可以完全载入</code>。为了达到这个目的，在实际实现B-Tree还需要使用如下技巧：</p>
+<p><strong>每次新建节点时，直接申请一个页的空间，这样就保证一个节点物理上也存储在一个页里，加之计算机存储分配都是按页对齐的，就实现了一个node只需一次I/O。</strong></p>
+<p><strong>B-Tree中一次检索最多需要h-1次I/O（根节点常驻内存），渐进复杂度为O(h)=O(logdN)O(h)=O(logdN)。一般实际应用中，出度d是非常大的数字，通常超过100，因此h非常小（通常不超过3）。</strong></p>
+<p><strong>综上所述，用B-Tree作为索引结构效率是非常高的。</strong></p>
+<p><strong>而红黑树这种结构，h明显要深的多。由于逻辑上很近的节点（父子）物理上可能很远，无法利用局部性，所以红黑树的I/O渐进复杂度也为O(h)，效率明显比B-Tree差很多</strong>。</p>
+<p>上文还说过，B+Tree更适合外存索引，原因和内节点出度d有关。从上面分析可以看到，d越大索引的性能越好，而出度的上限取决于节点内key和data的大小：</p>
+<p>dmax=floor(pagesize/(keysize+datasize+pointsize))   dmax=floor(pagesize/(keysize+datasize+pointsize))</p>
+<p>floor表示向下取整。由于B+Tree内节点去掉了data域，因此可以拥有更大的出度，拥有更好的性能。</p>
+<p>这一章从理论角度讨论了与索引相关的数据结构与算法问题，下一章将讨论B+Tree是如何具体实现为MySQL中索引，同时将结合MyISAM和InnDB存储引擎介绍非聚集索引和聚集索引两种不同的索引实现形式。</p>
+<h3 id="BTree和B-Tree的比较"><a href="#BTree和B-Tree的比较" class="headerlink" title="BTree和B+Tree的比较"></a>BTree和B+Tree的比较</h3><p>B树：有序数组+平衡多叉树；<br>B+树：有序数组链表+平衡多叉树；</p>
+<p><strong>B+树的关键字全部存放在叶子节点中，非叶子节点用来做索引，而叶子节点中有一个指针指向一下个叶子节点。做这个优化的目的是为了提高区间访问的性能</strong>。而正是这个特性决定了B+树更适合用来存储外部数据</p>
+<p>引用一段话：</p>
+<blockquote>
+<p>走进搜索引擎的作者梁斌老师针对B树、B+树给出了他的意见（为了真实性，特引用其原话，未作任何改动）： “B+树还有一个最大的好处，方便扫库，B树必须用中序遍历的方法按序扫库，而B+树直接从叶子结点挨个扫一遍就完了，B+树支持range-query非常方便，而B树不支持。这是数据库选用B+树的最主要原因。<br>   比如要查 5-10之间的，B+树一把到5这个标记，再一把到10，然后串起来就行了，B树就非常麻烦。B树的好处，就是成功查询特别有利，因为树的高度总体要比B+树矮。不成功的情况下，B树也比B+树稍稍占一点点便宜。<br>   B树比如你的例子中查，17的话，一把就得到结果了，<br>   有很多基于频率的搜索是选用B树，越频繁query的结点越往根上走，前提是需要对query做统计，而且要对key做一些变化。<br>   另外B树也好B+树也好，根或者上面几层因为被反复query，所以这几块基本都在内存中，不会出现读磁盘IO，一般已启动的时候，就会主动换入内存。”</p>
+</blockquote>
+<p>B+树的基于范围的查询简洁很多。<strong>由于叶子节点有指向下一个叶子节点的指针，因此从块1到块2的访问，通过块1指向块2的指针即可。从块2到块3也是通过一个指针即可</strong>。</p>
+<p>引用一篇博文中网友评论的一段话：</p>
+<blockquote>
+<p>数据库索引采用B+树的主要原因是B树在提高了磁盘IO性能的同时并没有解决元素遍历的效率低下的问题。正是为了解决这个问题，B+树应运而生。B+树只要遍历叶子节点就可以实现整棵树的遍历。而且在数据库中基于范围的查询是非常频繁的，而B树不支持这样的操作（或者说效率太低）。</p>
+</blockquote>
+<p>正如上面所说，在数据库中基于范围的查询是非常频繁的，因此MySQL最终选择的索引结构是B+树而不是B树</p>
+<ul>
+<li>数据最终会保存在本地磁盘文件系统中，每次读取数据时，必然会产生本地IO操作，会消耗时间，如果本地IO操作次数过多，会严重影响数据的读取效率，特别是在海量的数据情况下，索引这种数据结构的出现就是为了解决这种问题，建立合适的数据结构来存储数据会大大减少本地磁盘IO操作。</li>
+</ul>
+<p><img src="/SQL优化_Media/mysql索引图.jpg" alt="mysql索引图"></p>
+<p>解读：</p>
+<ul>
+<li>所有的数据都是存放在<code>叶子节点</code>，非叶子节点不存放数据</li>
+<li>磁盘块中有两个值和三个指针，<code>三个指针分别指向P1 表示小于第一个的磁盘块，P2 表示在 第一个和第二个之间的磁盘块，P3 则表示大于第二个的磁盘块</code>，本身已经有所排序，这两个值都不是最后的真实数据值，只是为了叶子节点中的真实数据值而建立的中介搜索值</li>
+<li>InnoDB中主键是磁盘块的key值，最终的叶子节点的data域则是最终的数据；MyISAM中的key值是主键值，但是data域则是地址值，根据data域的值去读取相应数据记录。</li>
+</ul>
+<h3 id="查找过程"><a href="#查找过程" class="headerlink" title="查找过程"></a>查找过程</h3><p>以磁盘块1为例，指针 P1 表示小于17的磁盘块，P2 表示在 <code>17~35</code> 之间的磁盘块，P3 则表示大于35的磁盘块。</p>
+<p>比如要查找数据项99，首先将磁盘块1 load 到内存中，发生 1 次 <code>IO</code>。接着通过二分查找发现 99 大于 35，所以找到了 P3 指针。通过P3 指针发生第二次 IO 将磁盘块4加载到内存。再通过二分查找发现大于87，通过 P3 指针发生了第三次 IO 将磁盘块11 加载到内存。最后再通过一次二分查找找到了数据项99。</p>
+<p>由此可见，如果一个几百万的数据查询只需要进行<code>三次 IO</code> 即可找到数据，那么整个效率将是非常高的。</p>
+<p>观察树的结构，发现查询需要经历几次 IO 是由树的高度来决定的，而树的高度又由磁盘块，数据项的大小决定的。</p>
+<p>磁盘块越大，数据项越小那么树的高度就越低。这也就是为什么<code>索引字段要尽可能小</code>的原因。</p>
+<h2 id="MySQL索引实现"><a href="#MySQL索引实现" class="headerlink" title="MySQL索引实现"></a>MySQL索引实现</h2><p>在MySQL中，索引属于存储引擎级别的概念，不同存储引擎对索引的实现方式是不同的，本文主要讨论MyISAM和InnoDB两个存储引擎的索引实现方式。</p>
+<h3 id="MyISAM索引实现"><a href="#MyISAM索引实现" class="headerlink" title="MyISAM索引实现"></a>MyISAM索引实现</h3><p>MyISAM引擎使用B+Tree作为索引结构，叶节点的data域存放的是数据记录的地址。下图是MyISAM索引的原理图：</p>
+<p><img src="/SQL优化_Media/MyISAM主索引图.png" alt="MyISAM主索引图"></p>
+<p>这里设表一共有三列，假设我们以Col1为主键，则图8是一个MyISAM表的主索引（Primary key）示意。可以看出MyISAM的索引文件仅仅保存数据记录的地址。<strong>在MyISAM中，主索引和辅助索引（Secondary key）在结构上没有任何区别，只是主索引要求key是唯一的，而辅助索引的key可以重复。</strong>如果我们在Col2上建立一个辅助索引，则此索引的结构如下图所示：</p>
+<p><img src="/SQL优化_Media/MyISAM辅助索引图.png" alt="MyISAM辅助索引图"></p>
+<p>同样也是一颗B+Tree，<code>data域保存数据记录的地址</code>。因此，MyISAM中索引检索的算法为<code>首先按照B+Tree搜索算法搜索索引，如果指定的Key存在，则取出其data域的值，然后以data域的值为地址，读取相应数据记录</code>。</p>
+<p>MyISAM的索引方式也叫做“非聚集”的，之所以这么称呼是为了与InnoDB的聚集索引区分。</p>
+<h3 id="InnoDB索引实现"><a href="#InnoDB索引实现" class="headerlink" title="InnoDB索引实现"></a>InnoDB索引实现</h3><p>虽然InnoDB也使用B+Tree作为索引结构，但具体实现方式却与MyISAM截然不同。</p>
+<p>第一个重大区别是<code>InnoDB的数据文件本身就是索引文件</code>。从上文知道，MyISAM索引文件和数据文件是分离的，索引文件仅保存数据记录的地址。而在InnoDB中，表数据文件本身就是按B+Tree组织的一个索引结构，这棵树的叶节点data域保存了完整的数据记录。这个索引的key是数据表的主键，因此InnoDB表数据文件本身就是主索引。</p>
+<p><img src="/SQL优化_Media/InnoDB主索引图.png" alt="图10"></p>
+<p>图10是InnoDB主索引（同时也是数据文件）的示意图，可以看到叶节点包含了完整的数据记录。这种索引叫做聚集索引。因为InnoDB的数据文件本身要<code>按主键聚集</code>，所以<strong>InnoDB要求表必须有主键（MyISAM可以没有），如果没有显式指定，则MySQL系统会自动选择一个可以唯一标识数据记录的列作为主键，如果不存在这种列，则MySQL自动为InnoDB表生成一个隐含字段作为主键，这个字段长度为6个字节，类型为长整形</strong>。</p>
+<p>第二个与MyISAM索引的不同是InnoDB的辅助索引data域存储相应记录主键的值而不是地址。换句话说，<code>InnoDB的所有辅助索引都引用主键作为data域</code>。例如，图11为定义在Col3上的一个辅助索引：</p>
+<p><img src="/SQL优化_Media/InnoDB辅助索引图.png" alt="InnoDB辅助索引图"></p>
+<p>这里以英文字符的ASCII码作为比较准则。<strong>聚集索引这种实现方式使得按主键的搜索十分高效，但是辅助索引搜索需要检索两遍索引：首先检索辅助索引获得主键，然后用主键到主索引中检索获得记录</strong>。</p>
+<p>了解不同存储引擎的索引实现方式对于正确使用和优化索引都非常有帮助，例如知道了<code>InnoDB</code>的索引实现后，就很容易明白为什么<code>不建议使用过长的字段作为主键</code>，<code>因为所有辅助索引都引用主索引，过长的主索引会令辅助索引变得过大</code>。再例如，用<code>非单调的字段作为主键在InnoDB中不是个好主意</code>，因为InnoDB数据文件本身是一颗B+Tree，<strong>非单调的主键会造成在插入新记录时数据文件为了维持B+Tree的特性而频繁的分裂调整，十分低效，而使用自增字段作为主键则是一个很好的选择</strong>。</p>
+<h3 id="InnoDB的主键选择与插入优化"><a href="#InnoDB的主键选择与插入优化" class="headerlink" title="InnoDB的主键选择与插入优化"></a>InnoDB的主键选择与插入优化</h3><p>在使用InnoDB存储引擎时，如果没有特别的需要，请永远<code>使用一个与业务无关的自增字段作为主键</code>。</p>
+<p>经常看到有帖子或博客讨论主键选择问题，有人建议使用业务无关的自增主键，有人觉得没有必要，完全可以使用如学号或身份证号这种唯一字段作为主键。不论支持哪种论点，大多数论据都是业务层面的。<code>如果从数据库索引优化角度看，使用InnoDB引擎而不使用自增主键绝对是一个糟糕的主意</code>。</p>
+<p>上文讨论过InnoDB的索引实现，InnoDB使用聚集索引，数据记录本身被存于主索引（一颗B+Tree）的叶子节点上。这就要求<strong>同一个叶子节点内（大小为一个内存页或磁盘页）的各条数据记录按主键顺序存放，因此每当有一条新的记录插入时，MySQL会根据其主键将其插入适当的节点和位置，如果页面达到装载因子（InnoDB默认为15/16），则开辟一个新的页（节点）</strong>。</p>
+<p><strong>如果表使用自增主键，那么每次插入新的记录，记录就会顺序添加到当前索引节点的后续位置，当一页写满，就会自动开辟一个新的页</strong>。如下图所示：</p>
+<p><img src="http://blog.codinglabs.org/uploads/pictures/theory-of-mysql-index/13.png" alt="图13"></p>
+<p>这样就<code>会形成一个紧凑的索引结构，近似顺序填满</code>。由于<code>每次插入时也不需要移动已有数据，因此效率很高，也不会增加很多开销在维护索引上</code>。</p>
+<p><strong>如果使用非自增主键（如果身份证号或学号等），由于每次插入主键的值近似于随机，因此每次新纪录都要被插到现有索引页得中间某个位置</strong>：</p>
+<p><img src="http://blog.codinglabs.org/uploads/pictures/theory-of-mysql-index/14.png" alt="图14"></p>
+<p><strong>此时MySQL不得不为了将新记录插到合适位置而移动数据，甚至目标页面可能已经被回写到磁盘上而从缓存中清掉，此时又要从磁盘上读回来，这增加了很多开销，同时频繁的移动、分页操作造成了大量的碎片，得到了不够紧凑的索引结构，后续不得不通过OPTIMIZE TABLE来重建表并优化填充页面。</strong></p>
+<p><strong>因此，只要可以，请尽量在InnoDB上采用自增字段做主键。</strong></p>
+<h2 id="Explain-解析SQL"><a href="#Explain-解析SQL" class="headerlink" title="Explain 解析SQL"></a>Explain 解析SQL</h2><p>我们平时在执行sql后，mysql数据库其实在执行过程中会自动的将我们执行的sql语句进行自动优化和解析，执行过程往往不会是我们写的sql语句的执行顺序。</p>
+<p>我们可以通过explain+sql语句来解析该sql语句，并且通过查看执行后的信息，分析mysql是如何解释执行该sql语句的加载过程，从而可以进行有针对的能优化。</p>
+<h2 id="索引使用策略及SQL优化"><a href="#索引使用策略及SQL优化" class="headerlink" title="索引使用策略及SQL优化"></a>索引使用策略及SQL优化</h2><p>先来一些结论：</p>
+<h3 id="单表索引优化"><a href="#单表索引优化" class="headerlink" title="单表索引优化"></a>单表索引优化</h3><ul>
+<li>当一个表中建立<code>复合索引</code>时，sql的查询条件中有一个索引字段的查询条件是范围，不是精确值时，应避免建立该字段的索引，会导致索引失效。复合索引建立时，索引字段的顺序很关键，因为<strong>复合索引的建立有前后顺序，往往后面的索引是建立在前面索引的基础之上的</strong>。如果此时SQL语句中的查询字段的条件是一个<code>范围值</code>，<code>不精确</code>，那么它<strong>后面的索引列就会发生索引失效</strong>。例如：建立复合索引 <code>abc(a,b,c)</code> ，sql语句where条件是：<code>where a=&quot;1&quot; and  b &gt; 1 and c=&quot;2&quot;</code> ，此时字段b和c的索引就会失效，应该修改索引为： <code>ac(a,c)</code>。</li>
+</ul>
+<h3 id="两表索引优化"><a href="#两表索引优化" class="headerlink" title="两表索引优化"></a>两表索引优化</h3><ul>
+<li><strong>left join 左连接</strong>，用于确定如何从右表搜索行，左边记录一定都有，所以右边表的优化是我们的重点，<strong>给右表连接字段建立索引比给左边连接字段建立索引要优化很多</strong>。结论：<strong>左连接给右表连接字段建立索引，相反，右连接给左表连接字段建立索引。</strong></li>
+</ul>
+<h3 id="join语句索引优化"><a href="#join语句索引优化" class="headerlink" title="join语句索引优化"></a>join语句索引优化</h3><ul>
+<li>尽可能减少join语句中的<code>循环次数</code>：<code>永远用小结果集驱动大的结果集</code> 相当于外层循环尽量减小，小于内层循环。</li>
+<li>优先优化<code>内层</code>循环</li>
+<li>保证join语句中被驱动表上<code>join条件字段已经被索引</code></li>
+<li>当无法保证被驱动表的join条件字段被索引且内存资源充足的前提下，考虑<code>JoinBuffer</code>的设置调大</li>
+</ul>
+<h2 id="索引失效的情況"><a href="#索引失效的情況" class="headerlink" title="索引失效的情況"></a>索引失效的情況</h2><ul>
+<li><p><strong>最左前缀法则</strong></p>
+<p>如果建立了多列索引，要遵守最左前缀法则。指的是查询<strong>从索引的最左前列开始，并且不跳过索引中的列</strong>。<strong>带头大哥不能丢！中间兄弟不能挂！如果中间列没有使用，同样也能命中索引，但是只会使用到其前面的索引，其后面的索引列不起作用，效果减弱</strong></p>
+<p>如果给 user 表中的 <code>(name,age,home)</code>   字段创建了复合索引那么使用以下SQL 都是<code>可以命中索引</code>，只要查询条件中<code>包含了复合索引的最左列字段</code>条件就<code>会命中索引</code>:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">name</span>  =<span class="string">'hh'</span> <span class="keyword">and</span> age = <span class="number">111</span> <span class="keyword">and</span> home = <span class="string">'jhjj'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> age =<span class="number">11</span> <span class="keyword">and</span> <span class="keyword">name</span>=<span class="string">'hh'</span> <span class="keyword">and</span> home = <span class="string">'jhjj'</span>；</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">name</span>=<span class="string">'affa'</span> <span class="keyword">and</span> home = <span class="string">'jhjj'</span>；</span><br></pre></td></tr></table></figure>
+<p>但是，<strong>其中最后一条sql，中间的索引列age没有用到，虽然也会命中索引，但只会命中name的索引，不会命中home的索引，效果会减弱。</strong>使用explain可以进行分析。</p>
+<p>但是使用</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> age =<span class="number">11</span></span><br></pre></td></tr></table></figure>
+<p>是<code>不能命中</code>索引的。</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>不在索引列上做任何操作（计算、函数、自动或者手动的类型转换）</strong>，会导致失效从而<strong>转向了全表扫描</strong>。</p>
+</li>
+<li><p>mysql在使用<code>不等于（!= 或者 &lt;&gt;）</code>的时候无法使用索引会<strong>导致全表扫描</strong></p>
+</li>
+<li><p><code>is null</code> ， <code>is not null</code> 无法使用索引</p>
+</li>
+<li><p>like  模糊查询时，以 <strong>‘%abc..’ ，前模糊查询，索引失效</strong>，从而<strong>变成了全表扫描</strong>，非前导模糊查询则不失效。只有百分号放在右边会命中索引，不过只是range查找，范围查找。</p>
+<p>实际中必须使用两边模糊查询时，并且索引不失效，该怎么解决？</p>
+<p><code>使用覆盖索引的方式，从另外一方面使用索引</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span>  <span class="keyword">name</span>  <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">name</span> <span class="keyword">like</span> <span class="string">'%aa%'</span>；</span><br></pre></td></tr></table></figure>
+<p>此时，<strong>select name 代替了 select *</strong>  ，虽然模糊查询条件不能命中name索引，但是使用了 覆盖索引的方式 查询条件，也会命中了name索引。</p>
+</li>
+<li><p><strong>字符串不加单引号查询</strong>会导致索引失效</p>
+</li>
+<li><p><strong>少用 or</strong>  ，用它连接时会导致<strong>索引失效</strong></p>
+</li>
+<li><p>尽量<strong>使用覆盖索引</strong>（只访问索引的查询（<code>索引列和查询列一致</code>）），<strong>减少 select * 的使用</strong> </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> age =<span class="number">11</span>；- 减少偷懒使用，下面性能更好</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span>  <span class="keyword">name</span>  <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> age =<span class="number">11</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>索引列中其中一个索引使用了范围条件，那么<code>该索引列之后的列的索引会失效</code>。<strong>范围之后全失效</strong>。</p>
+</li>
+<li><p><strong>负向查询不能使用索引</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span> <span class="keyword">not</span> <span class="keyword">in</span> (<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>);</span><br></pre></td></tr></table></figure>
+<p>应该修改为:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span> <span class="keyword">in</span> (<span class="number">2</span>,<span class="number">5</span>,<span class="number">6</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果<strong>需要进行 join 的字段两表的字段类型要相同</strong> 不然也不会命中索引</p>
+</li>
+</ul>
+<h3 id="exists和in的比较"><a href="#exists和in的比较" class="headerlink" title="exists和in的比较"></a>exists和in的比较</h3><ul>
+<li>优化原则：<strong>小表驱动大表，小的数据集驱动大的数据集</strong></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> A <span class="keyword">where</span> <span class="keyword">id</span> <span class="keyword">in</span> (<span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> B)</span><br></pre></td></tr></table></figure>
+<p>等价于：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for <span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> B</span><br><span class="line">    <span class="keyword">for</span>  <span class="keyword">select</span> * <span class="keyword">from</span> A <span class="keyword">where</span> A.id = B.id</span><br></pre></td></tr></table></figure>
+<p><strong>外层循环是B表。如果当B表的数据集小于A表的数据时，此时用in优于exists。</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> A <span class="keyword">where</span> <span class="keyword">exists</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> B <span class="keyword">where</span> B.id = A.id)</span><br></pre></td></tr></table></figure>
+<p>此时则等价于：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for <span class="keyword">select</span> * <span class="keyword">from</span> A</span><br><span class="line">   <span class="keyword">for</span>  <span class="keyword">select</span> * <span class="keyword">from</span> B <span class="keyword">where</span> B.id = A.id</span><br></pre></td></tr></table></figure>
+<p><strong>注意此时的外层循环则是A表，当A表的数据集小于B表的数据集时，用exists要优于in</strong></p>
+<p>注意： A和B表的ID字段应该建立索引。</p>
+<p><img src="/SQL优化_Media/exists用法.png" alt="1538832680017"></p>
+<h3 id="existis用法"><a href="#existis用法" class="headerlink" title="existis用法"></a>existis用法</h3><p>in关键字用法的变通</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> xx <span class="keyword">from</span> A <span class="keyword">where</span> <span class="keyword">exists</span>(<span class="keyword">select</span> X <span class="keyword">from</span> B <span class="keyword">where</span> B.id = A.id)</span><br><span class="line">- 相当于,效果一样，其中上面<span class="keyword">sql</span>语句中的X可以为任意常量</span><br><span class="line"><span class="keyword">select</span> xx <span class="keyword">from</span> A <span class="keyword">where</span> <span class="keyword">id</span> <span class="keyword">in</span> (<span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> B)</span><br></pre></td></tr></table></figure>
+<p>可以理解为：<code>将主查询的数据，放到子查询中做条件验证，根据验证结果，结果为 true或者false，来决定主查询的数据结果是否得以保留</code>。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SQL优化/" rel="tag"># SQL优化</a>
+          
+            <a href="/tags/索引/" rel="tag"># 索引</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/26/深入源码分析String类/" rel="next" title="深入源码分析String类">
+                <i class="fa fa-chevron-left"></i> 深入源码分析String类
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/01/深入源码分析Integer类/" rel="prev" title="深入源码分析Integer类">
+                深入源码分析Integer类 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zODAyNy8xNDU1Nw"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="胡啊呦" />
+            
+              <p class="site-author-name" itemprop="name">胡啊呦</p>
+              <p class="site-description motion-element" itemprop="description">一些笔记，一些感悟，一些分享</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/hxhaaj" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-CSDN"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL优化和索引分析优化"><span class="nav-text">SQL优化和索引分析优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#性能下降的分析"><span class="nav-text">性能下降的分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL语句的执行顺序"><span class="nav-text">SQL语句的执行顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手写SQL的顺序"><span class="nav-text">手写SQL的顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机读的执行顺序"><span class="nav-text">机读的执行顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL解析过程"><span class="nav-text">SQL解析过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7种Join连接"><span class="nav-text">7种Join连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引"><span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#好处"><span class="nav-text">好处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#坏处"><span class="nav-text">坏处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分类"><span class="nav-text">分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哪些情况需要创建索引"><span class="nav-text">哪些情况需要创建索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哪些情况不要创建索引"><span class="nav-text">哪些情况不要创建索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引的原理"><span class="nav-text">索引的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Tree"><span class="nav-text">B-Tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Tree-1"><span class="nav-text">B+Tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#带有顺序访问指针的B-Tree"><span class="nav-text">带有顺序访问指针的B+Tree</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么使用B-Tree（B-Tree）"><span class="nav-text">为什么使用B-Tree（B+Tree）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#局部性原理与磁盘预读"><span class="nav-text">局部性原理与磁盘预读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Tree索引的性能分析"><span class="nav-text">B-/+Tree索引的性能分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BTree和B-Tree的比较"><span class="nav-text">BTree和B+Tree的比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找过程"><span class="nav-text">查找过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL索引实现"><span class="nav-text">MySQL索引实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MyISAM索引实现"><span class="nav-text">MyISAM索引实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB索引实现"><span class="nav-text">InnoDB索引实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB的主键选择与插入优化"><span class="nav-text">InnoDB的主键选择与插入优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Explain-解析SQL"><span class="nav-text">Explain 解析SQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引使用策略及SQL优化"><span class="nav-text">索引使用策略及SQL优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单表索引优化"><span class="nav-text">单表索引优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两表索引优化"><span class="nav-text">两表索引优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#join语句索引优化"><span class="nav-text">join语句索引优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引失效的情況"><span class="nav-text">索引失效的情況</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#exists和in的比较"><span class="nav-text">exists和in的比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#existis用法"><span class="nav-text">existis用法</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">胡啊呦</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":100,"height":150},"mobile":{"show":false}});</script></body>
+</html>
